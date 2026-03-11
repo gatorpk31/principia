@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
+// import * as SplashScreen from 'expo-splash-screen';
 import { View, ActivityIndicator } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+// import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { initRevenueCat } from '../services/revenuecat';
+// import { initRevenueCat } from '../services/revenuecat';
 import { colors } from '../constants/theme';
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
@@ -22,12 +22,12 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    initRevenueCat();
+    // initRevenueCat();
   }, []);
 
   useEffect(() => {
     if (fontsLoaded || fontError) {
-      SplashScreen.hideAsync();
+      // SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError]);
 
@@ -40,7 +40,7 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <SafeAreaProvider>
         <StatusBar style="light" backgroundColor={colors.bg} />
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
@@ -53,6 +53,6 @@ export default function RootLayout() {
           <Stack.Screen name="legal/coppa" options={{ presentation: 'modal' }} />
         </Stack>
       </SafeAreaProvider>
-    </GestureHandlerRootView>
+    </View>
   );
 }
