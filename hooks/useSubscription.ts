@@ -15,11 +15,20 @@ export interface SubscriptionState {
   refresh: () => Promise<void>;
 }
 
+// TODO: Remove this flag before release — bypasses paywall for development review
+const DEV_BYPASS_PAYWALL = true;
+
 export function useSubscription(): SubscriptionState {
-  const [isPremium, setIsPremium] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isPremium, setIsPremium] = useState(DEV_BYPASS_PAYWALL);
+  const [isLoading, setIsLoading] = useState(!DEV_BYPASS_PAYWALL);
 
   const checkEntitlement = useCallback(async (): Promise<void> => {
+    if (DEV_BYPASS_PAYWALL) {
+      setIsPremium(true);
+      setIsLoading(false);
+      return;
+    }
+
     // Under-13 users without parental consent cannot be premium (no purchases)
     const under13 = await SecureStore.getItemAsync(SECURE_STORE_KEYS.isUnder13);
     const consent = await SecureStore.getItemAsync(
