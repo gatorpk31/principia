@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Principia — Mathematics from the ground up.</title>
+<meta name="description" content="Principia teaches mathematics from 6th grade through calculus — guided, visual, and deeply connected. Every concept explained from first principles. Free to start.">
+<meta name="keywords" content="math app, learn mathematics, algebra, calculus, geometry, trigonometry, educational app, principia">
+<meta name="author" content="Axiom 38 LLC">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://getprincipia.com">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getprincipia.com">
+<meta property="og:site_name" content="Principia">
+<meta property="og:title" content="Principia — Mathematics from the ground up.">
+<meta property="og:description" content="From fractions to Spivak calculus. Guided walkthroughs, live visualizations, and the why behind every formula. 6th grade through college, unified.">
+<meta property="og:image" content="https://getprincipia.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Principia app — Mathematics from the ground up. Available on iOS and Android.">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@getprincipia">
+<meta name="twitter:creator" content="@getprincipia">
+<meta name="twitter:url" content="https://getprincipia.com">
+<meta name="twitter:title" content="Principia — Mathematics from the ground up.">
+<meta name="twitter:description" content="From fractions to Spivak calculus. Guided, visual, connected. Free to start.">
+<meta name="twitter:image" content="https://getprincipia.com/og-image.png">
+<meta name="twitter:image:alt" content="Principia — Math education app">
+<meta name="apple-itunes-app" content="app-id=XXXXXXXXXX">
+<meta name="google-play-app" content="app-id=com.axiom38.principia">
+<meta property="al:ios:url" content="principia://home">
+<meta property="al:ios:app_store_id" content="XXXXXXXXXX">
+<meta property="al:ios:app_name" content="Principia">
+<meta property="al:android:url" content="principia://home">
+<meta property="al:android:package" content="com.axiom38.principia">
+<meta property="al:android:app_name" content="Principia">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Principia",
+  "description": "Mathematics education from 6th grade through university calculus. Guided walkthroughs, live visualizations, and the why behind every formula.",
+  "url": "https://getprincipia.com",
+  "applicationCategory": "EducationApplication",
+  "operatingSystem": "iOS, Android",
+  "offers": [
+    { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free — Tiers 1 and 2" },
+    { "@type": "Offer", "price": "6.99", "priceCurrency": "USD", "description": "Monthly subscription" },
+    { "@type": "Offer", "price": "49.99", "priceCurrency": "USD", "description": "Annual subscription" }
+  ],
+  "author": { "@type": "Organization", "name": "Axiom 38 LLC", "url": "https://getprincipia.com" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0908;--bg2:#0e0d0c;--surface:#141210;--surface2:#1a1815;--surface3:#201e1a;
+  --border:#252220;--border2:#2e2b26;--gold:#c9a96e;--gold2:#e8c98a;
+  --gold-dim:rgba(201,169,110,0.12);--gold-glow:rgba(201,169,110,0.06);
+  --blue:#5ba8d4;--blue-dim:rgba(91,168,212,0.1);--green:#6bbda0;--rose:#d47878;
+  --text:#ede8df;--text2:#9a9288;--text3:#5a5450;--text4:#3a3530;
+  --serif:'Playfair Display',Georgia,serif;--body:'Lora',Georgia,serif;
+  --mono:'JetBrains Mono',monospace;--max:1100px;--radius:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(201,169,110,0.07) 0%,transparent 70%),
+  radial-gradient(ellipse 40% 30% at 90% 60%,rgba(91,168,212,0.04) 0%,transparent 60%);}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size:256px;}
+.container{max-width:var(--max);margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+section{position:relative;z-index:1;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;
+  background:rgba(10,9,8,0.85);backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid rgba(37,34,32,0.6);transition:padding 0.3s ease;}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:var(--serif);font-size:20px;font-weight:700;letter-spacing:0.3px;}
+.nav-logo em{font-style:italic;color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+.nav-links a{font-size:13px;letter-spacing:0.5px;color:var(--text2);transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{background:var(--gold-dim);border:1px solid rgba(201,169,110,0.3);color:var(--gold)!important;
+  border-radius:8px;padding:7px 16px;font-size:13px;transition:all 0.2s!important;}
+.nav-cta:hover{background:rgba(201,169,110,0.2)!important;border-color:rgba(201,169,110,0.5)!important;color:var(--gold2)!important;}
+.nav-mobile-cta{display:none;}
+.hero{padding:160px 0 100px;text-align:center;overflow:hidden;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);
+  background:var(--gold-dim);border:1px solid rgba(201,169,110,0.2);border-radius:100px;
+  padding:6px 16px;margin-bottom:32px;animation:fadeUp 0.8s ease both;}
+.eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse-dot 2s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.7);}}
+.hero-title{font-family:var(--serif);font-size:clamp(44px,8vw,88px);font-weight:900;
+  line-height:1.0;letter-spacing:-1px;margin-bottom:12px;animation:fadeUp 0.8s 0.1s ease both;}
+.hero-title-line2{font-style:italic;color:var(--gold);display:block;}
+.hero-sub{font-family:var(--serif);font-size:clamp(16px,2.5vw,21px);font-style:italic;
+  color:var(--text2);margin-bottom:20px;animation:fadeUp 0.8s 0.2s ease both;}
+.hero-desc{font-size:16px;color:var(--text2);max-width:520px;margin:0 auto 48px;
+  line-height:1.8;animation:fadeUp 0.8s 0.3s ease both;}
+.hero-desc strong{color:var(--text);font-weight:500;}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:12px;
+  flex-wrap:wrap;margin-bottom:64px;animation:fadeUp 0.8s 0.4s ease both;}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#0a0908;
+  font-family:var(--body);font-weight:500;font-size:15px;padding:14px 28px;border-radius:12px;
+  border:none;cursor:pointer;transition:all 0.2s;letter-spacing:0.2px;}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 8px 32px rgba(201,169,110,0.25);}
+.btn-primary svg{flex-shrink:0;}
+.btn-secondary{display:inline-flex;align-items:center;gap:10px;background:var(--surface2);
+  color:var(--text);font-family:var(--body);font-size:15px;padding:14px 28px;border-radius:12px;
+  border:1px solid var(--border2);cursor:pointer;transition:all 0.2s;}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
+.hero-note{font-size:12px;color:var(--text3);letter-spacing:0.3px;}
+.hero-visual{position:relative;max-width:800px;margin:0 auto;animation:fadeUp 0.8s 0.5s ease both;}
+.canvas-frame{background:var(--surface);border:1px solid var(--border);border-radius:24px;overflow:hidden;position:relative;}
+.canvas-frame::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 60%,var(--bg) 100%);z-index:2;pointer-events:none;}
+#hero-canvas{display:block;width:100%;}
+.canvas-caption{position:absolute;bottom:28px;left:0;right:0;text-align:center;z-index:3;
+  font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.5);}
+.tier-strip{padding:60px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);}
+.tier-strip-label{text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:32px;}
+.tiers-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;}
+.tier-cell{background:var(--surface2);border:1px solid var(--border);border-radius:10px;
+  padding:14px 10px;text-align:center;position:relative;overflow:hidden;
+  transition:border-color 0.2s,transform 0.2s;cursor:default;}
+.tier-cell::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.tier-cell:nth-child(1)::before,.tier-cell:nth-child(2)::before{background:var(--green);}
+.tier-cell:nth-child(3)::before,.tier-cell:nth-child(4)::before{background:var(--blue);}
+.tier-cell:nth-child(5)::before,.tier-cell:nth-child(6)::before{background:var(--gold);}
+.tier-cell:nth-child(7)::before,.tier-cell:nth-child(8)::before{background:var(--rose);}
+.tier-num{font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:4px;}
+.tier-name{font-family:var(--serif);font-size:11px;font-weight:700;color:var(--text2);line-height:1.3;margin-bottom:6px;}
+.tier-grade{font-size:9px;color:var(--text3);font-family:var(--mono);letter-spacing:0.5px;}
+.tier-badge{display:inline-block;margin-top:6px;font-size:8px;letter-spacing:1px;
+  text-transform:uppercase;padding:2px 6px;border-radius:4px;font-family:var(--mono);}
+.tier-badge.free{background:rgba(107,189,160,0.12);color:var(--green);border:1px solid rgba(107,189,160,0.2);}
+.tier-badge.paid{background:rgba(201,169,110,0.08);color:rgba(201,169,110,0.5);border:1px solid rgba(201,169,110,0.15);}
+.features{padding:120px 0;}
+.section-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.section-title{font-family:var(--serif);font-size:clamp(32px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-0.5px;margin-bottom:16px;}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-sub{font-size:16px;color:var(--text2);max-width:480px;line-height:1.8;}
+.features-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:80px;}
+.features-layout.reverse{direction:rtl;}
+.features-layout.reverse>*{direction:ltr;}
+.feature-list{display:flex;flex-direction:column;gap:24px;}
+.feature-item{display:flex;gap:16px;align-items:flex-start;padding:20px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);transition:border-color 0.2s;}
+.feature-item:hover{border-color:var(--border2);}
+.feature-icon{width:40px;height:40px;border-radius:10px;background:var(--surface2);
+  border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;}
+.feature-text h3{font-family:var(--serif);font-size:16px;font-weight:700;margin-bottom:4px;}
+.feature-text p{font-size:13px;color:var(--text2);line-height:1.6;}
+.feature-visual{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;aspect-ratio:4/5;position:relative;}
+.feature-visual-inner{padding:28px;height:100%;display:flex;flex-direction:column;gap:12px;}
+.mock-tab-bar{display:flex;gap:4px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:4px;}
+.mock-tab{flex:1;padding:8px 4px;text-align:center;font-size:10px;font-family:var(--mono);
+  letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);border-radius:7px;cursor:default;}
+.mock-tab.active{background:var(--surface3);color:var(--gold);}
+.mock-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.mock-card-title{font-family:var(--serif);font-size:15px;font-weight:700;margin-bottom:6px;}
+.mock-card-body{font-size:11px;color:var(--text2);line-height:1.6;}
+.mock-formula{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blue);
+  background:var(--surface3);border:1px solid var(--border2);border-radius:8px;
+  padding:12px 14px;text-align:center;margin:8px 0;}
+.mock-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;}
+.mock-step-dot{width:22px;height:22px;border-radius:50%;background:var(--gold-dim);
+  border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:var(--gold);font-family:var(--mono);flex-shrink:0;}
+.mock-step-text{font-size:11px;color:var(--text2);line-height:1.5;}
+.mock-step-math{font-family:var(--mono);font-size:11px;color:var(--blue);
+  background:var(--surface3);border-radius:5px;padding:4px 8px;margin-top:4px;display:inline-block;}
+.connections-section{padding:80px 0 120px;background:var(--surface);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.connections-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:60px;}
+.connection-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px;transition:border-color 0.2s,transform 0.2s;position:relative;overflow:hidden;}
+.connection-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);}
+.connection-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.conn-tiers{display:flex;gap:5px;margin-bottom:12px;}
+.conn-tier-badge{font-size:9px;letter-spacing:1px;text-transform:uppercase;
+  padding:3px 7px;border-radius:4px;font-family:var(--mono);}
+.conn-arrow{font-size:18px;color:var(--gold);margin-bottom:8px;display:block;}
+.conn-card-title{font-family:var(--serif);font-size:15px;font-weight:700;margin-bottom:6px;}
+.conn-card-body{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px;}
+.conn-formula{font-family:var(--mono);font-size:11px;color:var(--blue);
+  background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:7px 9px;}
+.pricing{padding:120px 0;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:60px;align-items:stretch;}
+.price-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  padding:32px 28px;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.price-card.featured{border-color:rgba(201,169,110,0.3);background:linear-gradient(160deg,var(--surface2) 0%,var(--surface) 100%);}
+.price-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.price-badge{position:absolute;top:20px;right:20px;font-size:9px;letter-spacing:1.5px;
+  text-transform:uppercase;font-family:var(--mono);background:var(--gold);color:#0a0908;
+  padding:4px 8px;border-radius:6px;font-weight:700;}
+.price-tier{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;}
+.price-name{font-family:var(--serif);font-size:22px;font-weight:700;margin-bottom:20px;}
+.price-amount{margin-bottom:6px;}
+.price-big{font-family:var(--serif);font-size:44px;font-weight:900;line-height:1;letter-spacing:-1px;}
+.price-big sup{font-size:22px;font-weight:500;vertical-align:top;margin-top:8px;display:inline-block;}
+.price-period{font-size:13px;color:var(--text2);margin-bottom:6px;}
+.price-saving{display:inline-block;font-size:11px;font-family:var(--mono);color:var(--green);
+  background:rgba(107,189,160,0.1);border:1px solid rgba(107,189,160,0.2);
+  border-radius:6px;padding:3px 8px;margin-bottom:24px;}
+.price-divider{height:1px;background:var(--border);margin-bottom:20px;}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:10px;flex:1;margin-bottom:28px;}
+.price-features li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text2);line-height:1.5;}
+.price-check{color:var(--green);flex-shrink:0;margin-top:1px;}
+.price-lock{color:var(--text4);flex-shrink:0;margin-top:1px;}
+.price-btn{width:100%;padding:14px;border-radius:12px;font-family:var(--body);
+  font-size:14px;cursor:pointer;text-align:center;transition:all 0.2s;border:none;display:block;}
+.price-btn.primary{background:var(--gold);color:#0a0908;font-weight:500;}
+.price-btn.primary:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 6px 24px rgba(201,169,110,0.2);}
+.price-btn.outline{background:transparent;border:1px solid var(--border2);color:var(--text2);}
+.price-btn.outline:hover{border-color:var(--gold);color:var(--gold);}
+.pricing-note{text-align:center;margin-top:24px;font-size:12px;color:var(--text3);line-height:1.7;}
+.philosophy{padding:100px 0;text-align:center;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);}
+.philosophy-quote{font-family:var(--serif);font-size:clamp(20px,3.5vw,34px);font-style:italic;
+  font-weight:400;line-height:1.5;max-width:760px;margin:0 auto 20px;color:var(--text);}
+.philosophy-quote em{color:var(--gold);}
+.philosophy-attr{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);}
+footer{padding:60px 0 40px;border-top:1px solid var(--border);position:relative;z-index:1;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-brand .nav-logo{margin-bottom:12px;font-size:22px;}
+.footer-brand p{font-size:13px;color:var(--text3);line-height:1.7;max-width:260px;margin-bottom:16px;}
+.footer-col h4{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.footer-col ul a{font-size:13px;color:var(--text2);transition:color 0.2s;}
+.footer-col ul a:hover{color:var(--text);}
+.footer-bottom{padding-top:24px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:12px;color:var(--text3);line-height:1.6;}
+.footer-bottom a{color:var(--text3);border-bottom:1px solid var(--border2);transition:color 0.2s;}
+.footer-bottom a:hover{color:var(--text2);}
+.veteran-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-family:var(--mono);
+  letter-spacing:0.5px;color:var(--text3);background:var(--surface);
+  border:1px solid var(--border);border-radius:6px;padding:5px 10px;}
+.vet-star{color:var(--gold);font-size:12px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+@media(max-width:900px){
+  .tiers-grid{grid-template-columns:repeat(4,1fr);}
+  .features-layout{grid-template-columns:1fr;gap:40px;}
+  .features-layout.reverse{direction:ltr;}
+  .connections-grid{grid-template-columns:1fr 1fr;}
+  .pricing-grid{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .nav-mobile-cta{display:flex;}
+}
+@media(max-width:600px){
+  .tiers-grid{grid-template-columns:repeat(4,1fr);}
+  .tier-name{font-size:9px;}
+  .hero{padding:120px 0 60px;}
+  .connections-grid{grid-template-columns:1fr;}
+  .hero-actions{flex-direction:column;align-items:stretch;}
+  .btn-primary,.btn-secondary{justify-content:center;}
+  .footer-grid{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Prin<em>cipia</em></div>
+    <ul class="nav-links">
+      <li><a href="#curriculum">Curriculum</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#pricing" class="nav-cta">Download Free</a></li>
+    </ul>
+    <a href="#pricing" class="btn-primary nav-mobile-cta" style="font-size:13px;padding:9px 18px;">Download Free</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span> Mathematics from the ground up</div>
+    <h1 class="hero-title">Every concept, <em class="hero-title-line2">connected.</em></h1>
+    <p class="hero-sub">From fractions to Spivak calculus.</p>
+    <p class="hero-desc">Principia teaches mathematics the way it actually works — unified, visual, and grounded in <strong>the why behind every formula</strong>. 6th grade through college. Free to start.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" id="ios-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        App Store
+      </a>
+      <a href="#" class="btn-secondary" id="android-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341a.899.899 0 0 1-.9.9.899.899 0 0 1-.9-.9.899.899 0 0 1 .9-.9.899.899 0 0 1 .9.9m-10.046 0a.899.899 0 0 1-.9.9.899.899 0 0 1-.9-.9.899.899 0 0 1 .9-.9.899.899 0 0 1 .9.9M17.7 9.5l1.679-2.906a.35.35 0 0 0-.128-.477.35.35 0 0 0-.477.128L17.07 9.19A10.214 10.214 0 0 0 12 8.014c-1.808 0-3.507.47-4.987 1.289L5.226 6.245a.35.35 0 0 0-.477-.128.35.35 0 0 0-.128.477L6.3 9.5C3.98 10.87 2.4 13.311 2.4 16.1h19.2c0-2.789-1.58-5.23-3.9-6.6"/></svg>
+        Google Play
+      </a>
+    </div>
+    <p class="hero-note">Free forever for Tiers 1–2 · No account required to start</p>
+    <div class="hero-visual" style="margin-top:56px;">
+      <div class="canvas-frame">
+        <canvas id="hero-canvas" height="320"></canvas>
+        <div class="canvas-caption" id="canvas-caption">The Unit Circle — sin²θ + cos²θ = 1</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tier-strip" id="curriculum">
+  <div class="container">
+    <p class="tier-strip-label">8 tiers · 60+ concepts · 6th grade through Spivak</p>
+    <div class="tiers-grid">
+      <div class="tier-cell"><div class="tier-num">Tier 1</div><div class="tier-name">Numbers &amp; Fractions</div><div class="tier-grade">6th grade</div><span class="tier-badge free">Free</span></div>
+      <div class="tier-cell"><div class="tier-num">Tier 2</div><div class="tier-name">Proportions &amp; Equations</div><div class="tier-grade">7th grade</div><span class="tier-badge free">Free</span></div>
+      <div class="tier-cell"><div class="tier-num">Tier 3</div><div class="tier-name">Algebra I</div><div class="tier-grade">8th–9th grade</div><span class="tier-badge paid">Pro</span></div>
+      <div class="tier-cell"><div class="tier-num">Tier 4</div><div class="tier-name">Geometry &amp; Proof</div><div class="tier-grade">9th–10th grade</div><span class="tier-badge paid">Pro</span></div>
+      <div class="tier-cell"><div class="tier-num">Tier 5</div><div class="tier-name">Algebra II</div><div class="tier-grade">10th–11th grade</div><span class="tier-badge paid">Pro</span></div>
+      <div class="tier-cell"><div class="tier-num">Tier 6</div><div class="tier-name">Pre-Calc &amp; Trig</div><div class="tier-grade">11th–12th grade</div><span class="tier-badge paid">Pro</span></div>
+      <div class="tier-cell"><div class="tier-num">Tier 7</div><div class="tier-name">Calculus I</div><div class="tier-grade">College</div><span class="tier-badge paid">Pro</span></div>
+      <div class="tier-cell"><div class="tier-num">Tier 8</div><div class="tier-name">Calculus II &amp; Proofs</div><div class="tier-grade">College+</div><span class="tier-badge paid">Pro</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="how-it-works">
+  <div class="container">
+    <div class="features-layout">
+      <div>
+        <p class="section-eyebrow reveal">How it teaches</p>
+        <h2 class="section-title reveal reveal-delay-1">The <em>why</em> before<br>the formula.</h2>
+        <p class="section-sub reveal reveal-delay-2">Every concept starts with a plain-English explanation and a real-world connection — before a single symbol appears. The formula follows understanding, not the other way around.</p>
+        <div class="feature-list" style="margin-top:32px;">
+          <div class="feature-item reveal reveal-delay-1">
+            <div class="feature-icon">👁</div>
+            <div class="feature-text">
+              <h3>Live visualizations</h3>
+              <p>Every concept has an animated diagram that responds to what's being taught — not a static image you ignore.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal reveal-delay-2">
+            <div class="feature-icon">→</div>
+            <div class="feature-text">
+              <h3>Step-by-step guided walkthroughs</h3>
+              <p>Worked problems where each step is hidden until you're ready. You control the pace.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal reveal-delay-3">
+            <div class="feature-icon">🔗</div>
+            <div class="feature-text">
+              <h3>Cross-discipline connections</h3>
+              <p>Pythagorean theorem connects to trig identities connects to calculus derivatives. Every module shows where its idea lives in the larger structure of mathematics.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="feature-visual reveal reveal-delay-2">
+        <div class="feature-visual-inner">
+          <div class="mock-tab-bar">
+            <div class="mock-tab">Concept</div><div class="mock-tab active">Guided</div>
+            <div class="mock-tab">Practice</div><div class="mock-tab">Connections</div>
+          </div>
+          <div class="mock-card">
+            <div class="mock-card-title" style="font-size:13px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-family:var(--mono);font-weight:400;margin-bottom:8px;">Problem</div>
+            <div class="mock-card-body">Find the derivative of f(x) = x² at x = 3 using the limit definition.</div>
+            <div class="mock-formula">f(x) = x², find f′(3)</div>
+          </div>
+          <div class="mock-step">
+            <div class="mock-step-dot">1</div>
+            <div>
+              <div class="mock-step-text" style="color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Identify the structure</div>
+              <div class="mock-step-text">The average rate of change between two points approximates the instantaneous slope.</div>
+              <div class="mock-step-math">[f(3+h) − f(3)] / h</div>
+            </div>
+          </div>
+          <div class="mock-step">
+            <div class="mock-step-dot">2</div>
+            <div>
+              <div class="mock-step-text" style="color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">Expand algebraically</div>
+              <div class="mock-step-text">Substituting and simplifying reveals the pattern.</div>
+              <div class="mock-step-math">(9 + 6h + h² − 9) / h = 6 + h</div>
+            </div>
+          </div>
+          <div style="margin-top:auto;padding:10px 12px;background:var(--surface3);border-radius:8px;font-size:11px;color:var(--blue);border:1px solid var(--border2);">I understand — show step 3 →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="connections-section">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-eyebrow">Mathematics is unified</p>
+      <h2 class="section-title">One idea,<br><em>many forms.</em></h2>
+      <p class="section-sub">Principia shows how algebra lives in geometry, how the Pythagorean theorem is secretly a trig identity, and how a parabola and a derivative are the same conversation.</p>
+    </div>
+    <div class="connections-grid">
+      <div class="connection-card reveal reveal-delay-1">
+        <div class="conn-tiers">
+          <span class="conn-tier-badge" style="background:rgba(107,189,160,0.1);color:var(--green);border:1px solid rgba(107,189,160,0.2);">Tier 4</span>
+          <span class="conn-tier-badge" style="background:rgba(201,169,110,0.08);color:var(--gold);border:1px solid rgba(201,169,110,0.15);">Tier 6</span>
+        </div>
+        <span class="conn-arrow">→</span>
+        <div class="conn-card-title">Pythagorean Theorem → Trig Identity</div>
+        <div class="conn-card-body">The unit circle is a right triangle with hypotenuse 1. Substituting gives you sin²θ + cos²θ = 1 directly — no memorization required.</div>
+        <div class="conn-formula">a² + b² = c² → cos²θ + sin²θ = 1</div>
+      </div>
+      <div class="connection-card reveal reveal-delay-2">
+        <div class="conn-tiers">
+          <span class="conn-tier-badge" style="background:rgba(91,168,212,0.1);color:var(--blue);border:1px solid rgba(91,168,212,0.2);">Tier 5</span>
+          <span class="conn-tier-badge" style="background:rgba(212,120,120,0.08);color:var(--rose);border:1px solid rgba(212,120,120,0.15);">Tier 7</span>
+        </div>
+        <span class="conn-arrow">→</span>
+        <div class="conn-card-title">Vertex of a Parabola → Derivative = 0</div>
+        <div class="conn-card-body">The vertex formula x = −b/2a is derived by setting the derivative of ax² + bx + c equal to zero. Algebra and calculus are the same optimization.</div>
+        <div class="conn-formula">f′(x) = 2ax + b = 0 → x = −b/2a</div>
+      </div>
+      <div class="connection-card reveal reveal-delay-3">
+        <div class="conn-tiers">
+          <span class="conn-tier-badge" style="background:rgba(107,189,160,0.1);color:var(--green);border:1px solid rgba(107,189,160,0.2);">Tier 1</span>
+          <span class="conn-tier-badge" style="background:rgba(212,120,120,0.08);color:var(--rose);border:1px solid rgba(212,120,120,0.15);">Tier 8</span>
+        </div>
+        <span class="conn-arrow">→</span>
+        <div class="conn-card-title">Fractions → Limits → Derivatives</div>
+        <div class="conn-card-body">The intuition behind [f(x+h) − f(x)] / h as h → 0 is just a fraction where the denominator approaches zero. Every calculus student already knows fractions.</div>
+        <div class="conn-formula">rise / run → Δy / Δx → dy/dx</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="philosophy">
+  <div class="container">
+    <blockquote class="philosophy-quote reveal">"Mathematics is not a collection of <em>formulas to memorize</em> — it is a way of thinking. Principia teaches the thinking."</blockquote>
+    <p class="philosophy-attr reveal reveal-delay-1">Built for every student, from first fractions to epsilon-delta proofs.</p>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div style="text-align:center;" class="reveal">
+      <p class="section-eyebrow">Simple pricing</p>
+      <h2 class="section-title">Free to start.<br><em>Unlock everything.</em></h2>
+      <p class="section-sub" style="margin:0 auto;">No ads. No data sold. Cancel anytime.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal reveal-delay-1">
+        <div class="price-tier">Free Forever</div>
+        <div class="price-name">Explorer</div>
+        <div class="price-amount"><span class="price-big"><sup>$</sup>0</span></div>
+        <p class="price-period">always free</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="price-check">✓</span> Tier 1 — Numbers, Fractions &amp; Ratios (8 concepts)</li>
+          <li><span class="price-check">✓</span> Tier 2 — Proportions &amp; Equations (7 concepts)</li>
+          <li><span class="price-check">✓</span> Guided walkthroughs for all free concepts</li>
+          <li><span class="price-check">✓</span> Live visualizations</li>
+          <li><span class="price-check">✓</span> Progress saved on your device</li>
+          <li><span class="price-lock">·</span><span style="color:var(--text4)"> Tiers 3–8 locked</span></li>
+          <li><span class="price-lock">·</span><span style="color:var(--text4)"> Cross-device sync</span></li>
+        </ul>
+        <a href="#" class="price-btn outline">Download Free</a>
+      </div>
+      <div class="price-card featured reveal reveal-delay-2">
+        <div class="price-badge">Best Value</div>
+        <div class="price-tier">Annual</div>
+        <div class="price-name">Principia Pro</div>
+        <div class="price-amount"><span class="price-big"><sup>$</sup>49<span style="font-size:28px">.99</span></span></div>
+        <p class="price-period">per year · $4.17/month</p>
+        <span class="price-saving">Save 40% vs monthly</span>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="price-check">✓</span> All 8 tiers — 60+ concepts</li>
+          <li><span class="price-check">✓</span> Algebra through Calculus II</li>
+          <li><span class="price-check">✓</span> Every guided walkthrough</li>
+          <li><span class="price-check">✓</span> Progress syncs across all devices</li>
+          <li><span class="price-check">✓</span> Printable study aids</li>
+          <li><span class="price-check">✓</span> All future content included</li>
+          <li><span class="price-check">✓</span> 7-day free trial</li>
+        </ul>
+        <a href="#" class="price-btn primary">Start Free Trial</a>
+      </div>
+      <div class="price-card reveal reveal-delay-3">
+        <div class="price-tier">Monthly</div>
+        <div class="price-name">Principia Pro</div>
+        <div class="price-amount"><span class="price-big"><sup>$</sup>6<span style="font-size:28px">.99</span></span></div>
+        <p class="price-period">per month</p>
+        <div style="height:28px;margin-bottom:24px;"></div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li><span class="price-check">✓</span> All 8 tiers — 60+ concepts</li>
+          <li><span class="price-check">✓</span> Algebra through Calculus II</li>
+          <li><span class="price-check">✓</span> Every guided walkthrough</li>
+          <li><span class="price-check">✓</span> Progress syncs across all devices</li>
+          <li><span class="price-check">✓</span> Printable study aids</li>
+          <li><span class="price-check">✓</span> All future content included</li>
+          <li><span class="price-check">✓</span> Cancel anytime</li>
+        </ul>
+        <a href="#" class="price-btn outline">Subscribe Monthly</a>
+      </div>
+    </div>
+    <p class="pricing-note reveal">
+      Subscriptions managed through Apple App Store and Google Play. Auto-renews until cancelled.<br>
+      <a href="/legal/terms" style="color:var(--text3);border-bottom:1px solid var(--border2);">Terms of Service</a> &nbsp;·&nbsp;
+      <a href="/legal/privacy" style="color:var(--text3);border-bottom:1px solid var(--border2);">Privacy Policy</a>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">Prin<em>cipia</em></div>
+        <p>Mathematics education from 6th grade through university calculus. Built to teach the why behind every formula.</p>
+        <div class="hero-actions" style="margin-bottom:0;justify-content:flex-start;gap:8px;">
+          <a href="#" style="display:inline-flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);border-radius:8px;padding:8px 14px;font-size:12px;transition:all 0.2s;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            App Store
+          </a>
+          <a href="#" style="display:inline-flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border2);color:var(--text2);border-radius:8px;padding:8px 14px;font-size:12px;transition:all 0.2s;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341a.899.899 0 0 1-.9.9.899.899 0 0 1-.9-.9.899.899 0 0 1 .9-.9.899.899 0 0 1 .9.9m-10.046 0a.899.899 0 0 1-.9.9.899.899 0 0 1-.9-.9.899.899 0 0 1 .9-.9.899.899 0 0 1 .9.9M17.7 9.5l1.679-2.906a.35.35 0 0 0-.128-.477.35.35 0 0 0-.477.128L17.07 9.19A10.214 10.214 0 0 0 12 8.014c-1.808 0-3.507.47-4.987 1.289L5.226 6.245a.35.35 0 0 0-.477-.128.35.35 0 0 0-.128.477L6.3 9.5C3.98 10.87 2.4 13.311 2.4 16.1h19.2c0-2.789-1.58-5.23-3.9-6.6"/></svg>
+            Google Play
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="#curriculum">Curriculum</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="mailto:support@getprincipia.com">Contact Us</a></li>
+          <li><a href="#">Restore Purchase</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/legal/terms">Terms of Service</a></li>
+          <li><a href="/legal/privacy">Privacy Policy</a></li>
+          <li><a href="/legal/coppa">Children's Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <p>© 2025 Axiom 38 LLC · Principia is a DBA of Axiom 38 LLC, registered in Michigan.</p>
+        <p style="margin-top:4px;">Questions? <a href="mailto:support@getprincipia.com">support@getprincipia.com</a></p>
+      </div>
+      <div class="veteran-badge"><span class="vet-star">★</span> Disabled Veteran-Owned Business</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const canvas=document.getElementById('hero-canvas');
+  const parent=canvas.parentElement;
+  function resize(){canvas.width=parent.offsetWidth;canvas.height=320;}
+  resize();window.addEventListener('resize',resize);
+  const ctx=canvas.getContext('2d');
+  let t=0;
+  const captions=[
+    {label:'The Unit Circle — sin²θ + cos²θ = 1'},
+    {label:'Pythagorean Theorem — a² + b² = c²'},
+    {label:'The Derivative — slope of the tangent line'},
+    {label:'Functions — every input, exactly one output'},
+  ];
+  const captionEl=document.getElementById('canvas-caption');
+  function drawGrid(){
+    const W=canvas.width,H=canvas.height;
+    ctx.strokeStyle='rgba(37,34,32,0.6)';ctx.lineWidth=0.5;
+    const step=40;
+    for(let x=0;x<W;x+=step){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(let y=0;y<H;y+=step){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  }
+  function drawUnitCircle(){
+    const W=canvas.width,H=canvas.height,cx=W*0.5,cy=H*0.52,r=Math.min(W,H)*0.3,theta=t*0.5;
+    ctx.strokeStyle='rgba(37,34,32,1)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
+    ctx.strokeStyle='rgba(90,84,80,0.5)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(cx-r-20,cy);ctx.lineTo(cx+r+20,cy);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx,cy-r-20);ctx.lineTo(cx,cy+r+20);ctx.stroke();
+    ctx.strokeStyle='rgba(201,169,110,0.4)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(cx,cy,r*0.22,0,-theta,theta>0);ctx.stroke();
+    const px=cx+Math.cos(theta)*r,py=cy-Math.sin(theta)*r;
+    ctx.strokeStyle='rgba(91,168,212,0.8)';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(px,cy);ctx.lineTo(px,py);ctx.stroke();
+    ctx.strokeStyle='rgba(107,189,160,0.8)';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(px,cy);ctx.stroke();
+    ctx.strokeStyle='rgba(201,169,110,0.8)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(px,py);ctx.stroke();
+    ctx.fillStyle='rgba(201,169,110,0.95)';ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);ctx.fill();
+    const sin=Math.sin(theta),cos=Math.cos(theta),deg=((theta*180/Math.PI)%360+360)%360;
+    ctx.font='bold 11px JetBrains Mono';
+    ctx.fillStyle='rgba(91,168,212,0.9)';ctx.fillText('sin = '+sin.toFixed(3),14,24);
+    ctx.fillStyle='rgba(107,189,160,0.9)';ctx.fillText('cos = '+cos.toFixed(3),14,40);
+    ctx.fillStyle='rgba(201,169,110,0.7)';ctx.fillText('θ = '+deg.toFixed(1)+'°',14,56);
+    const alpha=(Math.sin(t*0.3)+1)*0.3+0.2;
+    ctx.fillStyle=`rgba(201,169,110,${alpha})`;ctx.font='12px JetBrains Mono';
+    ctx.textAlign='right';ctx.fillText('sin²θ + cos²θ = 1',W-14,24);ctx.textAlign='left';
+  }
+  function drawDerivative(){
+    const W=canvas.width,H=canvas.height,ox=W*0.2,oy=H*0.82,sx=W*0.65/5,sy=H*0.55/9;
+    ctx.strokeStyle='rgba(90,84,80,0.4)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(14,oy);ctx.lineTo(W-14,oy);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ox,10);ctx.lineTo(ox,H-10);ctx.stroke();
+    ctx.strokeStyle='rgba(201,169,110,0.4)';ctx.lineWidth=1.5;ctx.beginPath();
+    let started=false;
+    for(let px=14;px<W-14;px+=2){const x=(px-ox)/sx,y=x*x,py=oy-y*sy;if(py<4||py>H-4){started=false;continue;}if(!started){ctx.moveTo(px,py);started=true;}else ctx.lineTo(px,py);}
+    ctx.stroke();
+    const hRaw=2.2*Math.pow(0.35,(t*0.35)%4.5),h=Math.max(hRaw,0.06);
+    const x0=2,y0=x0*x0,x1=x0+h,y1=x1*x1,slope=(y1-y0)/h;
+    const px0=ox+x0*sx,py0=oy-y0*sy,px1=ox+x1*sx,py1=oy-y1*sy;
+    const ext=60,ddx=px1-px0,ddy=py1-py0,len=Math.sqrt(ddx*ddx+ddy*ddy)||1;
+    ctx.strokeStyle='rgba(91,168,212,0.7)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(px0-ddx/len*ext,py0-ddy/len*ext);ctx.lineTo(px1+ddx/len*ext,py1+ddy/len*ext);ctx.stroke();
+    const ts=2*x0,tdx=1,tdy=-ts,tlen=Math.sqrt(tdx*tdx+tdy*tdy);
+    ctx.strokeStyle='rgba(212,120,120,0.85)';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(px0-tdx/tlen*ext*2,py0-tdy/tlen*ext*2);ctx.lineTo(px0+tdx/tlen*ext*2,py0+tdy/tlen*ext*2);ctx.stroke();
+    ctx.fillStyle='rgba(91,168,212,0.9)';ctx.beginPath();ctx.arc(px0,py0,5,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(px1,py1,3.5,0,Math.PI*2);ctx.fill();
+    ctx.font='bold 11px JetBrains Mono';
+    ctx.fillStyle='rgba(201,169,110,0.8)';ctx.fillText('f(x) = x²',W-90,22);
+    ctx.fillStyle='rgba(91,168,212,0.8)';ctx.fillText('h = '+h.toFixed(3),14,22);ctx.fillText('secant slope → '+slope.toFixed(3),14,38);
+    ctx.fillStyle='rgba(212,120,120,0.9)';ctx.fillText("f'(2) = "+ts+" (true)",14,54);
+  }
+  function drawFunction(){
+    const W=canvas.width,H=canvas.height,ox=W*0.18,oy=H*0.85,sx=W*0.72/5,sy=H*0.62/8;
+    const funcs=[{fn:x=>x*x,color:'#5ba8d4',label:'y = x²'},{fn:x=>Math.sin(x)*3+1,color:'#c9a96e',label:'y = sin(x)'},{fn:x=>2*x-1,color:'#6bbda0',label:'y = 2x − 1'}];
+    const fi=Math.floor((t*0.08)%3),f=funcs[fi];
+    ctx.strokeStyle='rgba(90,84,80,0.4)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(12,oy);ctx.lineTo(W-12,oy);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ox,8);ctx.lineTo(ox,H-8);ctx.stroke();
+    ctx.strokeStyle=f.color;ctx.lineWidth=2;ctx.shadowColor=f.color;ctx.shadowBlur=6;ctx.beginPath();
+    let started=false;
+    for(let px=12;px<W-12;px+=2){const x=(px-ox)/sx,y=f.fn(x),py=oy-y*sy;if(py<4||py>H+10){started=false;continue;}if(!started){ctx.moveTo(px,py);started=true;}else ctx.lineTo(px,py);}
+    ctx.stroke();ctx.shadowBlur=0;
+    const xv=-2+(Math.sin(t*0.5)+1)/2*4,yv=f.fn(xv),ppx=ox+xv*sx,ppy=oy-yv*sy;
+    if(ppy>6&&ppy<H-6){ctx.fillStyle=f.color;ctx.beginPath();ctx.arc(ppx,ppy,5,0,Math.PI*2);ctx.fill();}
+    ctx.fillStyle=f.color;ctx.font='bold 12px JetBrains Mono';ctx.fillText(f.label,W-110,22);
+  }
+  const scenes=[drawUnitCircle,drawDerivative,drawFunction,drawUnitCircle];
+  const sceneDuration=10;
+  function loop(){
+    const W=canvas.width,H=canvas.height;
+    ctx.clearRect(0,0,W,H);drawGrid();
+    const sceneIdx=Math.floor(t/sceneDuration)%scenes.length;
+    scenes[sceneIdx]();
+    const newCaption=captions[sceneIdx%captions.length];
+    if(captionEl&&captionEl.textContent!==newCaption.label){
+      captionEl.style.opacity='0';
+      setTimeout(()=>{captionEl.textContent=newCaption.label;captionEl.style.opacity='1';captionEl.style.transition='opacity 0.6s ease';},300);
+    }
+    t+=0.016;requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+(function(){
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+})();
+</script>
+</body>
+</html>
