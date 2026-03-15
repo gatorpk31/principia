@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axiom 38 LLC | Systems Translation Technology</title>
+<meta name="description" content="Axiom 38 LLC builds systems translation software that converts complex institutional frameworks into actionable understanding — for veterans, parents, and students.">
+<meta name="author" content="Axiom 38 LLC">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://axiom38.com">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://axiom38.com">
+<meta property="og:title" content="Axiom 38 LLC | Systems Translation Technology">
+<meta property="og:description" content="Decode38, PlanVocate, and Principia — software that translates complex institutional systems into actionable understanding.">
+<meta property="og:image" content="https://axiom38.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Axiom 38 LLC | Systems Translation Technology">
+<meta name="twitter:description" content="Decode38, PlanVocate, and Principia — software that translates complex institutional systems into actionable understanding.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #020617;
+  --panel: #0f172a;
+  --accent: #38bdf8;
+  --accent-dark: #0284c7;
+  --accent-light: #7dd3fc;
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --border: #1e293b;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, Segoe UI, Roboto, Ubuntu;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(56,189,248,0.08) 0%, rgba(16,185,129,0.04) 50%, rgba(2,6,23,0) 100%);
+  pointer-events: none;
+  z-index: -2;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: -1;
+  animation: gridDrift 60s linear infinite;
+}
+@keyframes gridDrift {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(80px,80px); }
+}
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(2,6,23,0.92);
+  backdrop-filter: blur(12px);
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  position: relative;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+header {
+  padding: 120px 24px 100px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(2,6,23,0) 0%, rgba(2,6,23,0.8) 100%),
+              radial-gradient(circle at 50% 0%, rgba(56,189,248,0.15) 0%, transparent 70%);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.header-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 64px;
+  font-weight: 800;
+  margin: 0 0 12px;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ffffff 0%, var(--accent-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.badge {
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(16,185,129,0.15);
+  border: 1px solid rgba(16,185,129,0.3);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--success);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+.hero-sub {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin: 24px 0;
+  line-height: 1.7;
+}
+.cta-primary {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: #000;
+  padding: 14px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  margin-top: 24px;
+  box-shadow: 0 10px 30px rgba(56,189,248,0.2);
+}
+.cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(56,189,248,0.3);
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px;
+}
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0 0 32px;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--accent);
+}
+p {
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 0 20px;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+}
+.product-card {
+  background: linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.5) 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 40px 32px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.product-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.product-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 20px 50px rgba(56,189,248,0.1);
+  transform: translateY(-4px);
+}
+.product-icon { font-size: 40px; margin-bottom: 16px; }
+.product-card h3 { margin-top: 0; }
+.product-description {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 16px 0;
+  line-height: 1.7;
+}
+.product-features {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0;
+  font-size: 13px;
+}
+.product-features li {
+  color: var(--text-dim);
+  margin: 8px 0;
+  padding-left: 20px;
+  position: relative;
+}
+.product-features li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 600;
+}
+.product-stack {
+  background: linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.4) 100%);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 20px 0 0;
+}
+.product-stack h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+.product-stack p {
+  font-size: 12px;
+  margin: 0;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.product-link {
+  display: inline-block;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+.product-link::after { content: " →"; }
+.product-link:hover { opacity: 0.8; }
+.features-section { margin-top: 60px; }
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  margin-top: 40px;
+}
+.feature-box {
+  background: rgba(30,41,59,0.4);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  transition: all 0.3s ease;
+}
+.feature-box:hover {
+  border-color: var(--accent);
+  background: rgba(56,189,248,0.05);
+}
+.feature-box strong {
+  color: var(--accent);
+  display: block;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+.feature-box p { margin: 0; font-size: 14px; }
+.systems-map {
+  background: rgba(15,23,42,0.6);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 48px 32px;
+  margin-top: 40px;
+  text-align: center;
+}
+.map-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+.map-step {
+  background: linear-gradient(135deg, rgba(56,189,248,0.1) 0%, rgba(56,189,248,0.05) 100%);
+  border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 8px;
+  padding: 20px 32px;
+  max-width: 400px;
+  font-weight: 600;
+  color: var(--text);
+}
+.map-step .small {
+  display: block;
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 400;
+  margin-top: 6px;
+}
+.arrow { color: var(--accent); font-size: 24px; font-weight: 300; }
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+.research-item {
+  background: rgba(30,41,59,0.3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  transition: all 0.3s ease;
+}
+.research-item:hover {
+  border-color: var(--accent);
+  background: rgba(56,189,248,0.08);
+}
+.research-item h4 {
+  font-family: 'Syne', sans-serif;
+  margin: 0 0 12px;
+  color: var(--accent);
+  font-size: 16px;
+}
+.research-item p { margin: 0; font-size: 13px; }
+.access-section {
+  background: linear-gradient(135deg, rgba(56,189,248,0.1) 0%, rgba(16,185,129,0.05) 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 60px 40px;
+  text-align: center;
+  margin-top: 80px;
+}
+.access-section h2 { margin-top: 0; }
+.access-section p { margin-bottom: 32px; }
+form {
+  display: flex;
+  gap: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+input[type="email"] {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(2,6,23,0.6);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+input[type="email"]::placeholder { color: var(--text-dim); }
+input[type="email"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(2,6,23,0.9);
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
+}
+button {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  color: #000;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(56,189,248,0.3);
+}
+footer {
+  margin-top: 100px;
+  padding: 60px 24px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  background: rgba(15,23,42,0.3);
+}
+footer p { margin: 0; font-size: 13px; }
+footer .small {
+  display: block;
+  color: var(--text-dim);
+  margin-top: 12px;
+}
+@media (max-width: 768px) {
+  h1 { font-size: 48px; }
+  h2 { font-size: 32px; }
+  .nav-links { gap: 16px; font-size: 13px; }
+  header { padding: 80px 20px 60px; }
+  .container { padding: 40px 20px; }
+  .products-grid { grid-template-columns: 1fr; }
+  form { flex-direction: column; }
+  input[type="email"], button { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Axiom 38</div>
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#thesis">How It Works</a>
+      <a href="#research">Our Thinking</a>
+      <a href="#access">Stay Updated</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="header-content">
+    <h1>Decode Complex Systems</h1>
+    <div class="badge">Disabled Veteran-Owned · Michigan · SaaS + iOS</div>
+    <p class="hero-sub">
+      Systems translation software that converts complex institutional frameworks
+      into actionable understanding — for veterans navigating the VA,
+      parents advocating in schools, and students learning mathematics.
+    </p>
+    <a href="#products" class="cta-primary">Explore Our Products</a>
+  </div>
+</header>
+
+<div class="container">
+  <h2>What We Build</h2>
+  <p>
+    Every major institution — the VA, school systems, higher education — operates through
+    rules, terminology, and procedural frameworks that individuals struggle to navigate alone.
+    Axiom 38 builds software that bridges the gap between personal experience and institutional
+    logic, giving people the knowledge they need to advocate for themselves.
+  </p>
+</div>
+
+<div class="container" id="products">
+  <h2>Our Products</h2>
+  <p>Three distinct platforms serving veterans, parents, and students — each tackling a different institutional language barrier.</p>
+
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-icon">🎖️</div>
+      <h3>Decode38</h3>
+      <p class="product-description">
+        Free web app that helps veterans and transitioning service members understand
+        VA disability claims — translating their lived experience into the regulatory
+        language the VA uses to evaluate claims.
+      </p>
+      <ul class="product-features">
+        <li>VA disability rating estimator (38 CFR Part 4)</li>
+        <li>Plain-language to VA terminology decoder</li>
+        <li>C&amp;P exam preparation guidance</li>
+        <li>AI-powered personal statement builder</li>
+        <li>26 medical condition modules</li>
+        <li>100% free — no paywall, no account required</li>
+      </ul>
+      <div class="product-stack">
+        <h4>Tech Stack</h4>
+        <p>Vanilla HTML/CSS/JavaScript · Claude Sonnet API · Zero dependencies · Client-side only</p>
+      </div>
+      <a href="https://decode38.com" class="product-link" target="_blank" rel="noopener">Visit Decode38</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-icon">🗣️</div>
+      <h3>PlanVocate</h3>
+      <p class="product-description">
+        Web platform that empowers parents to advocate effectively for their children
+        in IEP and 504 meetings — bridging the gap between institutional education
+        language and what parents actually need to know.
+      </p>
+      <ul class="product-features">
+        <li>IEP &amp; 504 eligibility screener</li>
+        <li>Personalized meeting preparation guide</li>
+        <li>Know-your-rights resource library</li>
+        <li>Communication templates &amp; letter builders</li>
+        <li>Built by educators, for parents</li>
+      </ul>
+      <div class="product-stack">
+        <h4>Tech Stack</h4>
+        <p>Node.js/Express · Netlify Serverless Functions · HTML/CSS/JS · Claude API</p>
+      </div>
+      <a href="https://planvocate.com" class="product-link" target="_blank" rel="noopener">Visit PlanVocate</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-icon">∑</div>
+      <h3>Principia</h3>
+      <p class="product-description">
+        iOS app that teaches mathematics the way it actually works — unified,
+        visual, and grounded in the <em>why</em> behind every formula. From
+        6th-grade fractions through university calculus, every concept connected
+        across disciplines.
+      </p>
+      <ul class="product-features">
+        <li>8 tiers: 6th grade through Calculus II</li>
+        <li>Cross-discipline concept connections</li>
+        <li>Live visualizations for every concept</li>
+        <li>Step-by-step guided walkthroughs</li>
+        <li>Free to start — Tiers 1 &amp; 2 forever free</li>
+      </ul>
+      <div class="product-stack">
+        <h4>Tech Stack</h4>
+        <p>React Native · Expo · Supabase · RevenueCat · iOS + Android</p>
+      </div>
+      <a href="https://getprincipia.com" class="product-link" target="_blank" rel="noopener">Learn More at GetPrincipia</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="container" id="thesis">
+  <h2>How It Works</h2>
+
+  <div class="systems-map">
+    <h3>The Axiom Translation Model</h3>
+    <div class="map-flow">
+      <div class="map-step">
+        Human Problem or Situation
+        <span class="small">A veteran's symptoms, a parent's concern, a student's confusion</span>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="map-step">
+        Plain-Language Input
+        <span class="small">Everyday description of a challenge or experience</span>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="map-step">
+        Axiom Translation Layer
+        <span class="small">Software maps experience to institutional frameworks and terminology</span>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="map-step">
+        Institutional Framework
+        <span class="small">VA regulations, IDEA law, mathematical structure</span>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="map-step">
+        Strategic Understanding &amp; Actionable Pathway
+        <span class="small">Clear next steps — claim language, meeting prep, conceptual clarity</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-section" style="margin-top: 80px;">
+    <h3>Strategic Pillars</h3>
+    <div class="feature-grid">
+      <div class="feature-box">
+        <strong>Systems Translation</strong>
+        <p>Software that maps real-world problems and lived experience into the institutional frameworks that govern outcomes.</p>
+      </div>
+      <div class="feature-box">
+        <strong>Knowledge Architecture</strong>
+        <p>Structuring complex rule sets — VA regulations, special education law, mathematical theory — into understandable, actionable models.</p>
+      </div>
+      <div class="feature-box">
+        <strong>Equity &amp; Access</strong>
+        <p>Reducing institutional complexity as a barrier. The system shouldn't require an expert intermediary to navigate it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Company Structure</h2>
+  <div class="systems-map" style="margin-top: 24px;">
+    <p style="margin: 0; font-weight: 600; color: var(--text); font-size: 18px;">
+      Axiom 38 LLC
+    </p>
+    <p style="margin: 8px 0 4px; font-size: 13px; color: var(--text-dim);">
+      Michigan · Disabled Veteran-Owned · Parent company & IP holder
+    </p>
+    <div style="text-align: center; color: var(--accent); margin: 20px 0 8px; font-weight: 300; font-size: 28px;">↓</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; max-width: 600px; margin: 0 auto;">
+      <div style="background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15); border-radius: 8px; padding: 14px; text-align: center;">
+        <div style="font-size: 13px; font-weight: 600; color: var(--text);">Decode38</div>
+        <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">decode38.com</div>
+      </div>
+      <div style="background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15); border-radius: 8px; padding: 14px; text-align: center;">
+        <div style="font-size: 13px; font-weight: 600; color: var(--text);">PlanVocate</div>
+        <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">planvocate.com</div>
+      </div>
+      <div style="background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.15); border-radius: 8px; padding: 14px; text-align: center;">
+        <div style="font-size: 13px; font-weight: 600; color: var(--text);">Principia</div>
+        <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">getprincipia.com</div>
+      </div>
+    </div>
+    <p style="margin: 20px 0 0; font-size: 12px; color: var(--text-dim);">
+      All products deployed on Netlify · Source on GitHub · Built with Claude Code
+    </p>
+  </div>
+</div>
+
+<div class="container" id="research">
+  <h2>Our Thinking</h2>
+  <p>
+    Our work is grounded in a simple observation: institutional complexity is a tax
+    on the people least equipped to pay it.
+  </p>
+  <div class="research-grid">
+    <div class="research-item">
+      <h4>Institutional Language</h4>
+      <p>How systems like the VA and school districts develop specialized terminology and procedural logic that excludes people unfamiliar with the framework — and how software can bridge that gap.</p>
+    </div>
+    <div class="research-item">
+      <h4>Systems Translation</h4>
+      <p>Designing software layers that convert complex institutional rule structures into human understanding — without losing the critical nuance that determines real outcomes.</p>
+    </div>
+    <div class="research-item">
+      <h4>Complexity as Barrier</h4>
+      <p>Why procedural complexity often produces inequitable outcomes, and how better information design — software that translates, not just explains — can reduce it.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container" id="access">
+  <div class="access-section">
+    <h2>Stay Updated</h2>
+    <p>
+      Product updates, feature launches, and resources across all three platforms.
+    </p>
+    <form name="axiom38" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="axiom38">
+      <input type="email" name="email" placeholder="Enter your email" required>
+      <button type="submit">Get Updates</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <p><strong>Axiom 38 LLC</strong> — Disabled Veteran-Owned · Michigan</p>
+  <p style="margin-top: 8px; color: var(--text-dim);">Systems translation technology for veterans, parents, and students.</p>
+  <p class="small">
+    © 2026 Axiom 38 LLC ·
+    <a href="https://decode38.com" style="color: var(--accent); text-decoration: none;">Decode38</a> ·
+    <a href="https://planvocate.com" style="color: var(--accent); text-decoration: none;">PlanVocate</a> ·
+    <a href="https://getprincipia.com" style="color: var(--accent); text-decoration: none;">Principia</a>
+  </p>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href !== '#') {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
+      }
+    }
+  });
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+});
+document.querySelectorAll('.product-card, .research-item, .feature-box').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
