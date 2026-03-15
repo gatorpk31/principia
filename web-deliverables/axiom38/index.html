@@ -92,66 +92,89 @@ nav {
 
 /* Header/Hero */
 header {
-  padding: 100px 24px 80px;
+  padding: 140px 24px 120px;
   text-align: center;
-  background: linear-gradient(135deg, var(--bg-white) 0%, var(--emerald-pale) 100%);
-  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, #0f172a 0%, #1a2f4a 50%, #047857 100%);
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 header::before {
   content: "";
   position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(5,150,105,0.08) 0%, transparent 70%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(5,150,105,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(6,182,212,0.1) 0%, transparent 50%),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
   pointer-events: none;
+  z-index: 1;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.2));
+  pointer-events: none;
+  z-index: 2;
 }
 
 .header-content {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 
 h1 {
   font-family: 'Syne', sans-serif;
-  font-size: 64px;
+  font-size: 84px;
   font-weight: 800;
-  margin: 0 0 24px;
-  letter-spacing: -1px;
-  line-height: 1.1;
-  color: var(--text-dark);
+  margin: 0 0 32px;
+  letter-spacing: -2px;
+  line-height: 1.05;
+  color: white;
 }
 
 h1 strong {
-  color: var(--emerald);
+  color: #6ee7b7;
+  display: block;
 }
 
 .badge {
   display: inline-block;
-  padding: 8px 16px;
-  background: var(--emerald-pale);
-  border: 1px solid var(--emerald-light);
+  padding: 10px 20px;
+  background: rgba(110,231,183,0.15);
+  border: 1px solid rgba(110,231,183,0.4);
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
-  color: var(--emerald-dark);
+  color: #6ee7b7;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .hero-sub {
-  font-size: 18px;
-  color: var(--text-muted);
-  margin: 24px 0;
+  font-size: 20px;
+  color: rgba(255,255,255,0.85);
+  margin: 32px 0 40px;
   line-height: 1.8;
   font-weight: 400;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cta-primary {
@@ -177,16 +200,20 @@ h1 strong {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 80px 24px;
+  padding: 100px 24px;
+}
+
+.container:nth-of-type(1) {
+  background: linear-gradient(180deg, var(--bg-light) 0%, transparent 100%);
 }
 
 h2 {
   font-family: 'Syne', sans-serif;
-  font-size: 44px;
+  font-size: 56px;
   font-weight: 800;
-  margin: 0 0 24px;
+  margin: 0 0 28px;
   color: var(--text-dark);
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
 }
 
 h3 {
@@ -206,10 +233,10 @@ p {
 }
 
 .section-intro {
-  font-size: 16px;
+  font-size: 18px;
   color: var(--text-muted);
   max-width: 700px;
-  margin: 0 0 60px;
+  margin: 0 0 70px;
   line-height: 1.8;
   font-weight: 400;
 }
@@ -218,16 +245,16 @@ p {
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 32px;
-  margin-top: 50px;
+  gap: 28px;
+  margin-top: 60px;
 }
 
 .product-card {
-  background: var(--bg-white);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 40px;
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  border: 2px solid #6ee7b7;
+  border-radius: 28px;
+  padding: 48px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   overflow: hidden;
 }
@@ -236,29 +263,30 @@ p {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--emerald), var(--emerald-light), transparent);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(5,150,105,0.08) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .product-card:hover {
-  border-color: var(--emerald-light);
-  box-shadow: 0 12px 40px rgba(5,150,105,0.12);
-  transform: translateY(-6px);
+  border-color: var(--emerald);
+  box-shadow: 0 20px 60px rgba(5,150,105,0.25), 0 0 0 1px rgba(5,150,105,0.1);
+  transform: translateY(-12px);
 }
 
 .product-icon {
-  font-size: 48px;
-  margin-bottom: 20px;
-  display: inline-block;
-  background: var(--emerald-pale);
-  width: 72px;
-  height: 72px;
-  border-radius: 12px;
+  font-size: 56px;
+  margin-bottom: 24px;
   display: flex;
+  width: 88px;
+  height: 88px;
+  border-radius: 20px;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(135deg, rgba(5,150,105,0.1) 0%, rgba(110,231,183,0.1) 100%);
+  border: 1px solid rgba(5,150,105,0.2);
 }
 
 .product-card h3 {
@@ -315,26 +343,44 @@ p {
 
 /* Mission Section */
 .mission-section {
-  background: linear-gradient(135deg, var(--emerald-pale) 0%, var(--bg-light) 100%);
-  padding: 80px 24px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, #0f172a 0%, #1a2340 50%, #1f4d47 100%);
+  padding: 100px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 10% 50%, rgba(110,231,183,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 90% 10%, rgba(34,197,94,0.06) 0%, transparent 50%),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(110,231,183,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+  pointer-events: none;
+  z-index: 1;
 }
 
 .mission-content {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .mission-section h2 {
-  margin-bottom: 24px;
+  margin-bottom: 32px;
+  color: white;
 }
 
 .mission-intro {
-  font-size: 16px;
-  color: var(--text-muted);
+  font-size: 18px;
+  color: rgba(255,255,255,0.85);
   max-width: 700px;
-  margin: 0 0 50px;
+  margin: 0 0 60px;
   line-height: 1.8;
   font-weight: 400;
 }
@@ -347,43 +393,51 @@ p {
 }
 
 .feature-box {
-  background: var(--bg-white);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 36px;
-  transition: all 0.3s ease;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(110,231,183,0.2);
+  border-radius: 20px;
+  padding: 44px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 .feature-box::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
-  height: 3px;
-  background: var(--emerald);
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(110,231,183,0.1) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .feature-box:hover {
-  border-color: var(--emerald-light);
-  box-shadow: 0 8px 24px rgba(5,150,105,0.1);
-  transform: translateY(-4px);
+  border-color: rgba(110,231,183,0.4);
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 8px 32px rgba(5,150,105,0.2);
+  transform: translateY(-8px);
 }
 
 .feature-box strong {
-  color: var(--text-dark);
+  color: white;
   display: block;
-  margin-bottom: 12px;
-  font-size: 16px;
+  margin-bottom: 16px;
+  font-size: 18px;
   font-weight: 700;
+  position: relative;
+  z-index: 2;
 }
 
 .feature-box p {
   margin: 0;
-  font-size: 14px;
-  color: var(--text-muted);
+  font-size: 15px;
+  color: rgba(255,255,255,0.8);
   line-height: 1.7;
+  position: relative;
+  z-index: 2;
 }
 
 /* Email Section */
