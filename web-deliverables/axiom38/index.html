@@ -10,70 +10,33 @@
 <link rel="canonical" href="https://axiom38.com">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://axiom38.com">
-<meta property="og:title" content="Axiom 38 LLC | Systems Translation Technology">
-<meta property="og:description" content="Decode38, PlanVocate, and Principia — software that translates complex institutional systems into actionable understanding.">
+<meta property="og:title" content="Axiom 38 LLC | Software for the People Institutions Forget">
+<meta property="og:description" content="Give veterans, parents, and students the knowledge they need to navigate the systems that shape their lives.">
 <meta property="og:image" content="https://axiom38.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Axiom 38 LLC | Systems Translation Technology">
-<meta name="twitter:description" content="Decode38, PlanVocate, and Principia — software that translates complex institutional systems into actionable understanding.">
+<meta name="twitter:title" content="Axiom 38 LLC | Software for the People Institutions Forget">
+<meta name="twitter:description" content="Give veterans, parents, and students the knowledge they need to navigate the systems that shape their lives.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #020617;
-  --panel: #0f172a;
-  --accent: #38bdf8;
-  --accent-dark: #0284c7;
-  --accent-light: #7dd3fc;
-  --text: #e2e8f0;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --border: #1e293b;
-}
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, Segoe UI, Roboto, Ubuntu;
-  background: var(--bg);
-  color: var(--text);
+  font-family: 'Inter', -apple-system, Segoe UI, sans-serif;
+  background: #ffffff;
+  color: #1f2937;
   line-height: 1.6;
-  overflow-x: hidden;
 }
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(56,189,248,0.08) 0%, rgba(16,185,129,0.04) 50%, rgba(2,6,23,0) 100%);
-  pointer-events: none;
-  z-index: -2;
-}
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px);
-  background-size: 80px 80px;
-  pointer-events: none;
-  z-index: -1;
-  animation: gridDrift 60s linear infinite;
-}
-@keyframes gridDrift {
-  0% { transform: translate(0,0); }
-  100% { transform: translate(80px,80px); }
-}
+
+/* Navigation */
 nav {
   position: sticky;
   top: 0;
-  background: rgba(2,6,23,0.92);
-  backdrop-filter: blur(12px);
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
   padding: 16px 24px;
-  border-bottom: 1px solid var(--border);
   z-index: 100;
 }
 .nav-inner {
@@ -87,296 +50,349 @@ nav {
   font-family: 'Syne', sans-serif;
   font-size: 18px;
   font-weight: 700;
-  letter-spacing: -0.5px;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #000;
 }
 .nav-links {
   display: flex;
   gap: 32px;
 }
 .nav-links a {
-  color: var(--text-muted);
+  color: #6b7280;
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
   transition: color 0.3s ease;
-  position: relative;
 }
-.nav-links a:hover { color: var(--accent); }
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--accent);
-  transition: width 0.3s ease;
-}
-.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: #000; }
+
+/* Header/Hero */
 header {
-  padding: 120px 24px 100px;
+  padding: 80px 24px;
   text-align: center;
-  background: linear-gradient(180deg, rgba(2,6,23,0) 0%, rgba(2,6,23,0.8) 100%),
-              radial-gradient(circle at 50% 0%, rgba(56,189,248,0.15) 0%, transparent 70%);
-  border-bottom: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-}
-header::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
+  border-bottom: 1px solid #e5e7eb;
 }
 .header-content {
-  position: relative;
-  z-index: 1;
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
 }
 h1 {
   font-family: 'Syne', sans-serif;
-  font-size: 64px;
+  font-size: 56px;
   font-weight: 800;
-  margin: 0 0 12px;
-  letter-spacing: -1px;
+  margin: 0 0 20px;
+  letter-spacing: -0.5px;
   line-height: 1.1;
-  background: linear-gradient(135deg, #ffffff 0%, var(--accent-light) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #000;
 }
 .badge {
   display: inline-block;
   padding: 8px 16px;
-  background: rgba(16,185,129,0.15);
-  border: 1px solid rgba(16,185,129,0.3);
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
-  color: var(--success);
+  color: #374151;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 24px;
 }
 .hero-sub {
   font-size: 18px;
-  color: var(--text-muted);
-  margin: 24px 0;
+  color: #6b7280;
+  margin: 20px 0;
   line-height: 1.7;
 }
 .cta-primary {
   display: inline-block;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-  color: #000;
-  padding: 14px 32px;
-  border-radius: 8px;
+  background: #000;
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 6px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   transition: all 0.3s ease;
-  margin-top: 24px;
-  box-shadow: 0 10px 30px rgba(56,189,248,0.2);
+  margin-top: 20px;
 }
 .cta-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(56,189,248,0.3);
+  background: #1f2937;
 }
+
+/* Container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 24px;
+  padding: 80px 24px;
 }
+
 h2 {
   font-family: 'Syne', sans-serif;
-  font-size: 42px;
+  font-size: 36px;
   font-weight: 700;
-  margin: 0 0 32px;
-  color: var(--text);
+  margin: 0 0 20px;
+  color: #000;
   letter-spacing: -0.5px;
 }
+
 h3 {
   font-family: 'Syne', sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
-  margin: 0 0 12px;
-  color: var(--accent);
+  margin: 12px 0;
+  color: #000;
 }
+
 p {
-  color: var(--text-muted);
+  color: #6b7280;
   line-height: 1.8;
   max-width: 700px;
   margin: 0 0 20px;
 }
+
+.section-intro {
+  font-size: 16px;
+  color: #6b7280;
+  max-width: 700px;
+  margin: 0 0 60px;
+  line-height: 1.7;
+}
+
+/* Products Grid */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 32px;
-  margin-top: 48px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  margin-top: 50px;
 }
+
 .product-card {
-  background: linear-gradient(135deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.5) 100%);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 40px 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 40px;
   transition: all 0.3s ease;
+  background: #fff;
   position: relative;
   overflow: hidden;
 }
-.product-card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-}
 .product-card:hover {
-  border-color: var(--accent);
-  box-shadow: 0 20px 50px rgba(56,189,248,0.1);
-  transform: translateY(-4px);
+  border-color: #d1d5db;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
-.product-icon { font-size: 40px; margin-bottom: 16px; }
-.product-card h3 { margin-top: 0; }
+
+.product-icon {
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+
+.product-card h3 {
+  margin-top: 0;
+}
+
 .product-description {
   font-size: 14px;
-  color: var(--text-muted);
-  margin: 16px 0;
-  line-height: 1.7;
+  color: #6b7280;
+  margin: 12px 0 20px;
+  line-height: 1.6;
 }
+
 .product-features {
   list-style: none;
   padding: 0;
-  margin: 24px 0;
+  margin: 20px 0;
   font-size: 13px;
 }
+
 .product-features li {
-  color: var(--text-dim);
+  color: #6b7280;
   margin: 8px 0;
-  padding-left: 20px;
+  padding-left: 16px;
   position: relative;
 }
+
 .product-features li::before {
-  content: "→";
+  content: "✓";
   position: absolute;
   left: 0;
-  color: var(--accent);
+  color: #10b981;
   font-weight: 600;
 }
+
 .product-link {
   display: inline-block;
-  color: var(--accent);
+  color: #000;
   text-decoration: none;
   font-weight: 600;
   font-size: 13px;
-  margin-top: 20px;
-  transition: all 0.3s ease;
+  margin-top: 16px;
+  transition: color 0.3s ease;
 }
-.product-link::after { content: " →"; }
-.product-link:hover { opacity: 0.8; }
-.features-section { margin-top: 60px; }
+.product-link:hover { color: #6b7280; }
+
+/* Mission Section */
+.mission-section {
+  background: #f9fafb;
+  padding: 80px 24px;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mission-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mission-section h2 {
+  margin-bottom: 24px;
+}
+
+.mission-intro {
+  font-size: 16px;
+  color: #6b7280;
+  max-width: 700px;
+  margin: 0 0 50px;
+  line-height: 1.7;
+}
+
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 28px;
+  gap: 40px;
   margin-top: 40px;
 }
+
 .feature-box {
-  background: rgba(30,41,59,0.4);
-  border: 1px solid var(--border);
+  background: #fff;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 32px;
   transition: all 0.3s ease;
 }
 .feature-box:hover {
-  border-color: var(--accent);
-  background: rgba(56,189,248,0.05);
+  border-color: #d1d5db;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
+
 .feature-box strong {
-  color: var(--accent);
+  color: #000;
   display: block;
   margin-bottom: 12px;
   font-size: 15px;
 }
-.feature-box p { margin: 0; font-size: 14px; }
+
+.feature-box p {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Email Section */
 .access-section {
-  background: linear-gradient(135deg, rgba(56,189,248,0.1) 0%, rgba(16,185,129,0.05) 100%);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
   padding: 60px 40px;
   text-align: center;
   margin-top: 80px;
 }
-.access-section h2 { margin-top: 0; }
-.access-section p { margin-bottom: 32px; }
+
+.access-section h2 {
+  margin-top: 0;
+}
+
+.access-section p {
+  margin-bottom: 32px;
+}
+
 form {
   display: flex;
   gap: 12px;
   max-width: 500px;
   margin: 0 auto;
 }
+
 input[type="email"] {
   flex: 1;
-  padding: 14px 18px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: rgba(2,6,23,0.6);
-  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #1f2937;
   font-size: 14px;
   font-family: inherit;
   transition: all 0.3s ease;
 }
-input[type="email"]::placeholder { color: var(--text-dim); }
+
+input[type="email"]::placeholder {
+  color: #9ca3af;
+}
+
 input[type="email"]:focus {
   outline: none;
-  border-color: var(--accent);
-  background: rgba(2,6,23,0.9);
-  box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
+  border-color: #6b7280;
+  box-shadow: 0 0 0 3px rgba(107,114,128,0.1);
 }
+
 button {
-  padding: 14px 32px;
+  padding: 12px 28px;
   border: none;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-  color: #000;
+  border-radius: 6px;
+  background: #000;
+  color: #fff;
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
 button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(56,189,248,0.3);
+  background: #1f2937;
 }
+
+/* Footer */
 footer {
-  margin-top: 100px;
-  padding: 60px 24px;
+  padding: 40px 24px;
   text-align: center;
-  border-top: 1px solid var(--border);
-  background: rgba(15,23,42,0.3);
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
 }
-footer p { margin: 0; font-size: 13px; }
+
+footer p {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+footer strong {
+  color: #000;
+}
+
 footer .small {
   display: block;
-  color: var(--text-dim);
+  color: #9ca3af;
   margin-top: 12px;
 }
+
+footer a {
+  color: #000;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #6b7280;
+}
+
 @media (max-width: 768px) {
-  h1 { font-size: 48px; }
-  h2 { font-size: 32px; }
-  .nav-links { gap: 16px; font-size: 13px; }
-  header { padding: 80px 20px 60px; }
-  .container { padding: 40px 20px; }
-  .products-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 40px; }
+  h2 { font-size: 28px; }
+  .nav-links { gap: 16px; }
+  header { padding: 60px 20px; }
+  .container { padding: 60px 20px; }
+  .mission-section { padding: 60px 20px; }
+  .products-grid { gap: 24px; }
+  .product-card { padding: 24px; }
+  .feature-grid { gap: 24px; }
   form { flex-direction: column; }
   input[type="email"], button { width: 100%; }
 }
@@ -420,7 +436,7 @@ footer .small {
 
 <div class="container" id="products">
   <h2>Our Products</h2>
-  <p>Three products. Three audiences. One mission: give people the knowledge to advocate for themselves.</p>
+  <p class="section-intro">Three products. Three audiences. One mission: give people the knowledge to advocate for themselves.</p>
 
   <div class="products-grid">
 
@@ -440,7 +456,7 @@ footer .small {
         <li>Covers 26 of the most common service-connected conditions</li>
         <li>100% free — no account, no paywall, no catch</li>
       </ul>
-      <a href="https://decode38.com" class="product-link" target="_blank" rel="noopener">Visit Decode38</a>
+      <a href="https://decode38.com" class="product-link" target="_blank" rel="noopener">Visit Decode38 →</a>
     </div>
 
     <div class="product-card">
@@ -458,7 +474,7 @@ footer .small {
         <li>Generate letters and communication templates</li>
         <li>Built by educators who know how these meetings really work</li>
       </ul>
-      <a href="https://planvocate.com" class="product-link" target="_blank" rel="noopener">Visit PlanVocate</a>
+      <a href="https://planvocate.com" class="product-link" target="_blank" rel="noopener">Visit PlanVocate →</a>
     </div>
 
     <div class="product-card">
@@ -477,31 +493,34 @@ footer .small {
         <li>Guided walkthroughs at your own pace</li>
         <li>Free to start — no credit card required</li>
       </ul>
-      <a href="https://getprincipia.com" class="product-link" target="_blank" rel="noopener">Visit Principia</a>
+      <a href="https://getprincipia.com" class="product-link" target="_blank" rel="noopener">Visit Principia →</a>
     </div>
 
   </div>
 </div>
 
-<div class="container" id="mission">
-  <h2>Our Mission</h2>
-  <p>
-    Axiom 38 was founded by a disabled veteran who learned firsthand that the systems
-    meant to serve people — the VA, school districts, universities — only work well
-    for those who already know how to navigate them. We build software to change that.
-  </p>
-  <div class="feature-grid" style="margin-top: 40px;">
-    <div class="feature-box">
-      <strong>For Veterans</strong>
-      <p>The VA claims process shouldn't require a VSO, an attorney, or years of trial and error. Decode38 gives every veteran the knowledge to file with confidence.</p>
-    </div>
-    <div class="feature-box">
-      <strong>For Parents</strong>
-      <p>Schools speak a language most parents were never taught. PlanVocate gives parents the words, rights, and preparation to show up as equals at the table.</p>
-    </div>
-    <div class="feature-box">
-      <strong>For Students</strong>
-      <p>Mathematics isn't a collection of formulas to memorize — it's a connected way of thinking. Principia teaches the why, so the how actually sticks.</p>
+<div class="mission-section" id="mission">
+  <div class="mission-content">
+    <h2>Why we build this</h2>
+    <p class="mission-intro">
+      Axiom 38 was founded by a disabled veteran who learned firsthand that the systems
+      meant to serve people — the VA, school districts, universities — only work well
+      for those who already know how to navigate them. We build software to change that.
+    </p>
+
+    <div class="feature-grid">
+      <div class="feature-box">
+        <strong>For Veterans</strong>
+        <p>The VA claims process shouldn't require a VSO, an attorney, or years of trial and error. Decode38 gives every veteran the knowledge to file with confidence.</p>
+      </div>
+      <div class="feature-box">
+        <strong>For Parents</strong>
+        <p>Schools speak a language most parents were never taught. PlanVocate gives parents the words, rights, and preparation to show up as equals at the table.</p>
+      </div>
+      <div class="feature-box">
+        <strong>For Students</strong>
+        <p>Mathematics isn't a collection of formulas to memorize — it's a connected way of thinking. Principia teaches the why, so the how actually sticks.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -522,12 +541,12 @@ footer .small {
 
 <footer>
   <p><strong>Axiom 38 LLC</strong> — Disabled Veteran-Owned · Michigan</p>
-  <p style="margin-top: 8px; color: var(--text-dim);">Software built for veterans, parents, and students.</p>
+  <p style="margin-top: 8px;">Software built for veterans, parents, and students.</p>
   <p class="small">
     © 2026 Axiom 38 LLC ·
-    <a href="https://decode38.com" style="color: var(--accent); text-decoration: none;">Decode38</a> ·
-    <a href="https://planvocate.com" style="color: var(--accent); text-decoration: none;">PlanVocate</a> ·
-    <a href="https://getprincipia.com" style="color: var(--accent); text-decoration: none;">Principia</a>
+    <a href="https://decode38.com">Decode38</a> ·
+    <a href="https://planvocate.com">PlanVocate</a> ·
+    <a href="https://getprincipia.com">Principia</a>
   </p>
 </footer>
 
@@ -553,7 +572,7 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 });
-document.querySelectorAll('.product-card, .research-item, .feature-box').forEach(el => {
+document.querySelectorAll('.product-card, .feature-box').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
