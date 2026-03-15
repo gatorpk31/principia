@@ -3,42 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Axiom 38 LLC | Software for the People Institutions Forget</title>
-<meta name="description" content="Axiom 38 builds software that helps veterans file VA claims, parents advocate in IEP meetings, and students actually understand mathematics. Disabled veteran-owned.">
+<title>Axiom 38 — Understand the Rules. Own the Outcome.</title>
+<meta name="description" content="Axiom 38 builds software that helps veterans file VA claims, parents advocate in IEP meetings, and students understand mathematics. Disabled veteran-owned.">
 <meta name="author" content="Axiom 38 LLC">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://axiom38.com">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://axiom38.com">
-<meta property="og:title" content="Axiom 38 LLC | Software for the People Institutions Forget">
+<meta property="og:title" content="Axiom 38 — Understand the Rules. Own the Outcome.">
 <meta property="og:description" content="Give veterans, parents, and students the knowledge they need to navigate the systems that shape their lives.">
 <meta property="og:image" content="https://axiom38.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Axiom 38 LLC | Software for the People Institutions Forget">
+<meta name="twitter:title" content="Axiom 38 — Understand the Rules. Own the Outcome.">
 <meta name="twitter:description" content="Give veterans, parents, and students the knowledge they need to navigate the systems that shape their lives.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
+:root {
+  --emerald: #059669;
+  --emerald-dark: #047857;
+  --emerald-light: #6ee7b7;
+  --emerald-pale: #ecfdf5;
+  --text-dark: #1f2937;
+  --text-muted: #6b7280;
+  --text-light: #9ca3af;
+  --bg-white: #ffffff;
+  --bg-light: #f9fafb;
+  --border: #e5e7eb;
+}
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
 body {
   margin: 0;
   font-family: 'Inter', -apple-system, Segoe UI, sans-serif;
-  background: #ffffff;
-  color: #1f2937;
+  background: var(--bg-white);
+  color: var(--text-dark);
   line-height: 1.6;
+  font-weight: 400;
 }
 
 /* Navigation */
 nav {
   position: sticky;
   top: 0;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--border);
   padding: 16px 24px;
   z-index: 100;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.95);
 }
+
 .nav-inner {
   max-width: 1200px;
   margin: auto;
@@ -46,77 +64,113 @@ nav {
   justify-content: space-between;
   align-items: center;
 }
+
 .nav-logo {
   font-family: 'Syne', sans-serif;
   font-size: 18px;
-  font-weight: 700;
-  color: #000;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.5px;
 }
+
 .nav-links {
   display: flex;
-  gap: 32px;
+  gap: 40px;
 }
+
 .nav-links a {
-  color: #6b7280;
+  color: var(--text-muted);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
   transition: color 0.3s ease;
 }
-.nav-links a:hover { color: #000; }
+
+.nav-links a:hover {
+  color: var(--emerald);
+}
 
 /* Header/Hero */
 header {
-  padding: 80px 24px;
+  padding: 100px 24px 80px;
   text-align: center;
-  border-bottom: 1px solid #e5e7eb;
+  background: linear-gradient(135deg, var(--bg-white) 0%, var(--emerald-pale) 100%);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
 }
+
+header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(5,150,105,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
 .header-content {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
+
 h1 {
   font-family: 'Syne', sans-serif;
-  font-size: 56px;
+  font-size: 64px;
   font-weight: 800;
-  margin: 0 0 20px;
-  letter-spacing: -0.5px;
+  margin: 0 0 24px;
+  letter-spacing: -1px;
   line-height: 1.1;
-  color: #000;
+  color: var(--text-dark);
 }
+
+h1 strong {
+  color: var(--emerald);
+}
+
 .badge {
   display: inline-block;
   padding: 8px 16px;
-  background: #f3f4f6;
-  border: 1px solid #d1d5db;
+  background: var(--emerald-pale);
+  border: 1px solid var(--emerald-light);
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
-  color: #374151;
+  color: var(--emerald-dark);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 24px;
 }
+
 .hero-sub {
   font-size: 18px;
-  color: #6b7280;
-  margin: 20px 0;
-  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 24px 0;
+  line-height: 1.8;
+  font-weight: 400;
 }
+
 .cta-primary {
   display: inline-block;
-  background: #000;
+  background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-dark) 100%);
   color: #fff;
-  padding: 12px 28px;
-  border-radius: 6px;
+  padding: 14px 36px;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   transition: all 0.3s ease;
-  margin-top: 20px;
+  margin-top: 24px;
+  box-shadow: 0 4px 15px rgba(5,150,105,0.2);
 }
+
 .cta-primary:hover {
-  background: #1f2937;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(5,150,105,0.3);
 }
 
 /* Container */
@@ -128,113 +182,143 @@ h1 {
 
 h2 {
   font-family: 'Syne', sans-serif;
-  font-size: 36px;
-  font-weight: 700;
-  margin: 0 0 20px;
-  color: #000;
+  font-size: 44px;
+  font-weight: 800;
+  margin: 0 0 24px;
+  color: var(--text-dark);
   letter-spacing: -0.5px;
 }
 
 h3 {
   font-family: 'Syne', sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   margin: 12px 0;
-  color: #000;
+  color: var(--text-dark);
 }
 
 p {
-  color: #6b7280;
+  color: var(--text-muted);
   line-height: 1.8;
   max-width: 700px;
   margin: 0 0 20px;
+  font-weight: 400;
 }
 
 .section-intro {
   font-size: 16px;
-  color: #6b7280;
+  color: var(--text-muted);
   max-width: 700px;
   margin: 0 0 60px;
-  line-height: 1.7;
+  line-height: 1.8;
+  font-weight: 400;
 }
 
 /* Products Grid */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px;
   margin-top: 50px;
 }
 
 .product-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   padding: 40px;
   transition: all 0.3s ease;
-  background: #fff;
   position: relative;
   overflow: hidden;
 }
+
+.product-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--emerald), var(--emerald-light), transparent);
+}
+
 .product-card:hover {
-  border-color: #d1d5db;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-color: var(--emerald-light);
+  box-shadow: 0 12px 40px rgba(5,150,105,0.12);
+  transform: translateY(-6px);
 }
 
 .product-icon {
-  font-size: 36px;
-  margin-bottom: 16px;
+  font-size: 48px;
+  margin-bottom: 20px;
+  display: inline-block;
+  background: var(--emerald-pale);
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .product-card h3 {
-  margin-top: 0;
+  margin-top: 16px;
 }
 
 .product-description {
-  font-size: 14px;
-  color: #6b7280;
-  margin: 12px 0 20px;
-  line-height: 1.6;
+  font-size: 15px;
+  color: var(--text-muted);
+  margin: 16px 0 24px;
+  line-height: 1.7;
+  font-weight: 400;
 }
 
 .product-features {
   list-style: none;
   padding: 0;
-  margin: 20px 0;
-  font-size: 13px;
+  margin: 24px 0;
+  font-size: 14px;
 }
 
 .product-features li {
-  color: #6b7280;
-  margin: 8px 0;
-  padding-left: 16px;
+  color: var(--text-muted);
+  margin: 10px 0;
+  padding-left: 24px;
   position: relative;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 .product-features li::before {
   content: "✓";
   position: absolute;
   left: 0;
-  color: #10b981;
-  font-weight: 600;
+  color: var(--emerald);
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .product-link {
   display: inline-block;
-  color: #000;
+  color: var(--emerald);
   text-decoration: none;
   font-weight: 600;
-  font-size: 13px;
-  margin-top: 16px;
-  transition: color 0.3s ease;
+  font-size: 14px;
+  margin-top: 20px;
+  transition: all 0.3s ease;
 }
-.product-link:hover { color: #6b7280; }
+
+.product-link:hover {
+  color: var(--emerald-dark);
+  transform: translateX(4px);
+}
 
 /* Mission Section */
 .mission-section {
-  background: #f9fafb;
+  background: linear-gradient(135deg, var(--emerald-pale) 0%, var(--bg-light) 100%);
   padding: 80px 24px;
-  border-top: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .mission-content {
@@ -248,59 +332,78 @@ p {
 
 .mission-intro {
   font-size: 16px;
-  color: #6b7280;
+  color: var(--text-muted);
   max-width: 700px;
   margin: 0 0 50px;
-  line-height: 1.7;
+  line-height: 1.8;
+  font-weight: 400;
 }
 
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
   margin-top: 40px;
 }
 
 .feature-box {
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 32px;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 36px;
   transition: all 0.3s ease;
+  position: relative;
 }
+
+.feature-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--emerald);
+}
+
 .feature-box:hover {
-  border-color: #d1d5db;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  border-color: var(--emerald-light);
+  box-shadow: 0 8px 24px rgba(5,150,105,0.1);
+  transform: translateY(-4px);
 }
 
 .feature-box strong {
-  color: #000;
+  color: var(--text-dark);
   display: block;
   margin-bottom: 12px;
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .feature-box p {
   margin: 0;
   font-size: 14px;
-  color: #6b7280;
+  color: var(--text-muted);
+  line-height: 1.7;
 }
 
 /* Email Section */
 .access-section {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 60px 40px;
+  background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-dark) 100%);
+  border-radius: 16px;
+  padding: 64px 40px;
   text-align: center;
   margin-top: 80px;
+  color: white;
+  box-shadow: 0 12px 40px rgba(5,150,105,0.2);
 }
 
 .access-section h2 {
   margin-top: 0;
+  color: white;
 }
 
 .access-section p {
+  color: rgba(255,255,255,0.95);
   margin-bottom: 32px;
 }
 
@@ -313,80 +416,84 @@ form {
 
 input[type="email"] {
   flex: 1;
-  padding: 12px 16px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
-  background: #fff;
-  color: #1f2937;
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255,255,255,0.95);
+  color: var(--text-dark);
   font-size: 14px;
   font-family: inherit;
   transition: all 0.3s ease;
+  font-weight: 500;
 }
 
 input[type="email"]::placeholder {
-  color: #9ca3af;
+  color: var(--text-light);
 }
 
 input[type="email"]:focus {
   outline: none;
-  border-color: #6b7280;
-  box-shadow: 0 0 0 3px rgba(107,114,128,0.1);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
 }
 
 button {
-  padding: 12px 28px;
+  padding: 14px 32px;
   border: none;
-  border-radius: 6px;
-  background: #000;
-  color: #fff;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.2);
+  color: white;
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.4);
 }
 
 button:hover {
-  background: #1f2937;
+  background: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
 }
 
 /* Footer */
 footer {
-  padding: 40px 24px;
+  padding: 48px 24px;
   text-align: center;
-  border-top: 1px solid #e5e7eb;
-  background: #f9fafb;
+  border-top: 1px solid var(--border);
+  background: var(--bg-light);
 }
 
 footer p {
   margin: 0;
   font-size: 13px;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
 footer strong {
-  color: #000;
+  color: var(--text-dark);
+  font-weight: 600;
 }
 
 footer .small {
   display: block;
-  color: #9ca3af;
-  margin-top: 12px;
+  color: var(--text-light);
+  margin-top: 16px;
 }
 
 footer a {
-  color: #000;
+  color: var(--emerald);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 footer a:hover {
-  color: #6b7280;
+  color: var(--emerald-dark);
 }
 
 @media (max-width: 768px) {
-  h1 { font-size: 40px; }
-  h2 { font-size: 28px; }
-  .nav-links { gap: 16px; }
+  h1 { font-size: 44px; }
+  h2 { font-size: 32px; }
+  .nav-links { gap: 24px; }
   header { padding: 60px 20px; }
   .container { padding: 60px 20px; }
   .mission-section { padding: 60px 20px; }
@@ -413,30 +520,28 @@ footer a:hover {
 
 <header>
   <div class="header-content">
-    <h1>Software Built for the People Institutions Forget</h1>
+    <h1>Understand the Rules.<br><strong>Own the Outcome.</strong></h1>
     <div class="badge">Disabled Veteran-Owned · Michigan</div>
     <p class="hero-sub">
-      We build tools that give veterans, parents, and students the knowledge
-      they need to navigate the systems that shape their lives —
-      without needing a lawyer, a specialist, or an insider.
+      Software that translates institutional complexity into clear action.
+      For veterans navigating the VA. For parents in IEP meetings. For students learning mathematics.
     </p>
-    <a href="#products" class="cta-primary">See Our Products</a>
+    <a href="#products" class="cta-primary">Explore Products</a>
   </div>
 </header>
 
 <div class="container">
-  <h2>What We Build</h2>
+  <h2>Why This Matters</h2>
   <p>
-    The VA, school systems, and higher education all operate on rules and terminology
-    most people were never taught. That gap costs veterans their benefits, parents their
-    voice, and students their confidence. Axiom 38 closes that gap with software — not
-    consultants, not jargon, not gatekeepers.
+    The VA, school systems, and universities operate on rules and language most people were never taught.
+    That gap costs veterans their benefits, parents their voice, and students their confidence.
+    Axiom 38 closes that gap with software — not consultants, not jargon, not gatekeepers.
   </p>
 </div>
 
 <div class="container" id="products">
   <h2>Our Products</h2>
-  <p class="section-intro">Three products. Three audiences. One mission: give people the knowledge to advocate for themselves.</p>
+  <p class="section-intro">Three tools, three audiences. One mission: give people the knowledge to navigate the systems that shape their lives.</p>
 
   <div class="products-grid">
 
@@ -444,17 +549,15 @@ footer a:hover {
       <div class="product-icon">🎖️</div>
       <h3>Decode38</h3>
       <p class="product-description">
-        Free web app that helps veterans and transitioning service members understand
-        VA disability claims — translating their lived experience into the regulatory
-        language the VA uses to evaluate claims.
+        The VA claims process shouldn't require an attorney. Decode38 helps veterans understand their rating, prepare for exams, and file with confidence.
       </p>
       <ul class="product-features">
-        <li>Estimate your VA disability rating before you file</li>
-        <li>Translate your symptoms into VA claim language</li>
-        <li>Prepare for your C&amp;P exam with confidence</li>
-        <li>Build a personal statement with AI assistance</li>
-        <li>Covers 26 of the most common service-connected conditions</li>
-        <li>100% free — no account, no paywall, no catch</li>
+        <li>Estimate your VA disability rating before filing</li>
+        <li>Translate your symptoms into VA language</li>
+        <li>Prepare for C&amp;P exams</li>
+        <li>AI-assisted personal statements</li>
+        <li>26 common service-connected conditions</li>
+        <li>100% free, no account required</li>
       </ul>
       <a href="https://decode38.com" class="product-link" target="_blank" rel="noopener">Visit Decode38 →</a>
     </div>
@@ -463,16 +566,14 @@ footer a:hover {
       <div class="product-icon">🗣️</div>
       <h3>PlanVocate</h3>
       <p class="product-description">
-        Web platform that empowers parents to advocate effectively for their children
-        in IEP and 504 meetings — bridging the gap between institutional education
-        language and what parents actually need to know.
+        Schools speak their own language. PlanVocate gives parents the words, rights, and confidence to show up prepared.
       </p>
       <ul class="product-features">
-        <li>Find out if your child qualifies for an IEP or 504 plan</li>
-        <li>Walk into any meeting knowing what to ask for</li>
-        <li>Understand your rights under IDEA and Section 504</li>
-        <li>Generate letters and communication templates</li>
-        <li>Built by educators who know how these meetings really work</li>
+        <li>Find out if your child qualifies for IEP or 504</li>
+        <li>Know your rights under IDEA and Section 504</li>
+        <li>Walk into meetings prepared</li>
+        <li>Generate letters and templates</li>
+        <li>Built by educators, for parents</li>
       </ul>
       <a href="https://planvocate.com" class="product-link" target="_blank" rel="noopener">Visit PlanVocate →</a>
     </div>
@@ -481,17 +582,14 @@ footer a:hover {
       <div class="product-icon">∑</div>
       <h3>Principia</h3>
       <p class="product-description">
-        iOS app that teaches mathematics the way it actually works — unified,
-        visual, and grounded in the <em>why</em> behind every formula. From
-        6th-grade fractions through university calculus, every concept connected
-        across disciplines.
+        Mathematics isn't formulas to memorize. Principia teaches the thinking behind the equations, connected across all concepts.
       </p>
       <ul class="product-features">
-        <li>Covers 6th grade through university calculus in one app</li>
-        <li>Every concept taught visually — not just memorized</li>
-        <li>Shows how ideas connect across algebra, geometry, and calculus</li>
-        <li>Guided walkthroughs at your own pace</li>
-        <li>Free to start — no credit card required</li>
+        <li>6th grade through university calculus</li>
+        <li>Visual explanations for every concept</li>
+        <li>See how ideas connect</li>
+        <li>Learn at your own pace</li>
+        <li>Free to start, Tiers 1 &amp; 2 forever free</li>
       </ul>
       <a href="https://getprincipia.com" class="product-link" target="_blank" rel="noopener">Visit Principia →</a>
     </div>
@@ -501,25 +599,25 @@ footer a:hover {
 
 <div class="mission-section" id="mission">
   <div class="mission-content">
-    <h2>Why we build this</h2>
+    <h2>Why We Built This</h2>
     <p class="mission-intro">
-      Axiom 38 was founded by a disabled veteran who learned firsthand that the systems
-      meant to serve people — the VA, school districts, universities — only work well
-      for those who already know how to navigate them. We build software to change that.
+      Axiom 38 was founded by a disabled veteran. He learned that the systems meant to serve people
+      — the VA, schools, universities — only work for those who already know the rules. We build
+      software to change that.
     </p>
 
     <div class="feature-grid">
       <div class="feature-box">
         <strong>For Veterans</strong>
-        <p>The VA claims process shouldn't require a VSO, an attorney, or years of trial and error. Decode38 gives every veteran the knowledge to file with confidence.</p>
+        <p>Every veteran deserves to understand their rating, file their claim, and get their benefits without hiring someone to translate the VA's language.</p>
       </div>
       <div class="feature-box">
         <strong>For Parents</strong>
-        <p>Schools speak a language most parents were never taught. PlanVocate gives parents the words, rights, and preparation to show up as equals at the table.</p>
+        <p>Parents know their child best. They deserve to walk into IEP meetings as equals, knowing exactly what to ask for and why.</p>
       </div>
       <div class="feature-box">
         <strong>For Students</strong>
-        <p>Mathematics isn't a collection of formulas to memorize — it's a connected way of thinking. Principia teaches the why, so the how actually sticks.</p>
+        <p>Math isn't isolated formulas. It's a connected way of thinking. Students deserve to understand the why behind every concept.</p>
       </div>
     </div>
   </div>
@@ -527,9 +625,9 @@ footer a:hover {
 
 <div class="container" id="access">
   <div class="access-section">
-    <h2>Stay in the Loop</h2>
+    <h2>Stay Updated</h2>
     <p>
-      New features, free resources, and updates from Decode38, PlanVocate, and Principia — delivered straight to your inbox.
+      New features, free resources, and updates from all three products — delivered straight to your inbox.
     </p>
     <form name="axiom38" method="POST" data-netlify="true">
       <input type="hidden" name="form-name" value="axiom38">
@@ -540,8 +638,8 @@ footer a:hover {
 </div>
 
 <footer>
-  <p><strong>Axiom 38 LLC</strong> — Disabled Veteran-Owned · Michigan</p>
-  <p style="margin-top: 8px;">Software built for veterans, parents, and students.</p>
+  <p><strong>Axiom 38 LLC</strong> — Disabled Veteran-Owned, Michigan</p>
+  <p style="margin-top: 12px;">Software for veterans, parents, and students.</p>
   <p class="small">
     © 2026 Axiom 38 LLC ·
     <a href="https://decode38.com">Decode38</a> ·
