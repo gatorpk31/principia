@@ -9,6 +9,7 @@ import {
 } from '../services/progress';
 import { upsertProgress } from '../services/supabase';
 import { SECURE_STORE_KEYS } from '../constants/config';
+import { useToast } from '../components/ui/Toast';
 import type { ConceptProgress, ProgressMap } from '../types';
 import { ALL_CONCEPTS } from '../data';
 
@@ -31,6 +32,7 @@ const TOTAL_CONCEPTS = ALL_CONCEPTS.length;
 export function useProgress(): ProgressHook {
   const [progress, setProgress] = useState<ProgressMap>({});
   const [isLoading, setIsLoading] = useState(true);
+  const { showToast } = useToast();
 
   useEffect(() => {
     loadProgress().then((map) => {
@@ -78,10 +80,11 @@ export function useProgress(): ProgressHook {
           await upsertProgress('local_user', conceptId, tierId, field);
         } catch {
           // Non-fatal — local progress is always the source of truth
+          showToast('Progress saved locally — cloud sync will retry later');
         }
       }
     },
-    [],
+    [showToast],
   );
 
   const getConceptProgress = useCallback(

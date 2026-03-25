@@ -150,6 +150,16 @@ export function PaywallModal({
           </View>
         </ScrollView>
 
+        {/* Subscription legal disclosure (required by Apple) */}
+        <View style={styles.legalDisclosure}>
+          <Text style={styles.legalText}>
+            {selectedPlan === 'annual'
+              ? `After the 7-day free trial, your subscription will automatically renew at ${PRICING.annual}/year unless cancelled at least 24 hours before the end of the current period.`
+              : `Your subscription will automatically renew at ${PRICING.monthly}/month unless cancelled at least 24 hours before the end of the current period.`}
+            {' '}Payment will be charged to your Apple ID account at confirmation of purchase. You can manage or cancel your subscription in your device's Settings > Apple ID > Subscriptions.
+          </Text>
+        </View>
+
         {/* Footer links */}
         <View style={styles.footer}>
           <TouchableOpacity onPress={handleRestore}>
@@ -315,5 +325,16 @@ const styles = StyleSheet.create({
   footerDot: {
     color: colors.text3,
     fontSize: fontSizes.sm,
+  },
+  legalDisclosure: {
+    paddingHorizontal: spacing.xl,
+    paddingVertical: spacing.md,
+  },
+  legalText: {
+    fontFamily: typography.body,
+    fontSize: 11,
+    color: colors.text3,
+    lineHeight: 16,
+    textAlign: 'center',
   },
 });

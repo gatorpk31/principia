@@ -20,8 +20,7 @@ module.exports = {
     supportsTablet: true,
     usesAppleSignIn: false,
     infoPlist: {
-      NSUserTrackingUsageDescription:
-        "Principia does not track you for advertising purposes.",
+      ITSAppUsesNonExemptEncryption: false,
     },
   },
   android: {
@@ -38,8 +37,7 @@ module.exports = {
     revenueCatAppleKey: process.env.REVENUECAT_APPLE_KEY || "",
     revenueCatGoogleKey: process.env.REVENUECAT_GOOGLE_KEY || "",
     eas: {
-      // Paste your EAS project ID here after running: eas init
-      projectId: process.env.EAS_PROJECT_ID || "",
+      projectId: "f832be61-552c-4fdd-ac8f-2cfde2e8b8f2",
     },
   },
   plugins: [
