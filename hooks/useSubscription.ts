@@ -15,14 +15,12 @@ export interface SubscriptionState {
   refresh: () => Promise<void>;
 }
 
-const DEV_BYPASS_PAYWALL = false;
-
 export function useSubscription(): SubscriptionState {
-  const [isPremium, setIsPremium] = useState(DEV_BYPASS_PAYWALL);
-  const [isLoading, setIsLoading] = useState(!DEV_BYPASS_PAYWALL);
+  const [isPremium, setIsPremium] = useState(__DEV__);
+  const [isLoading, setIsLoading] = useState(!__DEV__);
 
   const checkEntitlement = useCallback(async (): Promise<void> => {
-    if (DEV_BYPASS_PAYWALL) {
+    if (__DEV__) {
       setIsPremium(true);
       setIsLoading(false);
       return;

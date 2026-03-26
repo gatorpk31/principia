@@ -584,7 +584,7 @@ export const TIER4_CONCEPTS: Concept[] = [
     subtitle: 'The total area of every face — the paint problem',
     tags: ['geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'generic',
+    visualizationType: 'cube-3d',
     canvasLabel: '3D Shape Net',
     conceptTab: {
       summary: 'Surface area is the total area of all exposed faces of a three-dimensional solid. It answers: how much material covers the outside?',
@@ -669,7 +669,7 @@ export const TIER4_CONCEPTS: Concept[] = [
         explanation: 'The slant height of a cone or pyramid — needed for its surface area formula — is found using the Pythagorean theorem. The radius and vertical height are the legs; the slant height is the hypotenuse.',
       },
       {
-        conceptId: 't6-arc-length-area',
+        conceptId: 't6-trig-functions',
         tierId: 6,
         title: 'Arc Length and Sector Area',
         bridgeFormula: 'SA_sphere = 4πr²',
@@ -771,7 +771,7 @@ export const TIER4_CONCEPTS: Concept[] = [
         explanation: "The cylinder's base is a circle. Its volume formula πr²h multiplies the circle area formula πr² by the height. Mastery of circle area is the direct prerequisite for cylinder and cone volume.",
       },
       {
-        conceptId: 't7-riemann-sums',
+        conceptId: 't7-riemann-sums-integrals',
         tierId: 7,
         title: 'Riemann Sums',
         bridgeFormula: 'V = ∫A(x)dx (disk/washer method)',
@@ -868,8 +868,8 @@ export const TIER4_CONCEPTS: Concept[] = [
         explanation: 'All transformation rules are stated in coordinate form. Translating, reflecting, and rotating require exactly the coordinate algebra and distance reasoning developed in coordinate geometry.',
       },
       {
-        conceptId: 't5-function-transformations',
-        tierId: 5,
+        conceptId: 't6-function-transformations',
+        tierId: 6,
         title: 'Function Transformations',
         bridgeFormula: 'f(x − h) + k shifts graph right h, up k',
         explanation: "Transforming function graphs is the direct algebraic analog of geometric transformations. Shifting f(x) horizontally is a translation; negating the input is a reflection; stretching is a dilation. Geometric and function transformations are the same ideas in different notation.",

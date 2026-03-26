@@ -292,13 +292,6 @@ export const TIER3_CONCEPTS: Concept[] = [
         bridgeFormula: 'intersection point = solution to system',
         explanation: 'The algebraic solution to a system corresponds exactly to the intersection of two lines on a graph. Graphing gives a visual check: if your algebra says (2, 5) but the lines visibly cross somewhere else, there is an error.',
       },
-      {
-        conceptId: 't5-matrix-basics',
-        tierId: 5,
-        title: 'Matrices and Linear Systems',
-        bridgeFormula: 'Ax = b',
-        explanation: 'Systems with many variables (not just two) are organized and solved using matrices. The substitution and elimination strategies you learn now are the building blocks of matrix row-reduction algorithms.',
-      },
     ],
   },
 
@@ -399,13 +392,6 @@ export const TIER3_CONCEPTS: Concept[] = [
         bridgeFormula: 'Two lines meet at one point',
         explanation: 'The solution to a system is a specific point in the coordinate plane. Coordinate geometry gives precise tools to reason about, measure, and verify such intersection points.',
       },
-      {
-        conceptId: 't5-matrix-basics',
-        tierId: 5,
-        title: 'Matrices and Linear Systems',
-        bridgeFormula: '[A|b] row operations',
-        explanation: 'Gaussian elimination generalizes the row-operation strategy from two equations to any number. What you are doing by hand now is precisely what computers execute algorithmically on large systems.',
-      },
     ],
   },
 
@@ -502,7 +488,7 @@ export const TIER3_CONCEPTS: Concept[] = [
         explanation: 'When you graph two lines, their intersection is the solution to the system they form. Graphing provides a visual cross-check that algebraic work is correct.',
       },
       {
-        conceptId: 't5-parabolas',
+        conceptId: 't5-quadratic-functions',
         tierId: 5,
         title: 'Graphing Parabolas',
         bridgeFormula: 'y = ax² + bx + c',
@@ -621,7 +607,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Shortcuts for repeated multiplication — and why they work',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'generic',
+    visualizationType: 'exponent-tower',
     canvasLabel: 'Exponent Rules',
     conceptTab: {
       summary: 'Exponent rules are efficient shortcuts for multiplying and dividing powers of the same base. Every rule follows directly from the definition: xⁿ means n copies of x multiplied together.',
@@ -696,7 +682,7 @@ export const TIER3_CONCEPTS: Concept[] = [
         explanation: 'Compound interest uses A = P(1 + r)ⁿ. Evaluating this for various n, comparing growth rates, and simplifying ratios of exponential expressions all require the exponent rules you have just learned.',
       },
       {
-        conceptId: 't7-power-rule',
+        conceptId: 't7-derivative-rules',
         tierId: 7,
         title: 'Power Rule for Derivatives',
         bridgeFormula: 'd/dx(xⁿ) = nxⁿ⁻¹',
@@ -713,7 +699,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Undoing operations in reverse order to isolate the variable',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'balance-scale',
     canvasLabel: 'Balancing Equations',
     conceptTab: {
       summary: 'Multi-step equations require two or more operations to isolate the variable. The strategy is to work backward through the order of operations, undoing each step until x stands alone.',
@@ -803,7 +789,7 @@ export const TIER3_CONCEPTS: Concept[] = [
         explanation: 'Finding the x-intercept of a linear equation means setting y = 0 and solving the resulting single-variable multi-step equation. The two topics are constantly intertwined.',
       },
       {
-        conceptId: 't5-quadratic-equations',
+        conceptId: 't5-quadratic-formula',
         tierId: 5,
         title: 'Solving Quadratic Equations',
         bridgeFormula: 'ax² + bx + c = 0',
@@ -909,13 +895,6 @@ export const TIER3_CONCEPTS: Concept[] = [
         bridgeFormula: 'x > 3 → open circle on number line',
         explanation: 'One-variable inequalities create open or closed circles on a number line; two-variable inequalities create dashed or solid boundary lines on the plane. The dashed/solid logic is the 2D version of the open/closed circle logic from Tier 2.',
       },
-      {
-        conceptId: 't5-linear-programming',
-        tierId: 5,
-        title: 'Linear Programming',
-        bridgeFormula: 'Maximize cx subject to Ax ≤ b',
-        explanation: 'Linear programming optimizes an objective function (maximize profit, minimize cost) subject to a system of linear inequalities. The feasible region is exactly the intersection of the shaded half-planes you learn to graph here.',
-      },
     ],
   },
 
@@ -1005,14 +984,14 @@ export const TIER3_CONCEPTS: Concept[] = [
         explanation: 'An arithmetic sequence is a linear function sampled at integer values of n. The common difference d is the slope, and a₁ − d is the y-intercept. The nth term formula and y = mx + b are the same structure.',
       },
       {
-        conceptId: 't5-geometric-sequences',
+        conceptId: 't5-arithmetic-geometric-series',
         tierId: 5,
         title: 'Geometric Sequences',
         bridgeFormula: 'aₙ = a₁ · rⁿ⁻¹',
         explanation: 'A geometric sequence multiplies by a constant ratio r instead of adding a constant difference. The contrast between arithmetic (adding) and geometric (multiplying) is one of the most important dichotomies in precalculus and models the difference between linear and exponential growth.',
       },
       {
-        conceptId: 't7-riemann-sums',
+        conceptId: 't7-riemann-sums-integrals',
         tierId: 7,
         title: 'Riemann Sums',
         bridgeFormula: 'Σf(xᵢ)Δx → ∫f(x)dx',
@@ -1114,8 +1093,8 @@ export const TIER3_CONCEPTS: Concept[] = [
         explanation: 'A linear equation y = mx + b is a function: f(x) = mx + b. Function notation is the modern way to write the same equations you have been working with. Every line (except vertical) is a function.',
       },
       {
-        conceptId: 't5-function-transformations',
-        tierId: 5,
+        conceptId: 't6-function-transformations',
+        tierId: 6,
         title: 'Function Transformations',
         bridgeFormula: 'g(x) = af(x − h) + k',
         explanation: 'Once functions are understood as objects in their own right, they can be shifted, stretched, reflected, and composed. Function transformations are the systematic study of how changing a formula changes the graph.',
@@ -1204,8 +1183,8 @@ export const TIER3_CONCEPTS: Concept[] = [
         explanation: "Domain and range complete the definition of a function. Once you know what a function is (each input gives exactly one output), the next question is: which inputs are valid? That is domain. What outputs are possible? That is range.",
       },
       {
-        conceptId: 't5-function-transformations',
-        tierId: 5,
+        conceptId: 't6-function-transformations',
+        tierId: 6,
         title: 'Function Transformations',
         bridgeFormula: 'g(x) = f(x − h) + k shifts domain and range',
         explanation: 'Transformations shift, stretch, and reflect functions — and these operations change the domain and range systematically. A horizontal shift changes the domain; a vertical shift changes the range. Understanding domain and range makes transformation analysis precise.',

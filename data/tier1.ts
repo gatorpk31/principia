@@ -662,7 +662,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: "Why PEMDAS exists — and what it's really for",
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'generic',
+    visualizationType: 'number-line',
     canvasLabel: 'Order of Operations',
     conceptTab: {
       summary: 'Order of operations is a set of agreed-upon rules that makes sure everyone who reads a math expression gets the same answer.',
@@ -1053,7 +1053,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: 'What divides evenly — and the times-table connection',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'generic',
+    visualizationType: 'factor-tree',
     canvasLabel: 'Factor Pairs',
     conceptTab: {
       summary: 'A factor divides a number evenly. A multiple is what you get when you multiply a number by any integer.',
@@ -1155,7 +1155,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: 'Greatest common factor and least common multiple',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'generic',
+    visualizationType: 'factor-tree',
     canvasLabel: 'GCF and LCM',
     conceptTab: {
       summary: 'The GCF is the largest number that divides two numbers evenly. The LCM is the smallest number that both numbers divide into evenly.',

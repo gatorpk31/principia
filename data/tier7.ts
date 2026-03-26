@@ -287,7 +287,7 @@ export const TIER7_CONCEPTS: Concept[] = [
         explanation: 'To find maxima and minima, you set the derivative to zero and solve. Without derivative rules, finding these critical points would require the slow limit definition each time.',
       },
       {
-        conceptId: 't8-series-and-convergence',
+        conceptId: 't8-taylor-series',
         tierId: 8,
         title: 'Taylor Series',
         bridgeFormula: "f(x) = f(a) + f'(a)(x−a) + f''(a)/2!(x−a)² + ...",
@@ -1005,7 +1005,7 @@ export const TIER7_CONCEPTS: Concept[] = [
     subtitle: 'When two changing quantities are linked by a geometric or physical relationship',
     tags: ['calculus', 'geometry'],
     accessibilityLevel: 'college',
-    visualizationType: 'generic',
+    visualizationType: 'secant-tangent',
     canvasLabel: 'Related Rates Diagram',
     conceptTab: {
       summary: 'Related rates problems use implicit differentiation with respect to time to find how fast one quantity changes given how fast a related quantity changes.',

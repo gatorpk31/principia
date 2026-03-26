@@ -485,6 +485,252 @@ function RiemannSumViz({ accent }: { accent: string }) {
   );
 }
 
+// ── Balance Scale (equations) ────────────────────────────────────────────────
+function BalanceScaleViz({ accent }: { accent: string }) {
+  const tilt = useSharedValue(0);
+  useEffect(() => {
+    tilt.value = withRepeat(
+      withSequence(
+        withTiming(-8, { duration: 1500, easing: Easing.inOut(Easing.sin) }),
+        withTiming(0, { duration: 1500, easing: Easing.inOut(Easing.sin) }),
+        withTiming(8, { duration: 1500, easing: Easing.inOut(Easing.sin) }),
+        withTiming(0, { duration: 1500, easing: Easing.inOut(Easing.sin) }),
+      ),
+      -1,
+      false,
+    );
+  }, []);
+
+  const beamProps = useAnimatedProps(() => {
+    const rad = (tilt.value * Math.PI) / 180;
+    const halfW = 100;
+    return {
+      x1: W / 2 - halfW * Math.cos(rad),
+      y1: 90 - halfW * Math.sin(rad),
+      x2: W / 2 + halfW * Math.cos(rad),
+      y2: 90 + halfW * Math.sin(rad),
+    };
+  });
+
+  const leftPanProps = useAnimatedProps(() => {
+    const rad = (tilt.value * Math.PI) / 180;
+    return { cy: 90 - 100 * Math.sin(rad) + 30 };
+  });
+
+  const rightPanProps = useAnimatedProps(() => {
+    const rad = (tilt.value * Math.PI) / 180;
+    return { cy: 90 + 100 * Math.sin(rad) + 30 };
+  });
+
+  return (
+    <Svg width={W} height={H}>
+      {/* Fulcrum triangle */}
+      <Path d={`M${W / 2 - 15},${H - 30} L${W / 2 + 15},${H - 30} L${W / 2},85 Z`} fill={colors.surface2} stroke={colors.text3} strokeWidth={1.5} />
+      {/* Post */}
+      <Line x1={W / 2} y1={85} x2={W / 2} y2={90} stroke={colors.text3} strokeWidth={2} />
+      {/* Beam */}
+      <AnimatedLine stroke={accent} strokeWidth={3} animatedProps={beamProps} />
+      {/* Left pan */}
+      <AnimatedCircle cx={W / 2 - 100} r={22} fill={accent + '22'} stroke={accent} strokeWidth={1.5} animatedProps={leftPanProps} />
+      <SvgText x={W / 2 - 100} y={40} fill={accent} fontSize={16} fontWeight="bold" textAnchor="middle">x + 3</SvgText>
+      {/* Right pan */}
+      <AnimatedCircle cx={W / 2 + 100} r={22} fill={accent + '22'} stroke={accent} strokeWidth={1.5} animatedProps={rightPanProps} />
+      <SvgText x={W / 2 + 100} y={40} fill={accent} fontSize={16} fontWeight="bold" textAnchor="middle">7</SvgText>
+      <SvgText x={W / 2} y={H - 8} fill={colors.text2} fontSize={12} textAnchor="middle">both sides must balance</SvgText>
+    </Svg>
+  );
+}
+
+// ── Area Rectangle ──────────────────────────────────────────────────────────
+function AreaRectangleViz({ accent }: { accent: string }) {
+  const scale = useSharedValue(0.6);
+  useEffect(() => {
+    scale.value = withRepeat(
+      withTiming(1, { duration: 2500, easing: Easing.inOut(Easing.quad) }),
+      -1,
+      true,
+    );
+  }, []);
+
+  const rW = 180;
+  const rH = 100;
+  const ox = (W - rW) / 2;
+  const oy = (H - rH) / 2 - 10;
+
+  const rectProps = useAnimatedProps(() => ({
+    width: rW * scale.value,
+    height: rH * scale.value,
+    x: ox + (rW * (1 - scale.value)) / 2,
+    y: oy + (rH * (1 - scale.value)) / 2,
+  }));
+
+  return (
+    <Svg width={W} height={H}>
+      {/* Grid dots */}
+      {Array.from({ length: 7 }, (_, i) => Array.from({ length: 5 }, (_, j) => (
+        <Circle key={`${i}-${j}`} cx={ox + i * 30} cy={oy + j * 25} r={1.5} fill={colors.border2} />
+      ))).flat()}
+      {/* Animated rectangle */}
+      <AnimatedRect fill={accent + '20'} stroke={accent} strokeWidth={2} rx={2} animatedProps={rectProps} />
+      {/* Dimension labels */}
+      <SvgText x={W / 2} y={oy - 8} fill={accent} fontSize={13} textAnchor="middle" fontWeight="bold">width</SvgText>
+      <SvgText x={ox - 12} y={oy + rH / 2 + 4} fill={accent} fontSize={13} textAnchor="middle" fontWeight="bold" rotation="-90" originX={ox - 12} originY={oy + rH / 2 + 4}>height</SvgText>
+      <SvgText x={W / 2} y={H - 10} fill={colors.text2} fontSize={12} textAnchor="middle">A = length × width  |  P = 2(l + w)</SvgText>
+    </Svg>
+  );
+}
+
+// ── Bar Chart (percents, rates) ─────────────────────────────────────────────
+function BarChartViz({ accent }: { accent: string }) {
+  const heights = [0.4, 0.7, 0.55, 0.85, 0.65];
+  const labels = ['20%', '35%', '28%', '43%', '33%'];
+  const barW = 30;
+  const gap = 16;
+  const totalW = heights.length * barW + (heights.length - 1) * gap;
+  const ox = (W - totalW) / 2;
+  const oy = H - 40;
+  const maxH = 130;
+
+  return (
+    <Svg width={W} height={H}>
+      {/* Baseline */}
+      <Line x1={ox - 10} y1={oy} x2={ox + totalW + 10} y2={oy} stroke={colors.text3} strokeWidth={1} />
+      {heights.map((h, i) => {
+        const x = ox + i * (barW + gap);
+        const barH = h * maxH;
+        return (
+          <G key={i}>
+            <Rect x={x} y={oy - barH} width={barW} height={barH} rx={4} fill={accent + (i === 3 ? 'cc' : '55')} stroke={accent} strokeWidth={i === 3 ? 2 : 1} />
+            <SvgText x={x + barW / 2} y={oy + 16} fill={colors.text2} fontSize={10} textAnchor="middle">{labels[i]}</SvgText>
+          </G>
+        );
+      })}
+      <SvgText x={W / 2} y={H - 8} fill={colors.text2} fontSize={12} textAnchor="middle">comparing quantities as percentages</SvgText>
+    </Svg>
+  );
+}
+
+// ── Factor Tree ─────────────────────────────────────────────────────────────
+function FactorTreeViz({ accent }: { accent: string }) {
+  const pulse = useSharedValue(0.7);
+  useEffect(() => {
+    pulse.value = withRepeat(
+      withTiming(1, { duration: 2000, easing: Easing.inOut(Easing.sin) }),
+      -1,
+      true,
+    );
+  }, []);
+
+  const leafProps = useAnimatedProps(() => ({
+    opacity: pulse.value,
+  }));
+
+  const cx = W / 2;
+  return (
+    <Svg width={W} height={H}>
+      {/* Branches */}
+      <Line x1={cx} y1={40} x2={cx - 60} y2={90} stroke={colors.text3} strokeWidth={1.5} />
+      <Line x1={cx} y1={40} x2={cx + 60} y2={90} stroke={colors.text3} strokeWidth={1.5} />
+      <Line x1={cx - 60} y1={90} x2={cx - 90} y2={145} stroke={colors.text3} strokeWidth={1.5} />
+      <Line x1={cx - 60} y1={90} x2={cx - 30} y2={145} stroke={colors.text3} strokeWidth={1.5} />
+      <Line x1={cx + 60} y1={90} x2={cx + 30} y2={145} stroke={colors.text3} strokeWidth={1.5} />
+      <Line x1={cx + 60} y1={90} x2={cx + 90} y2={145} stroke={colors.text3} strokeWidth={1.5} />
+      {/* Root node: 36 */}
+      <Circle cx={cx} cy={35} r={20} fill={colors.surface2} stroke={accent} strokeWidth={2} />
+      <SvgText x={cx} y={40} fill={accent} fontSize={15} fontWeight="bold" textAnchor="middle">36</SvgText>
+      {/* Level 1: 6 × 6 */}
+      <Circle cx={cx - 60} cy={90} r={18} fill={colors.surface2} stroke={accent} strokeWidth={1.5} />
+      <SvgText x={cx - 60} y={95} fill={accent} fontSize={14} textAnchor="middle">6</SvgText>
+      <Circle cx={cx + 60} cy={90} r={18} fill={colors.surface2} stroke={accent} strokeWidth={1.5} />
+      <SvgText x={cx + 60} y={95} fill={accent} fontSize={14} textAnchor="middle">6</SvgText>
+      {/* Level 2: prime factors (animated) */}
+      <AnimatedCircle cx={cx - 90} cy={145} r={16} fill={accent + '33'} stroke={accent} strokeWidth={2} animatedProps={leafProps} />
+      <SvgText x={cx - 90} y={150} fill={accent} fontSize={13} fontWeight="bold" textAnchor="middle">2</SvgText>
+      <AnimatedCircle cx={cx - 30} cy={145} r={16} fill={accent + '33'} stroke={accent} strokeWidth={2} animatedProps={leafProps} />
+      <SvgText x={cx - 30} y={150} fill={accent} fontSize={13} fontWeight="bold" textAnchor="middle">3</SvgText>
+      <AnimatedCircle cx={cx + 30} cy={145} r={16} fill={accent + '33'} stroke={accent} strokeWidth={2} animatedProps={leafProps} />
+      <SvgText x={cx + 30} y={150} fill={accent} fontSize={13} fontWeight="bold" textAnchor="middle">2</SvgText>
+      <AnimatedCircle cx={cx + 90} cy={145} r={16} fill={accent + '33'} stroke={accent} strokeWidth={2} animatedProps={leafProps} />
+      <SvgText x={cx + 90} y={150} fill={accent} fontSize={13} fontWeight="bold" textAnchor="middle">3</SvgText>
+      <SvgText x={cx} y={H - 10} fill={colors.text2} fontSize={12} textAnchor="middle">36 = 2 × 3 × 2 × 3 = 2² × 3²</SvgText>
+    </Svg>
+  );
+}
+
+// ── Exponent Tower ──────────────────────────────────────────────────────────
+function ExponentTowerViz({ accent }: { accent: string }) {
+  const grow = useSharedValue(0);
+  useEffect(() => {
+    grow.value = withRepeat(
+      withTiming(1, { duration: 3000, easing: Easing.inOut(Easing.quad) }),
+      -1,
+      true,
+    );
+  }, []);
+
+  const ox = 40;
+  const oy = H - 40;
+  const maxW = W - 80;
+  const bases = [1, 2, 4, 8, 16, 32];
+  const barH = 18;
+  const gap = 6;
+
+  return (
+    <Svg width={W} height={H}>
+      {bases.map((val, i) => {
+        const w = (val / 32) * maxW;
+        const y = oy - (i + 1) * (barH + gap);
+        return (
+          <G key={i}>
+            <Rect x={ox} y={y} width={w} height={barH} rx={4} fill={accent + (i < 3 ? '33' : '66')} stroke={accent} strokeWidth={1} />
+            <SvgText x={ox + w + 8} y={y + 13} fill={colors.text2} fontSize={11}>2{i > 0 ? `⁰¹²³⁴⁵`.charAt(i) : '⁰'} = {val}</SvgText>
+          </G>
+        );
+      })}
+      <SvgText x={W / 2} y={H - 10} fill={colors.text2} fontSize={12} textAnchor="middle">exponential growth: each step doubles</SvgText>
+    </Svg>
+  );
+}
+
+// ── Cube 3D (surface area, volume) ──────────────────────────────────────────
+function Cube3DViz({ accent }: { accent: string }) {
+  const pulse = useSharedValue(0.85);
+  useEffect(() => {
+    pulse.value = withRepeat(
+      withTiming(1.05, { duration: 2500, easing: Easing.inOut(Easing.sin) }),
+      -1,
+      true,
+    );
+  }, []);
+
+  const cx = W / 2;
+  const cy = H / 2 - 5;
+  const s = 60; // half-side
+  // Isometric offsets
+  const dx = s * 0.7;
+  const dy = s * 0.4;
+
+  // Front face
+  const front = `M${cx - s},${cy} L${cx + s},${cy} L${cx + s},${cy + s} L${cx - s},${cy + s} Z`;
+  // Top face
+  const top = `M${cx - s},${cy} L${cx - s + dx},${cy - dy} L${cx + s + dx},${cy - dy} L${cx + s},${cy} Z`;
+  // Right face
+  const right = `M${cx + s},${cy} L${cx + s + dx},${cy - dy} L${cx + s + dx},${cy + s - dy} L${cx + s},${cy + s} Z`;
+
+  return (
+    <Svg width={W} height={H}>
+      <Path d={front} fill={accent + '20'} stroke={accent} strokeWidth={2} />
+      <Path d={top} fill={accent + '35'} stroke={accent} strokeWidth={2} />
+      <Path d={right} fill={accent + '10'} stroke={accent} strokeWidth={2} />
+      {/* Dimension labels */}
+      <SvgText x={cx} y={cy + s + 20} fill={colors.text2} fontSize={11} textAnchor="middle">l</SvgText>
+      <SvgText x={cx + s + 14} y={cy + s / 2} fill={colors.text2} fontSize={11} textAnchor="middle">h</SvgText>
+      <SvgText x={cx + s / 2 + dx / 2 + 10} y={cy - dy / 2 - 5} fill={colors.text2} fontSize={11} textAnchor="middle">w</SvgText>
+      <SvgText x={cx} y={H - 8} fill={colors.text2} fontSize={12} textAnchor="middle">V = l × w × h  |  SA = 2(lw + lh + wh)</SvgText>
+    </Svg>
+  );
+}
+
 // ── Generic ───────────────────────────────────────────────────────────────────
 function GenericViz({ accent, label }: { accent: string; label: string }) {
   // Subtle breathing pulse on the circle
@@ -536,6 +782,18 @@ export function ConceptVisualization({
         return <SecantTangentViz accent={accentColor} />;
       case 'riemann-sum':
         return <RiemannSumViz accent={accentColor} />;
+      case 'balance-scale':
+        return <BalanceScaleViz accent={accentColor} />;
+      case 'area-rectangle':
+        return <AreaRectangleViz accent={accentColor} />;
+      case 'bar-chart':
+        return <BarChartViz accent={accentColor} />;
+      case 'factor-tree':
+        return <FactorTreeViz accent={accentColor} />;
+      case 'exponent-tower':
+        return <ExponentTowerViz accent={accentColor} />;
+      case 'cube-3d':
+        return <Cube3DViz accent={accentColor} />;
       default:
         return <GenericViz accent={accentColor} label={label} />;
     }

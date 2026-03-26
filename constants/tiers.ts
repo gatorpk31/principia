@@ -70,6 +70,6 @@ export const TIERS: TierMeta[] = [
     gradeLevel: 'College+',
     isPaid: true,
     accentColor: '#d47878',
-    description: 'Rigorous proof, series, and Spivak-level thinking.',
+    description: 'Rigorous proof, series, and Euler-level thinking.',
   },
 ];

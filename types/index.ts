@@ -17,6 +17,12 @@ export type VisualizationType =
   | 'unit-circle'
   | 'secant-tangent'
   | 'riemann-sum'
+  | 'balance-scale'
+  | 'area-rectangle'
+  | 'bar-chart'
+  | 'factor-tree'
+  | 'exponent-tower'
+  | 'cube-3d'
   | 'generic';
 
 export type AccessibilityLevel =
