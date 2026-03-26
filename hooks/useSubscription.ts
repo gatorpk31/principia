@@ -15,8 +15,7 @@ export interface SubscriptionState {
   refresh: () => Promise<void>;
 }
 
-// TODO: Remove this flag before release — bypasses paywall for development review
-const DEV_BYPASS_PAYWALL = true;
+const DEV_BYPASS_PAYWALL = false;
 
 export function useSubscription(): SubscriptionState {
   const [isPremium, setIsPremium] = useState(DEV_BYPASS_PAYWALL);

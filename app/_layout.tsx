@@ -8,6 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { initRevenueCat } from '../services/revenuecat';
 import { colors } from '../constants/theme';
+import { ToastProvider } from '../components/ui/Toast';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,16 +43,18 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <StatusBar style="light" backgroundColor={colors.bg} />
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
-          <Stack.Screen name="(auth)" />
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="concept/[id]" options={{ presentation: 'card', animation: 'slide_from_right' }} />
-          <Stack.Screen name="paywall" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
-          <Stack.Screen name="legal/terms" options={{ presentation: 'modal' }} />
-          <Stack.Screen name="legal/privacy" options={{ presentation: 'modal' }} />
-          <Stack.Screen name="legal/coppa" options={{ presentation: 'modal' }} />
-        </Stack>
+        <ToastProvider>
+          <StatusBar style="light" backgroundColor={colors.bg} />
+          <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="concept/[id]" options={{ presentation: 'card', animation: 'slide_from_right' }} />
+            <Stack.Screen name="paywall" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
+            <Stack.Screen name="legal/terms" options={{ presentation: 'modal' }} />
+            <Stack.Screen name="legal/privacy" options={{ presentation: 'modal' }} />
+            <Stack.Screen name="legal/coppa" options={{ presentation: 'modal' }} />
+          </Stack>
+        </ToastProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
