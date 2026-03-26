@@ -57,7 +57,6 @@ export function PracticeTab({
   const handleNext = () => {
     const nextIndex = currentIndex + 1;
     if (nextIndex >= practice.length) {
-      const finalScore = score + (answerState === 'correct' ? 0 : 0); // already counted
       onComplete(score);
       setAllDone(true);
     } else {

@@ -14,6 +14,7 @@ module.exports = {
     resizeMode: "contain",
     backgroundColor: "#0e0d0c",
   },
+  newArchEnabled: true,
   ios: {
     bundleIdentifier: "com.axiom38.principia",
     buildNumber: "1",
@@ -43,6 +44,7 @@ module.exports = {
   plugins: [
     "expo-router",
     "expo-secure-store",
+    "expo-splash-screen",
     [
       "expo-font",
       {

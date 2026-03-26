@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
+  TouchableOpacity,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -45,7 +46,15 @@ export default function Welcome() {
           minHeight={56}
         />
         <Text style={styles.legalNote}>
-          By continuing you agree to our Terms of Service and Privacy Policy.
+          By continuing you agree to our{' '}
+          <Text style={styles.legalLink} onPress={() => router.push('/legal/terms')}>
+            Terms of Service
+          </Text>
+          {' '}and{' '}
+          <Text style={styles.legalLink} onPress={() => router.push('/legal/privacy')}>
+            Privacy Policy
+          </Text>
+          .
         </Text>
       </View>
     </SafeAreaView>
@@ -103,5 +112,9 @@ const styles = StyleSheet.create({
     color: colors.text3,
     textAlign: 'center',
     lineHeight: 18,
+  },
+  legalLink: {
+    color: colors.gold,
+    textDecorationLine: 'underline',
   },
 });

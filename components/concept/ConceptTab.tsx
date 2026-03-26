@@ -18,6 +18,7 @@ export function ConceptTab({ concept, accentColor, onViewed }: ConceptTabProps) 
   useEffect(() => {
     // Mark concept tab as viewed on mount
     onViewed();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

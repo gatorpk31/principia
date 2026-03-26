@@ -16,6 +16,7 @@ export function ConnectionsTab({ concept, accentColor, onViewed }: ConnectionsTa
 
   useEffect(() => {
     onViewed();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNavigate = async (conceptId: string) => {

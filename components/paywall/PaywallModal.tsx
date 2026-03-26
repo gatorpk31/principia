@@ -156,7 +156,7 @@ export function PaywallModal({
             {selectedPlan === 'annual'
               ? `After the 7-day free trial, your subscription will automatically renew at ${PRICING.annual}/year unless cancelled at least 24 hours before the end of the current period.`
               : `Your subscription will automatically renew at ${PRICING.monthly}/month unless cancelled at least 24 hours before the end of the current period.`}
-            {' '}Payment will be charged to your Apple ID account at confirmation of purchase. You can manage or cancel your subscription in your device's Settings > Apple ID > Subscriptions.
+            {' '}Payment will be charged to your Apple ID account at confirmation of purchase. You can manage or cancel your subscription in your device's Settings {'>'} Apple ID {'>'} Subscriptions.
           </Text>
         </View>
 
