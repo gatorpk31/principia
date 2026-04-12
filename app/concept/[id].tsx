@@ -40,6 +40,40 @@ export default function ConceptScreen() {
   const [activeTab, setActiveTab] = useState<TabName>('concept');
 
   const concept = ALL_CONCEPTS.find((c) => c.id === id);
+  const tier = concept ? TIERS.find((t) => t.id === concept.tierId) : undefined;
+  const accent = concept ? tierColor(concept.tierId) : colors.gold;
+  const progress = getConceptProgress(concept?.id ?? '', concept?.tierId ?? 0);
+
+  const handleTabChange = async (tab: TabName) => {
+    if (!concept) return;
+    await Haptics.selectionAsync();
+    setActiveTab(tab);
+    logConceptVisit(concept.id, concept.tierId);
+  };
+
+  const handleConceptViewed = useCallback(() => {
+    if (!concept || progress.concept) return;
+    markExplored(concept.id, concept.tierId, 'concept');
+    logTabComplete(concept.id, 'concept');
+  }, [concept?.id, concept?.tierId, progress.concept]);
+
+  const handleGuidedComplete = useCallback(() => {
+    if (!concept || progress.guided) return;
+    markExplored(concept.id, concept.tierId, 'guided');
+    logTabComplete(concept.id, 'guided');
+  }, [concept?.id, concept?.tierId, progress.guided]);
+
+  const handlePracticeComplete = useCallback((score: number) => {
+    if (!concept || progress.practice) return;
+    markExplored(concept.id, concept.tierId, 'practice', score);
+    logTabComplete(concept.id, 'practice');
+  }, [concept?.id, concept?.tierId, progress.practice]);
+
+  const handleConnectionsViewed = useCallback(() => {
+    if (!concept || progress.connections) return;
+    markExplored(concept.id, concept.tierId, 'connections');
+    logTabComplete(concept.id, 'connections');
+  }, [concept?.id, concept?.tierId, progress.connections]);
 
   if (!concept) {
     return (
@@ -52,9 +86,6 @@ export default function ConceptScreen() {
     );
   }
 
-  // Enforce paywall: if this concept belongs to a paid tier and user is not premium,
-  // redirect to paywall instead of showing the content.
-  const tier = TIERS.find((t) => t.id === concept.tierId);
   if (tier?.isPaid && !isPremium) {
     return (
       <SafeAreaView style={styles.notFound}>
@@ -68,43 +99,6 @@ export default function ConceptScreen() {
       </SafeAreaView>
     );
   }
-
-  const accent = tierColor(concept.tierId);
-  const progress = getConceptProgress(concept.id, concept.tierId);
-
-  const handleTabChange = async (tab: TabName) => {
-    await Haptics.selectionAsync();
-    setActiveTab(tab);
-    logConceptVisit(concept.id, concept.tierId);
-  };
-
-  const handleConceptViewed = useCallback(() => {
-    if (!progress.concept) {
-      markExplored(concept.id, concept.tierId, 'concept');
-      logTabComplete(concept.id, 'concept');
-    }
-  }, [progress.concept, concept.id, concept.tierId]);
-
-  const handleGuidedComplete = useCallback(() => {
-    if (!progress.guided) {
-      markExplored(concept.id, concept.tierId, 'guided');
-      logTabComplete(concept.id, 'guided');
-    }
-  }, [progress.guided, concept.id, concept.tierId]);
-
-  const handlePracticeComplete = useCallback((score: number) => {
-    if (!progress.practice) {
-      markExplored(concept.id, concept.tierId, 'practice', score);
-      logTabComplete(concept.id, 'practice');
-    }
-  }, [progress.practice, concept.id, concept.tierId]);
-
-  const handleConnectionsViewed = useCallback(() => {
-    if (!progress.connections) {
-      markExplored(concept.id, concept.tierId, 'connections');
-      logTabComplete(concept.id, 'connections');
-    }
-  }, [progress.connections, concept.id, concept.tierId]);
 
   return (
     <SafeAreaView style={styles.container}>
