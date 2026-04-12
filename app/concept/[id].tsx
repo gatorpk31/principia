@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import {
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 import { colors, typography, fontSizes, spacing, radius, tierColor } from '../../constants/theme';
-import { ALL_CONCEPTS } from '../../data';
+import { ALL_CONCEPTS, getPrerequisites, isConceptLocked } from '../../data';
 import { TIERS } from '../../constants/tiers';
 import { ConceptTab } from '../../components/concept/ConceptTab';
 import { GuidedTab } from '../../components/concept/GuidedTab';
@@ -19,6 +19,7 @@ import { ConnectionsTab } from '../../components/concept/ConnectionsTab';
 import { ConceptVisualization } from '../../components/concept/ConceptVisualization';
 import { useProgress } from '../../hooks/useProgress';
 import { useSubscription } from '../../hooks/useSubscription';
+import { useBookmarks } from '../../hooks/useBookmarks';
 import { logConceptVisit, logTabComplete } from '../../services/analytics';
 
 export { ErrorBoundary } from 'expo-router';
@@ -37,12 +38,19 @@ export default function ConceptScreen() {
   const router = useRouter();
   const { getConceptProgress, markExplored } = useProgress();
   const { isPremium } = useSubscription();
+  const { isBookmarked, toggleBookmark } = useBookmarks();
   const [activeTab, setActiveTab] = useState<TabName>('concept');
 
   const concept = ALL_CONCEPTS.find((c) => c.id === id);
   const tier = concept ? TIERS.find((t) => t.id === concept.tierId) : undefined;
   const accent = concept ? tierColor(concept.tierId) : colors.gold;
   const progress = getConceptProgress(concept?.id ?? '', concept?.tierId ?? 0);
+
+  // Derive prerequisites: concepts that list this concept in their connections
+  const prerequisites = useMemo(() => {
+    if (!concept) return [];
+    return getPrerequisites(concept.id).slice(0, 3); // cap at 3 to keep it compact
+  }, [concept?.id]);
 
   const handleTabChange = async (tab: TabName) => {
     if (!concept) return;
@@ -86,7 +94,7 @@ export default function ConceptScreen() {
     );
   }
 
-  if (tier?.isPaid && !isPremium) {
+  if (isConceptLocked(concept.id, isPremium)) {
     return (
       <SafeAreaView style={styles.notFound}>
         <Text style={styles.notFoundText}>This content requires a subscription.</Text>
@@ -107,8 +115,22 @@ export default function ConceptScreen() {
         <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
           <Text style={styles.backText}>← Back</Text>
         </TouchableOpacity>
-        <View style={[styles.tierBadge, { backgroundColor: accent + '22' }]}>
-          <Text style={[styles.tierBadgeText, { color: accent }]}>Tier {concept.tierId}</Text>
+        <View style={styles.headerRight}>
+          <TouchableOpacity
+            onPress={async () => {
+              await Haptics.selectionAsync();
+              toggleBookmark(concept.id);
+            }}
+            style={styles.bookmarkBtn}
+            activeOpacity={0.7}
+          >
+            <Text style={[styles.bookmarkIcon, { color: isBookmarked(concept.id) ? colors.gold : colors.text3 }]}>
+              {isBookmarked(concept.id) ? '★' : '☆'}
+            </Text>
+          </TouchableOpacity>
+          <View style={[styles.tierBadge, { backgroundColor: accent + '22' }]}>
+            <Text style={[styles.tierBadgeText, { color: accent }]}>Tier {concept.tierId}</Text>
+          </View>
         </View>
       </View>
 
@@ -120,6 +142,36 @@ export default function ConceptScreen() {
           <Text style={styles.subtitle}>{concept.subtitle}</Text>
         </View>
       </View>
+
+      {/* Prerequisites — show what earlier concepts build into this one */}
+      {prerequisites.length > 0 && (
+        <View style={styles.prereqRow}>
+          <Text style={styles.prereqLabel}>Builds on:</Text>
+          {prerequisites.map((prereq) => {
+            const prereqProgress = getConceptProgress(prereq.id, prereq.tierId);
+            const done = prereqProgress.concept;
+            const prereqAccent = tierColor(prereq.tierId);
+            return (
+              <TouchableOpacity
+                key={prereq.id}
+                style={[styles.prereqChip, { borderColor: done ? prereqAccent + '55' : colors.border2 }]}
+                onPress={() => router.push(`/concept/${prereq.id}`)}
+                activeOpacity={0.8}
+              >
+                <Text style={[styles.prereqCheck, { color: done ? prereqAccent : colors.text3 }]}>
+                  {done ? '✓' : '○'}
+                </Text>
+                <Text
+                  style={[styles.prereqName, { color: done ? prereqAccent : colors.text3 }]}
+                  numberOfLines={1}
+                >
+                  {prereq.title}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      )}
 
       {/* Visualization */}
       <ConceptVisualization
@@ -294,5 +346,46 @@ const styles = StyleSheet.create({
   },
   tabContent: {
     flex: 1,
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  bookmarkBtn: {
+    padding: spacing.xs,
+  },
+  bookmarkIcon: {
+    fontSize: 20,
+  },
+  prereqRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: spacing.lg,
+    gap: spacing.xs,
+    flexWrap: 'wrap',
+  },
+  prereqLabel: {
+    fontFamily: typography.mono,
+    fontSize: fontSizes.xs,
+    color: colors.text3,
+    marginRight: 2,
+  },
+  prereqChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    borderRadius: radius.full,
+    borderWidth: 1,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 3,
+  },
+  prereqCheck: {
+    fontSize: fontSizes.xs,
+  },
+  prereqName: {
+    fontFamily: typography.mono,
+    fontSize: fontSizes.xs,
+    maxWidth: 120,
   },
 });

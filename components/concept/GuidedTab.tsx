@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
+  TextInput,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
@@ -25,6 +26,14 @@ export function GuidedTab({ concept, accentColor, isRevisit, onComplete }: Guide
 
   const [revealedCount, setRevealedCount] = useState(isRevisit ? guided.steps.length : 0);
   const [completed, setCompleted] = useState(isRevisit);
+  const [reflectionText, setReflectionText] = useState('');
+  const [reflectionSaved, setReflectionSaved] = useState(false);
+
+  const handleSaveReflection = async () => {
+    if (reflectionText.trim().length === 0) return;
+    await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    setReflectionSaved(true);
+  };
 
   const handleReveal = async () => {
     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -91,13 +100,53 @@ export function GuidedTab({ concept, accentColor, isRevisit, onComplete }: Guide
         </TouchableOpacity>
       )}
 
-      {/* Reflection prompt — shown after all steps */}
+      {/* Interactive reflection prompt — shown after all steps */}
       {completed && (
         <View style={[styles.reflectionCard, { borderColor: accentColor + '55', backgroundColor: accentColor + '0d' }]}>
           <Text style={styles.reflectionLabel}>Reflect</Text>
           <Text style={[styles.reflectionText, { fontSize: bodySize }]}>
             {guided.reflectionPrompt}
           </Text>
+          {reflectionSaved ? (
+            <View style={styles.reflectionSavedRow}>
+              <Text style={[styles.reflectionSavedText, { color: accentColor }]}>
+                ✓ Nice thinking! Your reflection helps cement this idea.
+              </Text>
+            </View>
+          ) : (
+            <>
+              <TextInput
+                style={[styles.reflectionInput, { borderColor: accentColor + '44', fontSize: bodySize }]}
+                placeholder={isElementary ? 'Write your thoughts here…' : 'Your reflection…'}
+                placeholderTextColor={colors.text3}
+                value={reflectionText}
+                onChangeText={setReflectionText}
+                multiline
+                textAlignVertical="top"
+                returnKeyType="default"
+              />
+              <TouchableOpacity
+                style={[
+                  styles.reflectionSubmit,
+                  {
+                    backgroundColor: reflectionText.trim().length > 0 ? accentColor : colors.surface3,
+                  },
+                ]}
+                onPress={handleSaveReflection}
+                activeOpacity={0.8}
+                disabled={reflectionText.trim().length === 0}
+              >
+                <Text
+                  style={[
+                    styles.reflectionSubmitText,
+                    { color: reflectionText.trim().length > 0 ? colors.bg : colors.text3 },
+                  ]}
+                >
+                  Save Reflection
+                </Text>
+              </TouchableOpacity>
+            </>
+          )}
         </View>
       )}
     </ScrollView>
@@ -215,5 +264,34 @@ const styles = StyleSheet.create({
     color: colors.text,
     lineHeight: 26,
     fontStyle: 'italic',
+  },
+  reflectionInput: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    fontFamily: typography.body,
+    color: colors.text,
+    lineHeight: 22,
+    minHeight: 80,
+    marginTop: spacing.xs,
+  },
+  reflectionSubmit: {
+    borderRadius: radius.md,
+    padding: spacing.md,
+    alignItems: 'center',
+  },
+  reflectionSubmitText: {
+    fontFamily: typography.bodyMedium,
+    fontSize: fontSizes.base,
+  },
+  reflectionSavedRow: {
+    marginTop: spacing.xs,
+  },
+  reflectionSavedText: {
+    fontFamily: typography.bodyMedium,
+    fontSize: fontSizes.sm,
+    lineHeight: 20,
   },
 });

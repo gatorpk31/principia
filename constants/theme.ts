@@ -16,15 +16,15 @@ export const colors = {
   text: '#e8e3d9',
   text2: '#9a9288',
   text3: '#5a5450',
-  // Tier accent colors
-  tier1: '#6bbda0',
-  tier2: '#6bbda0',
-  tier3: '#5ba8d4',
-  tier4: '#5ba8d4',
-  tier5: '#c9a96e',
-  tier6: '#c9a96e',
-  tier7: '#d47878',
-  tier8: '#d47878',
+  // Tier accent colors — each tier gets a unique hue
+  tier1: '#6bbda0', // green
+  tier2: '#4ecdc4', // teal
+  tier3: '#5ba8d4', // blue
+  tier4: '#7b8cde', // indigo
+  tier5: '#c9a96e', // gold
+  tier6: '#d4915b', // amber
+  tier7: '#d47878', // rose
+  tier8: '#b86ecc', // violet
 } as const;
 
 export const typography = {

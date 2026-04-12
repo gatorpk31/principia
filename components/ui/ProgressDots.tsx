@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '../../constants/theme';
 
 interface ProgressDotsProps {
@@ -11,28 +11,38 @@ interface ProgressDotsProps {
   size?: number;
 }
 
+// Each stage gets a distinct shape so users can tell them apart at a glance.
+// Filled = done, outlined = not done.
+export const STAGE_SYMBOLS: { key: string; done: string; pending: string; label: string }[] = [
+  { key: 'concept', done: '■', pending: '□', label: 'Concept' },
+  { key: 'guided', done: '▲', pending: '△', label: 'Guided' },
+  { key: 'practice', done: '●', pending: '○', label: 'Practice' },
+  { key: 'connections', done: '◆', pending: '◇', label: 'Connections' },
+];
+
 export function ProgressDots({
   concept,
   guided,
   practice,
   connections,
   accentColor = colors.gold,
-  size = 7,
+  size = 9,
 }: ProgressDotsProps) {
   const tabs = [concept, guided, practice, connections];
 
   return (
     <View style={styles.row}>
       {tabs.map((done, i) => (
-        <View
+        <Text
           key={i}
-          style={[
-            { width: size, height: size, borderRadius: size / 2 },
-            done
-              ? { backgroundColor: accentColor }
-              : { backgroundColor: 'transparent', borderWidth: 1, borderColor: accentColor + '55' },
-          ]}
-        />
+          style={{
+            fontSize: size,
+            color: done ? accentColor : accentColor + '44',
+            lineHeight: size + 2,
+          }}
+        >
+          {done ? STAGE_SYMBOLS[i].done : STAGE_SYMBOLS[i].pending}
+        </Text>
       ))}
     </View>
   );
@@ -41,7 +51,7 @@ export function ProgressDots({
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    gap: 4,
+    gap: 3,
     alignItems: 'center',
   },
 });

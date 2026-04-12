@@ -1,23 +1,48 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   View,
   Text,
   ScrollView,
+  TouchableOpacity,
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
+import { useRouter } from 'expo-router';
 import { colors, typography, fontSizes, spacing, radius, tierColor } from '../../constants/theme';
 import { TIERS } from '../../constants/tiers';
 import { ALL_CONCEPTS } from '../../data';
 import { useProgress } from '../../hooks/useProgress';
+import { STAGE_SYMBOLS } from '../../components/ui/ProgressDots';
 
 export default function Progress() {
+  const router = useRouter();
   const { progress, overallPercent, tierPercent } = useProgress();
 
   const exploredCount = Object.values(progress).filter((p) => p.concept).length;
   const fullyDoneCount = Object.values(progress).filter(
     (p) => p.concept && p.guided && p.practice && p.connections,
   ).length;
+
+  // Spaced repetition: concepts the user has started but not fully completed
+  const reviewSuggestions = useMemo(() => {
+    return ALL_CONCEPTS
+      .filter((c) => {
+        const p = progress[c.id];
+        if (!p?.concept) return false; // never explored
+        if (p.concept && p.guided && p.practice && p.connections) return false; // fully done
+        return true;
+      })
+      .sort((a, b) => {
+        // Prioritize: concepts missing more tabs, and from lower tiers first
+        const pa = progress[a.id];
+        const pb = progress[b.id];
+        const doneA = [pa?.concept, pa?.guided, pa?.practice, pa?.connections].filter(Boolean).length;
+        const doneB = [pb?.concept, pb?.guided, pb?.practice, pb?.connections].filter(Boolean).length;
+        if (doneA !== doneB) return doneA - doneB; // fewer done tabs = higher priority
+        return a.tierId - b.tierId; // lower tier first
+      })
+      .slice(0, 5);
+  }, [progress]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -78,18 +103,56 @@ export default function Progress() {
           );
         })}
 
+        {/* Review suggestions — spaced repetition nudge */}
+        {reviewSuggestions.length > 0 && (
+          <>
+            <Text style={styles.sectionTitle}>Review Suggested</Text>
+            <View style={styles.reviewSection}>
+              <Text style={styles.reviewSubtext}>
+                These concepts are started but not yet mastered. Revisiting them strengthens retention.
+              </Text>
+              {reviewSuggestions.map((concept) => {
+                const p = progress[concept.id];
+                const accent = tierColor(concept.tierId);
+                const remaining = [
+                  !p?.guided && 'Guided',
+                  !p?.practice && 'Practice',
+                  !p?.connections && 'Connections',
+                ].filter(Boolean);
+                return (
+                  <TouchableOpacity
+                    key={concept.id}
+                    style={[styles.reviewCard, { borderColor: accent + '33' }]}
+                    onPress={() => router.push(`/concept/${concept.id}`)}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.reviewGlyph}>{concept.glyph}</Text>
+                    <View style={styles.reviewInfo}>
+                      <Text style={styles.reviewTitle} numberOfLines={1}>{concept.title}</Text>
+                      <Text style={[styles.reviewRemaining, { color: accent }]}>
+                        {remaining.join(' · ')}
+                      </Text>
+                    </View>
+                    <Text style={[styles.reviewArrow, { color: accent }]}>→</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </>
+        )}
+
         {/* 4-tab legend */}
         <View style={styles.legend}>
-          <Text style={styles.legendTitle}>Progress dots explained</Text>
+          <Text style={styles.legendTitle}>Progress shapes explained</Text>
           {[
-            { dot: '●', label: 'Concept', desc: 'Read the explanation' },
-            { dot: '●', label: 'Guided', desc: 'Completed the worked example' },
-            { dot: '●', label: 'Practice', desc: 'Answered all 3 questions' },
-            { dot: '●', label: 'Connections', desc: 'Explored the connections' },
+            { desc: 'Read the explanation' },
+            { desc: 'Completed the worked example' },
+            { desc: 'Answered the practice questions' },
+            { desc: 'Explored the connections' },
           ].map((item, i) => (
             <View key={i} style={styles.legendRow}>
-              <Text style={[styles.legendDot, { color: colors.gold }]}>{item.dot}</Text>
-              <Text style={styles.legendLabel}>{item.label}</Text>
+              <Text style={[styles.legendDot, { color: colors.gold }]}>{STAGE_SYMBOLS[i].done}</Text>
+              <Text style={styles.legendLabel}>{STAGE_SYMBOLS[i].label}</Text>
               <Text style={styles.legendDesc}>{item.desc}</Text>
             </View>
           ))}
@@ -221,5 +284,45 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.sm,
     color: colors.text2,
     flex: 1,
+  },
+  reviewSection: {
+    gap: spacing.sm,
+  },
+  reviewSubtext: {
+    fontFamily: typography.body,
+    fontSize: fontSizes.sm,
+    color: colors.text3,
+    lineHeight: 20,
+    marginBottom: spacing.xs,
+  },
+  reviewCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    padding: spacing.md,
+    gap: spacing.sm,
+  },
+  reviewGlyph: {
+    fontSize: 20,
+    width: 28,
+    textAlign: 'center',
+  },
+  reviewInfo: {
+    flex: 1,
+    gap: 2,
+  },
+  reviewTitle: {
+    fontFamily: typography.bodyMedium,
+    fontSize: fontSizes.sm,
+    color: colors.text,
+  },
+  reviewRemaining: {
+    fontFamily: typography.mono,
+    fontSize: fontSizes.xs,
+  },
+  reviewArrow: {
+    fontSize: fontSizes.md,
   },
 });

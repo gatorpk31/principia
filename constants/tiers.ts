@@ -5,6 +5,8 @@ export interface TierMeta {
   isPaid: boolean;
   accentColor: string;
   description: string;
+  /** Number of concepts available for free preview in paid tiers */
+  freePreviewCount?: number;
 }
 
 export const TIERS: TierMeta[] = [
@@ -21,7 +23,7 @@ export const TIERS: TierMeta[] = [
     title: 'Proportions, Percents & Intro Equations',
     gradeLevel: '7th Grade',
     isPaid: false,
-    accentColor: '#6bbda0',
+    accentColor: '#4ecdc4',
     description: 'Connect ratios to the world around you.',
   },
   {
@@ -31,13 +33,14 @@ export const TIERS: TierMeta[] = [
     isPaid: true,
     accentColor: '#5ba8d4',
     description: 'The language of variables and lines.',
+    freePreviewCount: 3,
   },
   {
     id: 4,
     title: 'Geometry — Shape, Space & Proof',
     gradeLevel: '9th–10th Grade',
     isPaid: true,
-    accentColor: '#5ba8d4',
+    accentColor: '#7b8cde',
     description: 'Why shapes behave the way they do.',
   },
   {
@@ -53,7 +56,7 @@ export const TIERS: TierMeta[] = [
     title: 'Pre-Calculus & Trigonometry',
     gradeLevel: '11th–12th Grade',
     isPaid: true,
-    accentColor: '#c9a96e',
+    accentColor: '#d4915b',
     description: 'Functions, circles, and the doorway to calculus.',
   },
   {
@@ -69,7 +72,7 @@ export const TIERS: TierMeta[] = [
     title: 'Calculus II & Proof-Based Mathematics',
     gradeLevel: 'College+',
     isPaid: true,
-    accentColor: '#d47878',
+    accentColor: '#b86ecc',
     description: 'Rigorous proof, series, and Euler-level thinking.',
   },
 ];

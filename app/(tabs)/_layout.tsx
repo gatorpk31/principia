@@ -46,9 +46,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="about"
         options={{
-          title: 'About',
+          title: 'Settings',
           tabBarIcon: ({ focused }) => (
-            <Text style={{ fontSize: 18, opacity: focused ? 1 : 0.5 }}>◉</Text>
+            <Text style={{ fontSize: 18, opacity: focused ? 1 : 0.5 }}>⚙</Text>
           ),
         }}
       />

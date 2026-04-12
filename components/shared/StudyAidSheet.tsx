@@ -8,7 +8,7 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import { colors, typography, fontSizes, spacing, radius } from '../../constants/theme';
+import { colors, typography, fontSizes, spacing, radius, tierColor } from '../../constants/theme';
 import { Button } from '../ui/Button';
 import { TIERS } from '../../constants/tiers';
 import { ALL_CONCEPTS } from '../../data';
@@ -38,6 +38,11 @@ export function StudyAidSheet({
     }
   };
 
+  const exploredCount = Object.values(progress).filter((p) => p.concept).length;
+  const formulaCount = ALL_CONCEPTS.filter(
+    (c) => progress[c.id]?.guided && c.conceptTab.formula,
+  ).length;
+
   return (
     <Modal
       visible={visible}
@@ -47,7 +52,12 @@ export function StudyAidSheet({
     >
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Study Aid</Text>
+          <View>
+            <Text style={styles.title}>Reference Sheet</Text>
+            <Text style={styles.headerSub}>
+              {exploredCount} concepts · {formulaCount} formulas unlocked
+            </Text>
+          </View>
           <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
             <Text style={styles.closeText}>✕</Text>
           </TouchableOpacity>
@@ -59,34 +69,61 @@ export function StudyAidSheet({
               (c) => c.tierId === tier.id && progress[c.id]?.concept,
             );
             if (concepts.length === 0) return null;
+            const accent = tierColor(tier.id);
 
             return (
               <View key={tier.id} style={styles.tierSection}>
-                <Text style={[styles.tierTitle, { color: tier.accentColor }]}>
-                  Tier {tier.id} — {tier.title}
-                </Text>
+                <View style={[styles.tierHeader, { borderLeftColor: accent }]}>
+                  <Text style={[styles.tierTitle, { color: accent }]}>
+                    Tier {tier.id}
+                  </Text>
+                  <Text style={styles.tierName}>{tier.title}</Text>
+                </View>
+
                 {concepts.map((concept) => {
                   const p = progress[concept.id];
+                  const hasFormula = !!concept.conceptTab.formula && p?.guided;
+                  const hasInsight = p?.concept;
+
                   return (
-                    <View key={concept.id} style={styles.conceptRow}>
-                      <Text style={styles.conceptGlyph}>{concept.glyph}</Text>
-                      <View style={styles.conceptInfo}>
+                    <View key={concept.id} style={styles.conceptCard}>
+                      <View style={styles.conceptHeader}>
+                        <Text style={styles.conceptGlyph}>{concept.glyph}</Text>
                         <Text style={styles.conceptTitle}>{concept.title}</Text>
-                        <Text style={styles.conceptSummary}>
-                          {concept.conceptTab.summary}
-                        </Text>
-                        {concept.conceptTab.formula && p?.guided && (
-                          <Text style={styles.formula}>
+                      </View>
+
+                      {/* Core summary — always shown */}
+                      <Text style={styles.conceptSummary}>
+                        {concept.conceptTab.summary}
+                      </Text>
+
+                      {/* Formula — shown after completing guided */}
+                      {hasFormula && (
+                        <View style={[styles.formulaBox, { borderColor: accent + '33', backgroundColor: accent + '0a' }]}>
+                          {concept.conceptTab.formulaLabel && (
+                            <Text style={styles.formulaLabel}>
+                              {concept.conceptTab.formulaLabel}
+                            </Text>
+                          )}
+                          <Text style={[styles.formula, { color: accent }]}>
                             {concept.conceptTab.formula}
                           </Text>
-                        )}
-                        {p?.connections && concept.connections.length > 0 && (
-                          <Text style={styles.connections}>
-                            Connects to:{' '}
-                            {concept.connections.map((c) => c.title).join(', ')}
-                          </Text>
-                        )}
-                      </View>
+                        </View>
+                      )}
+
+                      {/* Key insight — first insight from the concept */}
+                      {hasInsight && concept.conceptTab.insights[0] && (
+                        <Text style={styles.insight}>
+                          {concept.conceptTab.insights[0]}
+                        </Text>
+                      )}
+
+                      {/* Connections */}
+                      {p?.connections && concept.connections.length > 0 && (
+                        <Text style={styles.connections}>
+                          Links to: {concept.connections.map((c) => c.title).join(' · ')}
+                        </Text>
+                      )}
                     </View>
                   );
                 })}
@@ -94,10 +131,11 @@ export function StudyAidSheet({
             );
           })}
 
-          {Object.keys(progress).filter((id) => progress[id].concept).length === 0 && (
+          {exploredCount === 0 && (
             <View style={styles.emptyState}>
+              <Text style={styles.emptyTitle}>Your Reference Sheet</Text>
               <Text style={styles.emptyText}>
-                Start exploring concepts to build your personalized study aid.
+                As you explore concepts, formulas and key ideas will appear here — building your personalized math reference.
               </Text>
             </View>
           )}
@@ -135,6 +173,12 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.xl,
     color: colors.text,
   },
+  headerSub: {
+    fontFamily: typography.mono,
+    fontSize: fontSizes.xs,
+    color: colors.text3,
+    marginTop: 2,
+  },
   closeBtn: {
     padding: spacing.sm,
   },
@@ -148,61 +192,98 @@ const styles = StyleSheet.create({
   scrollContent: {
     padding: spacing.lg,
     gap: spacing.xl,
+    paddingBottom: spacing.xxxl,
   },
   tierSection: {
     gap: spacing.sm,
   },
-  tierTitle: {
-    fontFamily: typography.serif,
-    fontSize: fontSizes.md,
+  tierHeader: {
+    borderLeftWidth: 3,
+    paddingLeft: spacing.sm,
     marginBottom: spacing.xs,
   },
-  conceptRow: {
+  tierTitle: {
+    fontFamily: typography.monoBold,
+    fontSize: fontSizes.xs,
+    letterSpacing: 0.5,
+  },
+  tierName: {
+    fontFamily: typography.bodyMedium,
+    fontSize: fontSizes.sm,
+    color: colors.text2,
+  },
+  conceptCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.md,
+    gap: spacing.xs,
+  },
+  conceptHeader: {
     flexDirection: 'row',
+    alignItems: 'center',
     gap: spacing.sm,
-    paddingLeft: spacing.sm,
-    borderLeftWidth: 2,
-    borderLeftColor: colors.border2,
-    paddingVertical: spacing.xs,
   },
   conceptGlyph: {
-    fontSize: 20,
-    width: 28,
-  },
-  conceptInfo: {
-    flex: 1,
-    gap: 2,
+    fontSize: 16,
   },
   conceptTitle: {
     fontFamily: typography.bodyMedium,
     fontSize: fontSizes.base,
     color: colors.text,
+    flex: 1,
   },
   conceptSummary: {
     fontFamily: typography.body,
     fontSize: fontSizes.sm,
     color: colors.text2,
+    lineHeight: 20,
+  },
+  formulaBox: {
+    borderRadius: radius.sm,
+    borderWidth: 1,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+    alignItems: 'center',
+    gap: 2,
+  },
+  formulaLabel: {
+    fontFamily: typography.mono,
+    fontSize: fontSizes.xs,
+    color: colors.text3,
   },
   formula: {
-    fontFamily: typography.mono,
-    fontSize: fontSizes.sm,
-    color: colors.gold,
-    marginTop: 2,
+    fontFamily: typography.monoBold,
+    fontSize: fontSizes.base,
+    textAlign: 'center',
   },
-  connections: {
+  insight: {
     fontFamily: typography.body,
     fontSize: fontSizes.xs,
     color: colors.text3,
+    lineHeight: 18,
     fontStyle: 'italic',
+  },
+  connections: {
+    fontFamily: typography.mono,
+    fontSize: fontSizes.xs,
+    color: colors.text3,
   },
   emptyState: {
     padding: spacing.xl,
     alignItems: 'center',
+    gap: spacing.sm,
+  },
+  emptyTitle: {
+    fontFamily: typography.serif,
+    fontSize: fontSizes.lg,
+    color: colors.text2,
   },
   emptyText: {
     fontFamily: typography.body,
     fontSize: fontSizes.base,
-    color: colors.text2,
+    color: colors.text3,
     textAlign: 'center',
     lineHeight: 24,
   },

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import {
   View,
   Text,
+  TextInput,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
@@ -10,28 +11,32 @@ import {
 import { useRouter } from 'expo-router';
 import { colors, typography, fontSizes, spacing, radius, tierColor } from '../../constants/theme';
 import { TIERS } from '../../constants/tiers';
-import { ALL_CONCEPTS } from '../../data';
+import { ALL_CONCEPTS, isConceptLocked } from '../../data';
 import { ConceptCard } from '../../components/shared/ConceptCard';
 import { TierCard } from '../../components/shared/TierCard';
 import { StudyAidSheet } from '../../components/shared/StudyAidSheet';
 import { useProgress } from '../../hooks/useProgress';
 import { useSubscription } from '../../hooks/useSubscription';
 import { useStudyAid } from '../../hooks/useStudyAid';
+import { useBookmarks } from '../../hooks/useBookmarks';
 import { APP_NAME } from '../../constants/config';
 
-type FilterKey = 'all' | 'free' | `tier${number}`;
+type FilterKey = 'all' | 'free' | 'saved' | `tier${number}`;
 
 export default function Explore() {
   const router = useRouter();
   const { progress, getConceptProgress, tierPercent } = useProgress();
   const { isPremium } = useSubscription();
   const { generatePDF } = useStudyAid(progress);
+  const { bookmarks, isBookmarked } = useBookmarks();
   const [filter, setFilter] = useState<FilterKey>('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [studyAidVisible, setStudyAidVisible] = useState(false);
 
   const filterPills: { key: FilterKey; label: string }[] = [
     { key: 'all', label: 'All' },
     { key: 'free', label: 'Free' },
+    ...(bookmarks.length > 0 ? [{ key: 'saved' as FilterKey, label: `Saved (${bookmarks.length})` }] : []),
     ...TIERS.map((t) => ({ key: `tier${t.id}` as FilterKey, label: `Tier ${t.id}` })),
   ];
 
@@ -42,8 +47,21 @@ export default function Explore() {
     return TIERS.filter((t) => t.id === tierNum);
   }, [filter]);
 
-  const handleConceptPress = (conceptId: string, tierId: number, isPaid: boolean) => {
-    if (isPaid && !isPremium) {
+  const searchLower = searchQuery.toLowerCase().trim();
+  const searchActive = searchLower.length > 0;
+
+  const searchResults = useMemo(() => {
+    if (!searchActive) return [];
+    return ALL_CONCEPTS.filter(
+      (c) =>
+        c.title.toLowerCase().includes(searchLower) ||
+        c.subtitle.toLowerCase().includes(searchLower) ||
+        c.tags.some((t) => t.toLowerCase().includes(searchLower)),
+    );
+  }, [searchLower, searchActive]);
+
+  const handleConceptPress = (conceptId: string) => {
+    if (isConceptLocked(conceptId, isPremium)) {
       router.push('/paywall');
       return;
     }
@@ -59,7 +77,7 @@ export default function Explore() {
           onPress={() => setStudyAidVisible(true)}
           activeOpacity={0.8}
         >
-          <Text style={styles.studyAidText}>Study Aid</Text>
+          <Text style={styles.studyAidText}>Reference</Text>
         </TouchableOpacity>
 
         <Text style={styles.appTitle}>{APP_NAME}</Text>
@@ -72,26 +90,42 @@ export default function Explore() {
         </View>
       </View>
 
-      {/* Filter pills */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.pillsRow}
-        style={styles.pillsScroll}
-      >
-        {filterPills.map((pill) => (
-          <TouchableOpacity
-            key={pill.key}
-            onPress={() => setFilter(pill.key)}
-            style={[styles.pill, filter === pill.key && styles.pillActive]}
-            activeOpacity={0.8}
-          >
-            <Text style={[styles.pillText, filter === pill.key && styles.pillTextActive]}>
-              {pill.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      {/* Search bar */}
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search concepts…"
+          placeholderTextColor={colors.text3}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          returnKeyType="search"
+          clearButtonMode="while-editing"
+          autoCorrect={false}
+        />
+      </View>
+
+      {/* Filter pills — hidden when searching */}
+      {!searchActive && (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.pillsRow}
+          style={styles.pillsScroll}
+        >
+          {filterPills.map((pill) => (
+            <TouchableOpacity
+              key={pill.key}
+              onPress={() => setFilter(pill.key)}
+              style={[styles.pill, filter === pill.key && styles.pillActive]}
+              activeOpacity={0.8}
+            >
+              <Text style={[styles.pillText, filter === pill.key && styles.pillTextActive]}>
+                {pill.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      )}
 
       {/* Concept browser */}
       <ScrollView
@@ -99,27 +133,63 @@ export default function Explore() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {filteredTiers.map((tier) => {
-          const concepts = ALL_CONCEPTS.filter((c) => c.tierId === tier.id);
-          if (concepts.length === 0) return null;
-
-          return (
-            <View key={tier.id} style={styles.tierSection}>
-              <TierCard tier={tier} percentComplete={tierPercent(tier.id)} />
-              {concepts.map((concept) => (
+        {searchActive ? (
+          <>
+            <Text style={styles.searchResultsLabel}>
+              {searchResults.length} result{searchResults.length !== 1 ? 's' : ''}
+            </Text>
+            {searchResults.map((concept) => {
+              const tier = TIERS.find((t) => t.id === concept.tierId);
+              return (
                 <ConceptCard
                   key={concept.id}
                   concept={concept}
                   progress={getConceptProgress(concept.id, concept.tierId)}
-                  locked={tier.isPaid && !isPremium}
-                  onPress={() =>
-                    handleConceptPress(concept.id, concept.tierId, tier.isPaid)
-                  }
+                  locked={isConceptLocked(concept.id, isPremium)}
+                  onPress={() => handleConceptPress(concept.id)}
                 />
-              ))}
-            </View>
-          );
-        })}
+              );
+            })}
+          </>
+        ) : filter === 'saved' ? (
+          <>
+            <Text style={styles.searchResultsLabel}>
+              {bookmarks.length} saved concept{bookmarks.length !== 1 ? 's' : ''}
+            </Text>
+            {ALL_CONCEPTS.filter((c) => isBookmarked(c.id)).map((concept) => {
+              const tier = TIERS.find((t) => t.id === concept.tierId);
+              return (
+                <ConceptCard
+                  key={concept.id}
+                  concept={concept}
+                  progress={getConceptProgress(concept.id, concept.tierId)}
+                  locked={isConceptLocked(concept.id, isPremium)}
+                  onPress={() => handleConceptPress(concept.id)}
+                />
+              );
+            })}
+          </>
+        ) : (
+          filteredTiers.map((tier) => {
+            const concepts = ALL_CONCEPTS.filter((c) => c.tierId === tier.id);
+            if (concepts.length === 0) return null;
+
+            return (
+              <View key={tier.id} style={styles.tierSection}>
+                <TierCard tier={tier} percentComplete={tierPercent(tier.id)} />
+                {concepts.map((concept) => (
+                  <ConceptCard
+                    key={concept.id}
+                    concept={concept}
+                    progress={getConceptProgress(concept.id, concept.tierId)}
+                    locked={isConceptLocked(concept.id, isPremium)}
+                    onPress={() => handleConceptPress(concept.id)}
+                  />
+                ))}
+              </View>
+            );
+          })
+        )}
       </ScrollView>
 
       <StudyAidSheet
@@ -175,6 +245,28 @@ const styles = StyleSheet.create({
     fontFamily: typography.monoBold,
     fontSize: fontSizes.sm,
     color: colors.gold,
+  },
+  searchContainer: {
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.xs,
+  },
+  searchInput: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingHorizontal: spacing.base,
+    paddingVertical: 10,
+    fontFamily: typography.body,
+    fontSize: fontSizes.base,
+    color: colors.text,
+  },
+  searchResultsLabel: {
+    fontFamily: typography.mono,
+    fontSize: fontSizes.xs,
+    color: colors.text3,
+    letterSpacing: 0.5,
+    marginBottom: spacing.xs,
   },
   pillsScroll: {
     maxHeight: 44,
