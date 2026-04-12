@@ -11,12 +11,14 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 import { colors, typography, fontSizes, spacing, radius, tierColor } from '../../constants/theme';
 import { ALL_CONCEPTS } from '../../data';
+import { TIERS } from '../../constants/tiers';
 import { ConceptTab } from '../../components/concept/ConceptTab';
 import { GuidedTab } from '../../components/concept/GuidedTab';
 import { PracticeTab } from '../../components/concept/PracticeTab';
 import { ConnectionsTab } from '../../components/concept/ConnectionsTab';
 import { ConceptVisualization } from '../../components/concept/ConceptVisualization';
 import { useProgress } from '../../hooks/useProgress';
+import { useSubscription } from '../../hooks/useSubscription';
 import { logConceptVisit, logTabComplete } from '../../services/analytics';
 
 type TabName = 'concept' | 'guided' | 'practice' | 'connections';
@@ -32,6 +34,7 @@ export default function ConceptScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { getConceptProgress, markExplored } = useProgress();
+  const { isPremium } = useSubscription();
   const [activeTab, setActiveTab] = useState<TabName>('concept');
 
   const concept = ALL_CONCEPTS.find((c) => c.id === id);
@@ -42,6 +45,23 @@ export default function ConceptScreen() {
         <Text style={styles.notFoundText}>Concept not found.</Text>
         <TouchableOpacity onPress={() => router.back()}>
           <Text style={{ color: colors.gold }}>← Go back</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  }
+
+  // Enforce paywall: if this concept belongs to a paid tier and user is not premium,
+  // redirect to paywall instead of showing the content.
+  const tier = TIERS.find((t) => t.id === concept.tierId);
+  if (tier?.isPaid && !isPremium) {
+    return (
+      <SafeAreaView style={styles.notFound}>
+        <Text style={styles.notFoundText}>This content requires a subscription.</Text>
+        <TouchableOpacity onPress={() => router.push('/paywall')}>
+          <Text style={{ color: colors.gold }}>Unlock Premium →</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => router.back()} style={{ marginTop: spacing.sm }}>
+          <Text style={{ color: colors.text2 }}>← Go back</Text>
         </TouchableOpacity>
       </SafeAreaView>
     );

@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { AppState } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import {
   getCustomerInfo,
@@ -7,10 +8,15 @@ import {
 } from '../services/revenuecat';
 import { REVENUECAT, SECURE_STORE_KEYS } from '../constants/config';
 
+export interface PurchaseResult {
+  success: boolean;
+  error?: string;
+}
+
 export interface SubscriptionState {
   isPremium: boolean;
   isLoading: boolean;
-  purchase: (productId: string) => Promise<boolean>;
+  purchase: (productId: string) => Promise<PurchaseResult>;
   restore: () => Promise<boolean>;
   refresh: () => Promise<void>;
 }
@@ -58,13 +64,25 @@ export function useSubscription(): SubscriptionState {
     checkEntitlement();
   }, [checkEntitlement]);
 
+  // Re-check entitlement when app returns to foreground (e.g. after promo code redemption)
+  const appState = useRef(AppState.currentState);
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (nextState) => {
+      if (appState.current.match(/inactive|background/) && nextState === 'active') {
+        checkEntitlement();
+      }
+      appState.current = nextState;
+    });
+    return () => sub.remove();
+  }, [checkEntitlement]);
+
   const purchase = useCallback(
-    async (productId: string): Promise<boolean> => {
-      const success = await purchasePackageById(productId);
-      if (success) {
+    async (productId: string): Promise<PurchaseResult> => {
+      const result = await purchasePackageById(productId);
+      if (result.success) {
         setIsPremium(true);
       }
-      return success;
+      return result;
     },
     [],
   );

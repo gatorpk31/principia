@@ -14,7 +14,7 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
 
 interface ButtonProps {
   label: string;
-  onPress: () => void;
+  onPress: () => void | Promise<void>;
   variant?: Variant;
   loading?: boolean;
   disabled?: boolean;
@@ -37,7 +37,7 @@ export function Button({
 }: ButtonProps) {
   const handlePress = async () => {
     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    onPress();
+    await onPress();
   };
 
   return (

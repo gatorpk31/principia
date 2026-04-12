@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import {
-  Modal,
   View,
   Text,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
-  Linking,
+  Alert,
 } from 'react-native';
+import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors, typography, fontSizes, spacing, radius } from '../../constants/theme';
 import { Button } from '../ui/Button';
-import { PRICING, REVENUECAT, WEBSITE_URL } from '../../constants/config';
+import { PRICING, REVENUECAT } from '../../constants/config';
+import { PurchaseResult } from '../../hooks/useSubscription';
 
 interface PaywallModalProps {
-  visible: boolean;
   onClose: () => void;
-  onPurchase: (productId: string) => Promise<boolean>;
+  onPurchase: (productId: string) => Promise<PurchaseResult>;
   onRestore: () => Promise<boolean>;
 }
 
@@ -30,11 +30,11 @@ const FEATURES = [
 ];
 
 export function PaywallModal({
-  visible,
   onClose,
   onPurchase,
   onRestore,
 }: PaywallModalProps) {
+  const router = useRouter();
   const [selectedPlan, setSelectedPlan] = useState<'annual' | 'monthly'>('annual');
   const [loading, setLoading] = useState(false);
   const [restoring, setRestoring] = useState(false);
@@ -45,9 +45,13 @@ export function PaywallModal({
       selectedPlan === 'annual'
         ? REVENUECAT.annualProductId
         : REVENUECAT.monthlyProductId;
-    const success = await onPurchase(productId);
+    const result = await onPurchase(productId);
     setLoading(false);
-    if (success) onClose();
+    if (result.success) {
+      onClose();
+    } else if (result.error) {
+      Alert.alert('Unable to Purchase', result.error);
+    }
   };
 
   const handleRestore = async () => {
@@ -57,12 +61,6 @@ export function PaywallModal({
   };
 
   return (
-    <Modal
-      visible={visible}
-      animationType="slide"
-      presentationStyle="fullScreen"
-      onRequestClose={onClose}
-    >
       <SafeAreaView style={styles.container}>
         {/* Close button */}
         <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
@@ -82,7 +80,7 @@ export function PaywallModal({
               Unlock the full Principia curriculum
             </Text>
             <Text style={styles.subheadline}>
-              8 tiers. 60+ concepts. From fractions to Spivak.
+              8 tiers. 60+ concepts. From fractions to formal proof.
             </Text>
           </LinearGradient>
 
@@ -169,19 +167,18 @@ export function PaywallModal({
           </TouchableOpacity>
           <Text style={styles.footerDot}>·</Text>
           <TouchableOpacity
-            onPress={() => Linking.openURL(`${WEBSITE_URL}/terms`)}
+            onPress={() => router.push('/legal/terms')}
           >
             <Text style={styles.footerLink}>Terms</Text>
           </TouchableOpacity>
           <Text style={styles.footerDot}>·</Text>
           <TouchableOpacity
-            onPress={() => Linking.openURL(`${WEBSITE_URL}/privacy`)}
+            onPress={() => router.push('/legal/privacy')}
           >
             <Text style={styles.footerLink}>Privacy</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-    </Modal>
   );
 }
 

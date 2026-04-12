@@ -12,7 +12,6 @@ export default function Paywall() {
   return (
     <View style={{ flex: 1, backgroundColor: colors.bg }}>
       <PaywallModal
-        visible={true}
         onClose={() => router.back()}
         onPurchase={purchase}
         onRestore={restore}

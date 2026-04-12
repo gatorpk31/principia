@@ -8,13 +8,11 @@ export const PRICING = {
   monthly: '$6.99',
   annual: '$49.99',
   annualMonthly: '$4.17',
-  lifetime: '$149.99',
 } as const;
 
 export const REVENUECAT = {
   monthlyProductId: 'principia_monthly',
   annualProductId: 'principia_annual',
-  lifetimeProductId: 'principia_lifetime',
   entitlementId: 'premium',
 } as const;
 

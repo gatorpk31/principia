@@ -14,7 +14,10 @@ function TabIcon({ focused, emoji, label, accentColor = colors.gold }: TabIconPr
   return (
     <View style={styles.iconContainer}>
       <Text style={[styles.emoji, focused && { opacity: 1 }]}>{emoji}</Text>
-      <Text style={[styles.label, { color: focused ? accentColor : colors.text3 }]}>
+      <Text
+        numberOfLines={1}
+        style={[styles.label, { color: focused ? accentColor : colors.text3 }]}
+      >
         {label}
       </Text>
     </View>
@@ -67,11 +70,11 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   iconContainer: {
     alignItems: 'center',
-    gap: 3,
+    gap: 4,
     paddingTop: 8,
   },
   emoji: {
-    fontSize: 22,
+    fontSize: 18,
     opacity: 0.5,
   },
   label: {

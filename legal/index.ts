@@ -108,7 +108,6 @@ Full access to the Service is available through the following paid options, all 
 
   (a) Monthly Subscription: $6.99 per month
   (b) Annual Subscription: $49.99 per year
-  (c) Lifetime Access: $149.99 (one-time purchase)
 
 Prices are listed in United States Dollars (USD). Applicable taxes may be added by the platform at the time of purchase.
 
@@ -134,10 +133,6 @@ We reserve the right to change subscription pricing at any time. We will provide
 5.7 Payment Processing
 
 We use RevenueCat, Inc. ("RevenueCat") to manage subscription state, entitlements, and purchase validation. We do not directly receive, process, or store your credit card number, debit card number, or other financial payment instrument data. All such data is handled by Apple, Google, or RevenueCat pursuant to their respective privacy and security policies.
-
-5.8 Lifetime Access
-
-The one-time lifetime access purchase grants a perpetual license to use the version of the Service available at the time of purchase and all subsequent updates made available through the App, for as long as Axiom 38 LLC continues to operate the Service. In the event of Service discontinuation, Axiom 38 LLC's liability is limited as set forth in Section 12.
 
 ────────────────────────────────────────────────────────────────
 6. LICENSE TO USE
