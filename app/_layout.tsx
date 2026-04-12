@@ -10,6 +10,8 @@ import { initRevenueCat } from '../services/revenuecat';
 import { colors } from '../constants/theme';
 import { ToastProvider } from '../components/ui/Toast';
 
+export { ErrorBoundary } from 'expo-router';
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {

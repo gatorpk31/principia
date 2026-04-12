@@ -17,7 +17,7 @@ module.exports = {
   newArchEnabled: true,
   ios: {
     bundleIdentifier: "com.axiom38.principia",
-    buildNumber: "1",
+    buildNumber: "2",
     supportsTablet: true,
     usesAppleSignIn: false,
     infoPlist: {

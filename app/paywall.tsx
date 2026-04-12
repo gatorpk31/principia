@@ -5,6 +5,8 @@ import { PaywallModal } from '../components/paywall/PaywallModal';
 import { useSubscription } from '../hooks/useSubscription';
 import { colors } from '../constants/theme';
 
+export { ErrorBoundary } from 'expo-router';
+
 export default function Paywall() {
   const router = useRouter();
   const { purchase, restore } = useSubscription();

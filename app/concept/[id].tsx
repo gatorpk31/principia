@@ -21,6 +21,8 @@ import { useProgress } from '../../hooks/useProgress';
 import { useSubscription } from '../../hooks/useSubscription';
 import { logConceptVisit, logTabComplete } from '../../services/analytics';
 
+export { ErrorBoundary } from 'expo-router';
+
 type TabName = 'concept' | 'guided' | 'practice' | 'connections';
 
 const TAB_LABELS: { key: TabName; label: string }[] = [
