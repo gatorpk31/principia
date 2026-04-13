@@ -117,7 +117,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: 'Same amount, different names',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'fraction-bar',
+    visualizationType: 'fraction-equivalence',
     canvasLabel: 'Equal Portions',
     conceptTab: {
       summary: 'Equivalent fractions are different fractions that show the exact same amount.',
@@ -207,7 +207,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: 'The same-denominator rule — and why it exists',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'fraction-bar',
+    visualizationType: 'fraction-arithmetic',
     canvasLabel: 'Adding Fractions',
     conceptTab: {
       summary: 'You can only add fractions directly when they describe pieces of the same size.',
@@ -302,7 +302,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: '"Of" means multiply — and division flips',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'fraction-bar',
+    visualizationType: 'fraction-multiply',
     canvasLabel: 'Fraction Multiplication',
     conceptTab: {
       summary: 'To multiply fractions, multiply the tops together and the bottoms together. Division is multiplication with a flipped second fraction.',
@@ -397,7 +397,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: 'Comparing two amounts — and finding the per-one rate',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'number-line',
+    visualizationType: 'ratio-tape',
     canvasLabel: 'Rate on Number Line',
     conceptTab: {
       summary: 'A ratio compares two amounts. A unit rate is what happens when one of those amounts equals 1.',
@@ -487,7 +487,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: 'Per hundred: fractions with a fixed denominator',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'fraction-bar',
+    visualizationType: 'percent-fill',
     canvasLabel: 'Percent Bar',
     conceptTab: {
       summary: 'A percentage is just a fraction with a denominator of 100. "Per cent" means "per hundred."',
@@ -577,7 +577,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: 'Numbers below zero — debt, temperature, and direction',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'number-line',
+    visualizationType: 'negative-number-line',
     canvasLabel: 'Number Line',
     conceptTab: {
       summary: 'Negative numbers represent amounts less than zero — below freezing, in debt, or moving backward.',
@@ -662,7 +662,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: "Why PEMDAS exists — and what it's really for",
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'number-line',
+    visualizationType: 'pemdas-builder',
     canvasLabel: 'Order of Operations',
     conceptTab: {
       summary: 'Order of operations is a set of agreed-upon rules that makes sure everyone who reads a math expression gets the same answer.',
@@ -757,7 +757,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: 'Which fraction is bigger — and how to know for sure',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'fraction-bar',
+    visualizationType: 'fraction-ordering',
     canvasLabel: 'Fraction Comparison Bar',
     conceptTab: {
       summary: 'To compare fractions, convert them to the same denominator — then the bigger numerator wins.',
@@ -859,7 +859,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: 'Two ways to write amounts bigger than one',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'fraction-bar',
+    visualizationType: 'mixed-numbers',
     canvasLabel: 'Mixed Number Bar',
     conceptTab: {
       summary: 'A mixed number combines a whole number and a fraction. An improper fraction has a numerator larger than its denominator. They are the same amount written differently.',
@@ -956,7 +956,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: 'Tenths, hundredths, thousandths — the place-value extension',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'number-line',
+    visualizationType: 'decimal-slider',
     canvasLabel: 'Decimal Number Line',
     conceptTab: {
       summary: 'A decimal is just a fraction whose denominator is a power of 10 (10, 100, 1000…), written using a dot instead of a fraction bar.',
@@ -1155,7 +1155,7 @@ export const TIER1_CONCEPTS: Concept[] = [
     subtitle: 'Greatest common factor and least common multiple',
     tags: ['arithmetic'],
     accessibilityLevel: 'elementary',
-    visualizationType: 'factor-tree',
+    visualizationType: 'venn-gcf-lcm',
     canvasLabel: 'GCF and LCM',
     conceptTab: {
       summary: 'The GCF is the largest number that divides two numbers evenly. The LCM is the smallest number that both numbers divide into evenly.',

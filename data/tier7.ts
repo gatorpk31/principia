@@ -9,7 +9,7 @@ export const TIER7_CONCEPTS: Concept[] = [
     subtitle: 'Getting infinitely close without arriving',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'limit-table',
     canvasLabel: 'Function Approach',
     conceptTab: {
       summary: 'A limit describes the value a function gets closer and closer to as the input approaches some number — even if the function never actually reaches it.',
@@ -209,7 +209,7 @@ export const TIER7_CONCEPTS: Concept[] = [
     subtitle: 'Power, product, quotient, and chain rules',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'derivative-slope',
     canvasLabel: 'Derivative Graph',
     conceptTab: {
       summary: 'Derivative rules are shortcuts that let you differentiate any algebraic, trigonometric, or exponential function without recomputing the limit definition every time.',
@@ -304,7 +304,7 @@ export const TIER7_CONCEPTS: Concept[] = [
     subtitle: 'Optimization, curve sketching, and related rates',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'parabola',
+    visualizationType: 'optimization-box',
     canvasLabel: 'Critical Points',
     conceptTab: {
       summary: "Derivatives reveal where functions increase, decrease, and turn around — enabling optimization problems that find true maxima and minima.",
@@ -499,7 +499,7 @@ export const TIER7_CONCEPTS: Concept[] = [
     subtitle: 'Derivatives and integrals are inverse operations',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'ftc-area',
     canvasLabel: 'Antiderivative',
     conceptTab: {
       summary: 'The Fundamental Theorem of Calculus reveals that differentiation and integration are inverse operations — the two great processes of calculus are secretly one.',
@@ -589,7 +589,7 @@ export const TIER7_CONCEPTS: Concept[] = [
     subtitle: 'Reversing the chain rule to integrate compositions',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'u-sub-chain',
     canvasLabel: 'Substitution',
     conceptTab: {
       summary: "U-substitution rewrites a complicated integral in terms of a simpler variable u, transforming it into a recognizable form. It is the reverse of the chain rule.",
@@ -684,7 +684,7 @@ export const TIER7_CONCEPTS: Concept[] = [
     subtitle: 'When functions flow smoothly — and when they break',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'continuity-test',
     canvasLabel: 'Continuity and Gaps',
     conceptTab: {
       summary: 'A function is continuous at a point if there is no interruption in its graph there — no holes, jumps, or vertical asymptotes. Understanding the ways continuity can fail is essential for calculus.',
@@ -791,7 +791,7 @@ export const TIER7_CONCEPTS: Concept[] = [
     subtitle: 'There is always a moment when instantaneous equals average',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'secant-tangent',
+    visualizationType: 'mvt-secant',
     canvasLabel: 'Secant and Tangent Lines',
     conceptTab: {
       summary: "The Mean Value Theorem guarantees that for any smooth curve on an interval, there is at least one point where the tangent line is perfectly parallel to the secant line connecting the endpoints.",
@@ -898,7 +898,7 @@ export const TIER7_CONCEPTS: Concept[] = [
     subtitle: 'Resolving indeterminate forms by differentiating numerator and denominator',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'lhopital-zoom',
     canvasLabel: "L'Hôpital's Rule",
     conceptTab: {
       summary: "L'Hôpital's rule converts a limit of the form 0/0 or ∞/∞ into a new limit by replacing the numerator and denominator with their derivatives — separately, not via the quotient rule.",
@@ -1005,7 +1005,7 @@ export const TIER7_CONCEPTS: Concept[] = [
     subtitle: 'When two changing quantities are linked by a geometric or physical relationship',
     tags: ['calculus', 'geometry'],
     accessibilityLevel: 'college',
-    visualizationType: 'secant-tangent',
+    visualizationType: 'related-rates-cone',
     canvasLabel: 'Related Rates Diagram',
     conceptTab: {
       summary: 'Related rates problems use implicit differentiation with respect to time to find how fast one quantity changes given how fast a related quantity changes.',
@@ -1112,7 +1112,7 @@ export const TIER7_CONCEPTS: Concept[] = [
     subtitle: 'Differentiating equations that cannot be solved for y',
     tags: ['calculus', 'algebra'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'implicit-curve',
     canvasLabel: 'Implicit Curve',
     conceptTab: {
       summary: "Implicit differentiation finds dy/dx for curves defined by equations in both x and y, without needing to solve for y first. It treats y as a function of x and applies the chain rule.",

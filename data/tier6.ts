@@ -104,7 +104,7 @@ export const TIER6_CONCEPTS: Concept[] = [
     subtitle: 'Periodic waves — the mathematics of cycles',
     tags: ['trig', 'precalc'],
     accessibilityLevel: 'high',
-    visualizationType: 'unit-circle',
+    visualizationType: 'sine-wave',
     canvasLabel: 'Sine Wave',
     conceptTab: {
       summary: 'Graphed as functions of angle (in radians), sine and cosine produce repeating wave patterns — the mathematical model for all cyclic phenomena.',
@@ -199,7 +199,7 @@ export const TIER6_CONCEPTS: Concept[] = [
     subtitle: 'Equations true for all angles — the algebra of waves',
     tags: ['trig', 'precalc'],
     accessibilityLevel: 'high',
-    visualizationType: 'unit-circle',
+    visualizationType: 'trig-identity-puzzle',
     canvasLabel: 'Identity Proof',
     conceptTab: {
       summary: 'Trigonometric identities are equations involving trig functions that are true for all valid values of the variable. They are tools for simplifying and rewriting trig expressions.',
@@ -294,7 +294,7 @@ export const TIER6_CONCEPTS: Concept[] = [
     subtitle: 'Recovering angles from ratios — with careful attention to domains',
     tags: ['trig', 'precalc'],
     accessibilityLevel: 'high',
-    visualizationType: 'unit-circle',
+    visualizationType: 'inverse-trig-arc',
     canvasLabel: 'Inverse Trig',
     conceptTab: {
       summary: 'Inverse trig functions (arcsin, arccos, arctan) recover the angle given a trig ratio. Because trig functions repeat, inverse trig functions have restricted domains and limited ranges.',
@@ -384,7 +384,7 @@ export const TIER6_CONCEPTS: Concept[] = [
     subtitle: 'Shifting, stretching, reflecting — translating between algebra and geometry',
     tags: ['precalc'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'function-transform',
     canvasLabel: 'Transformed Graph',
     conceptTab: {
       summary: 'Transformations describe how changes to a function\'s equation shift, stretch, compress, or reflect its graph in predictable ways.',
@@ -494,7 +494,7 @@ export const TIER6_CONCEPTS: Concept[] = [
     subtitle: 'The intuitive bridge to calculus — asking what a function approaches',
     tags: ['precalc', 'calculus'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'limit-approach',
     canvasLabel: 'Limit Approach',
     conceptTab: {
       summary: 'A limit asks: as x gets close to some value, what value does f(x) get close to? This intuitive question is the foundation of calculus.',
@@ -589,7 +589,7 @@ export const TIER6_CONCEPTS: Concept[] = [
     subtitle: 'Solving any triangle when you know an angle-side pair — the bridge beyond right triangles',
     tags: ['trig', 'geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'triangle',
+    visualizationType: 'law-of-sines-tri',
     canvasLabel: 'Law of Sines Triangle',
     conceptTab: {
       summary: 'The Law of Sines states that the ratio of each side to the sine of its opposite angle is constant for any triangle. It solves triangles given AAS, ASA, or SSA (the ambiguous case).',
@@ -689,7 +689,7 @@ export const TIER6_CONCEPTS: Concept[] = [
     subtitle: 'Generalizing the Pythagorean theorem to any triangle',
     tags: ['trig', 'geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'triangle',
+    visualizationType: 'law-of-cosines-tri',
     canvasLabel: 'Law of Cosines Triangle',
     conceptTab: {
       summary: 'The Law of Cosines relates all three sides of a triangle to the cosine of one angle. When the angle is 90°, it reduces to the Pythagorean theorem. It solves triangles given SAS or SSS.',
@@ -789,7 +789,7 @@ export const TIER6_CONCEPTS: Concept[] = [
     subtitle: 'Describing points by distance and angle — a natural language for rotation and waves',
     tags: ['trig', 'precalc'],
     accessibilityLevel: 'high',
-    visualizationType: 'unit-circle',
+    visualizationType: 'polar-graph',
     canvasLabel: 'Polar Coordinate Grid',
     conceptTab: {
       summary: 'Polar coordinates describe a point in the plane by its distance r from the origin and its angle θ from the positive x-axis. Some curves that are algebraically complex in Cartesian coordinates become elegantly simple as polar equations.',
@@ -884,7 +884,7 @@ export const TIER6_CONCEPTS: Concept[] = [
     subtitle: 'Quantities with both magnitude and direction — the language of forces, velocities, and fields',
     tags: ['precalc', 'geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'vector-addition',
     canvasLabel: 'Vector Diagram',
     conceptTab: {
       summary: 'A vector is a quantity with both magnitude and direction, represented as an arrow in the plane. Vectors can be added, scaled, and dotted together, making them the natural language for physics, computer graphics, and data science.',
@@ -984,7 +984,7 @@ export const TIER6_CONCEPTS: Concept[] = [
     subtitle: 'Describing motion and curves by expressing x and y independently as functions of a third variable',
     tags: ['precalc', 'calculus'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'parametric-trace',
     canvasLabel: 'Parametric Curve',
     conceptTab: {
       summary: 'Parametric equations describe a curve by expressing both x and y as functions of a third variable t (the parameter), which often represents time. This allows curves that loop, cross themselves, or cannot be described as y = f(x) to be expressed precisely.',

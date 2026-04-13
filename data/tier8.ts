@@ -9,7 +9,7 @@ export const TIER8_CONCEPTS: Concept[] = [
     subtitle: 'Reversing the product rule to integrate products',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'ibp-product',
     canvasLabel: 'Integration by Parts',
     conceptTab: {
       summary: "Integration by parts transforms an integral of a product into a (hopefully simpler) integral, by reversing the product rule for differentiation.",
@@ -104,7 +104,7 @@ export const TIER8_CONCEPTS: Concept[] = [
     subtitle: 'When infinite sums have finite answers',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'sequence-converge',
     canvasLabel: 'Partial Sums',
     conceptTab: {
       summary: 'An infinite series is an infinite sum of terms. Some infinite series converge to a finite number; others diverge to infinity. Determining which is which is the central challenge.',
@@ -199,7 +199,7 @@ export const TIER8_CONCEPTS: Concept[] = [
     subtitle: 'Tools for determining if a series converges',
     tags: ['calculus', 'proof'],
     accessibilityLevel: 'college',
-    visualizationType: 'generic',
+    visualizationType: 'convergence-meter',
     canvasLabel: 'Convergence Tests',
     conceptTab: {
       summary: 'Convergence tests are theorems that tell you whether a series converges or diverges, usually without requiring you to find the exact sum.',
@@ -294,7 +294,7 @@ export const TIER8_CONCEPTS: Concept[] = [
     subtitle: 'Approximating functions as infinite polynomials',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'taylor-approx',
     canvasLabel: 'Taylor Approximation',
     conceptTab: {
       summary: "Taylor series express a smooth function as an infinite sum of polynomial terms, giving increasingly accurate approximations using the function's derivatives at a single point.",
@@ -389,7 +389,7 @@ export const TIER8_CONCEPTS: Concept[] = [
     subtitle: 'Making limits rigorous with formal quantifiers',
     tags: ['calculus', 'proof'],
     accessibilityLevel: 'advanced',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'epsilon-delta-band',
     canvasLabel: 'Epsilon-Delta',
     conceptTab: {
       summary: 'The epsilon-delta definition of a limit replaces the vague phrase "gets close to" with a precise mathematical challenge: for any desired closeness ε, find a δ that achieves it.',
@@ -494,7 +494,7 @@ export const TIER8_CONCEPTS: Concept[] = [
     subtitle: 'Proving statements true for all natural numbers',
     tags: ['proof'],
     accessibilityLevel: 'advanced',
-    visualizationType: 'generic',
+    visualizationType: 'induction-dominoes',
     canvasLabel: 'Induction Steps',
     conceptTab: {
       summary: 'Mathematical induction is a proof technique that establishes a statement is true for all natural numbers by proving a base case and an inductive step.',
@@ -604,7 +604,7 @@ export const TIER8_CONCEPTS: Concept[] = [
     subtitle: 'Using trig identities to eliminate square roots from integrands',
     tags: ['calculus', 'trig'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'trig-sub-triangle',
     canvasLabel: 'Trig Substitution Triangle',
     conceptTab: {
       summary: 'Trigonometric substitution replaces algebraic expressions involving square roots of quadratics with trigonometric expressions, exploiting Pythagorean identities to eliminate the root.',
@@ -711,7 +711,7 @@ export const TIER8_CONCEPTS: Concept[] = [
     subtitle: 'Integrating over infinite intervals or past vertical asymptotes',
     tags: ['calculus'],
     accessibilityLevel: 'college',
-    visualizationType: 'riemann-sum',
+    visualizationType: 'improper-integral',
     canvasLabel: 'Improper Integral Area',
     conceptTab: {
       summary: 'An improper integral extends the definite integral to cases where the interval is infinite or the integrand has a vertical asymptote. Convergence is determined by taking a limit.',
@@ -813,7 +813,7 @@ export const TIER8_CONCEPTS: Concept[] = [
     subtitle: 'Assuming the opposite to prove the truth',
     tags: ['proof'],
     accessibilityLevel: 'college',
-    visualizationType: 'generic',
+    visualizationType: 'contradiction-fork',
     canvasLabel: 'Logical Contradiction',
     conceptTab: {
       summary: "Proof by contradiction (reductio ad absurdum) assumes the negation of what you want to prove, then derives a logical contradiction — showing the assumption must be false and therefore the original statement true.",
@@ -930,7 +930,7 @@ export const TIER8_CONCEPTS: Concept[] = [
     subtitle: 'Breaking rational functions into simpler pieces for integration',
     tags: ['calculus', 'algebra'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'partial-fraction-split',
     canvasLabel: 'Rational Function',
     conceptTab: {
       summary: 'Partial fraction decomposition rewrites a rational function (polynomial over polynomial) as a sum of simpler fractions, each of which can be integrated using basic rules.',
@@ -1042,7 +1042,7 @@ export const TIER8_CONCEPTS: Concept[] = [
     subtitle: 'Infinite polynomials and the interval where they converge',
     tags: ['calculus', 'precalc'],
     accessibilityLevel: 'college',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'power-series-radius',
     canvasLabel: 'Power Series Convergence',
     conceptTab: {
       summary: 'A power series is an infinite polynomial Σcₙ(x−a)ⁿ. It converges on an interval around its center a. The radius of convergence R, found by the ratio or root test, determines this interval.',

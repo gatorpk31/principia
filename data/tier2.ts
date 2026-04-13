@@ -9,7 +9,7 @@ export const TIER2_CONCEPTS: Concept[] = [
     subtitle: 'When two quantities grow together at a steady rate',
     tags: ['arithmetic', 'algebra'],
     accessibilityLevel: 'middle',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'proportional-line',
     canvasLabel: 'Proportional Graph',
     conceptTab: {
       summary: 'A proportional relationship is when two quantities always have the same ratio — one grows, the other grows at the exact same pace.',
@@ -194,7 +194,7 @@ export const TIER2_CONCEPTS: Concept[] = [
     subtitle: 'Two operations to undo — reverse the order',
     tags: ['algebra'],
     accessibilityLevel: 'middle',
-    visualizationType: 'balance-scale',
+    visualizationType: 'two-step-balance',
     canvasLabel: 'Two Steps',
     conceptTab: {
       summary: 'Two-step equations need two inverse operations — always undo addition/subtraction first, then multiplication/division.',
@@ -281,7 +281,7 @@ export const TIER2_CONCEPTS: Concept[] = [
     subtitle: 'A range of answers, not just one',
     tags: ['algebra'],
     accessibilityLevel: 'middle',
-    visualizationType: 'number-line',
+    visualizationType: 'inequality-ray',
     canvasLabel: 'Inequality on Number Line',
     conceptTab: {
       summary: 'An inequality describes all numbers that satisfy a condition — usually an infinite set, shown as a ray on the number line.',
@@ -364,7 +364,7 @@ export const TIER2_CONCEPTS: Concept[] = [
     subtitle: 'A letter that holds a number\'s place',
     tags: ['algebra'],
     accessibilityLevel: 'middle',
-    visualizationType: 'balance-scale',
+    visualizationType: 'variable-box',
     canvasLabel: 'Variable',
     conceptTab: {
       summary: "A variable is a symbol (usually a letter) that stands in for a number we don't know yet — or a number that can change.",
@@ -539,7 +539,7 @@ export const TIER2_CONCEPTS: Concept[] = [
     subtitle: 'Latitude and longitude for math — locating points in 2D',
     tags: ['geometry', 'algebra'],
     accessibilityLevel: 'middle',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'coordinate-plot',
     canvasLabel: 'Coordinate Grid',
     conceptTab: {
       summary: 'The coordinate plane is a system for identifying every point in 2D space using two numbers: x (horizontal) and y (vertical).',
@@ -726,7 +726,7 @@ export const TIER2_CONCEPTS: Concept[] = [
     subtitle: 'Cost per one — the key to smart comparison shopping',
     tags: ['arithmetic', 'algebra'],
     accessibilityLevel: 'middle',
-    visualizationType: 'number-line',
+    visualizationType: 'unit-rate-compare',
     canvasLabel: 'Unit Rate Number Line',
     conceptTab: {
       summary: 'A unit rate expresses a ratio with a denominator of 1. Unit pricing is the cost per single item — the essential tool for comparing value.',
@@ -823,7 +823,7 @@ export const TIER2_CONCEPTS: Concept[] = [
     subtitle: 'Using ratios to shrink (or enlarge) the real world',
     tags: ['arithmetic', 'geometry'],
     accessibilityLevel: 'middle',
-    visualizationType: 'area-rectangle',
+    visualizationType: 'scale-drawing',
     canvasLabel: 'Scale Drawing Grid',
     conceptTab: {
       summary: 'A scale drawing represents a real object at a fixed ratio between drawing size and actual size. The scale factor connects the two.',
@@ -920,7 +920,7 @@ export const TIER2_CONCEPTS: Concept[] = [
     subtitle: 'How money grows over time at a fixed rate',
     tags: ['arithmetic', 'algebra'],
     accessibilityLevel: 'middle',
-    visualizationType: 'bar-chart',
+    visualizationType: 'interest-growth',
     canvasLabel: 'Interest Growth Graph',
     conceptTab: {
       summary: 'Simple interest is a fixed percentage of the original principal charged (or earned) for each time period. Total interest grows linearly with time.',
@@ -1017,7 +1017,7 @@ export const TIER2_CONCEPTS: Concept[] = [
     subtitle: 'Distance from zero — and how to solve equations with |x|',
     tags: ['algebra'],
     accessibilityLevel: 'middle',
-    visualizationType: 'number-line',
+    visualizationType: 'absolute-value-fold',
     canvasLabel: 'Absolute Value Number Line',
     conceptTab: {
       summary: 'The absolute value of a number is its distance from zero on the number line — always non-negative. Absolute value equations can have two solutions.',

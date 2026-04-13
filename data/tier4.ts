@@ -9,7 +9,7 @@ export const TIER4_CONCEPTS: Concept[] = [
     subtitle: 'How a transversal creates predictable angle pairs',
     tags: ['geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'triangle',
+    visualizationType: 'parallel-angles',
     canvasLabel: 'Angle Pairs',
     conceptTab: {
       summary: 'When a line crosses two parallel lines, it creates eight angles — and the relationships between them are completely predictable.',
@@ -104,7 +104,7 @@ export const TIER4_CONCEPTS: Concept[] = [
     subtitle: 'When shapes are identical — or just proportional',
     tags: ['geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'triangle',
+    visualizationType: 'triangle-congruence',
     canvasLabel: 'Congruent Triangles',
     conceptTab: {
       summary: 'Congruent triangles are identical in shape and size. Similar triangles have the same shape but different sizes — their corresponding sides are proportional.',
@@ -199,7 +199,7 @@ export const TIER4_CONCEPTS: Concept[] = [
     subtitle: 'The relationship between the sides of every right triangle',
     tags: ['geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'triangle',
+    visualizationType: 'pythagorean-squares',
     canvasLabel: 'Right Triangle',
     conceptTab: {
       summary: 'In any right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides: a² + b² = c².',
@@ -299,7 +299,7 @@ export const TIER4_CONCEPTS: Concept[] = [
     subtitle: 'Distance, midpoint, and slope on the coordinate plane',
     tags: ['geometry', 'algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'coordinate-geometry',
     canvasLabel: 'Coordinate Plane',
     conceptTab: {
       summary: 'Coordinate geometry merges algebra and geometry — every geometric shape gets an algebraic equation, and every algebraic equation gets a geometric shape.',
@@ -389,7 +389,7 @@ export const TIER4_CONCEPTS: Concept[] = [
     subtitle: 'Logical reasoning, the two-column proof, and why certainty matters',
     tags: ['geometry', 'proof'],
     accessibilityLevel: 'high',
-    visualizationType: 'generic',
+    visualizationType: 'proof-chain',
     canvasLabel: 'Proof Logic',
     conceptTab: {
       summary: 'A mathematical proof is a chain of logical steps, each justified by a definition, postulate, or previously proved theorem, that leads inevitably to a conclusion.',
@@ -494,7 +494,7 @@ export const TIER4_CONCEPTS: Concept[] = [
     subtitle: 'Arcs, chords, tangents, and the angles they create',
     tags: ['geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'circle',
+    visualizationType: 'circle-parts',
     canvasLabel: 'Circle with Chord',
     conceptTab: {
       summary: 'A circle is defined by its center and radius. Lines and segments intersecting a circle create predictable angle and arc relationships.',
@@ -686,7 +686,7 @@ export const TIER4_CONCEPTS: Concept[] = [
     subtitle: 'How much space a solid occupies — the universal V = Bh idea',
     tags: ['geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'circle',
+    visualizationType: 'volume-fill',
     canvasLabel: 'Cylinder Volume',
     conceptTab: {
       summary: 'Volume measures how much three-dimensional space a solid occupies. For any prism or cylinder, volume equals the area of the base times the height: V = Bh.',
@@ -788,7 +788,7 @@ export const TIER4_CONCEPTS: Concept[] = [
     subtitle: 'Moving and flipping shapes without changing their size or shape',
     tags: ['geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'triangle-transform',
     canvasLabel: 'Transformation on Coordinate Plane',
     conceptTab: {
       summary: "Transformations are rules that move every point of a figure to a new location. Reflections flip, rotations turn, and translations slide — all without changing the figure's size or shape.",
@@ -885,7 +885,7 @@ export const TIER4_CONCEPTS: Concept[] = [
     subtitle: 'The constraints that make a valid triangle — and the side-angle link',
     tags: ['geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'triangle',
+    visualizationType: 'triangle-inequality',
     canvasLabel: 'Triangle Inequality',
     conceptTab: {
       summary: 'Not every three lengths form a triangle. The triangle inequality states that the sum of any two sides must exceed the third. Within a triangle, larger angles always face longer sides.',
@@ -987,7 +987,7 @@ export const TIER4_CONCEPTS: Concept[] = [
     subtitle: 'The segment connecting two midpoints — half the base and always parallel',
     tags: ['geometry', 'proof'],
     accessibilityLevel: 'high',
-    visualizationType: 'triangle',
+    visualizationType: 'midsegment-draw',
     canvasLabel: 'Triangle Midsegment',
     conceptTab: {
       summary: 'The midsegment of a triangle connects the midpoints of two sides. It is always parallel to the third side and exactly half as long. This is a special case of the broader proportionality theorem for parallel lines.',

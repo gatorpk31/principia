@@ -109,7 +109,7 @@ export const TIER5_CONCEPTS: Concept[] = [
     subtitle: 'Solving any quadratic equation — and knowing in advance what you\'ll find',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'parabola',
+    visualizationType: 'quadratic-discriminant',
     canvasLabel: 'Roots on Parabola',
     conceptTab: {
       summary: 'The quadratic formula solves any equation of the form ax² + bx + c = 0. The discriminant b² − 4ac tells you how many real solutions exist before you even solve.',
@@ -209,7 +209,7 @@ export const TIER5_CONCEPTS: Concept[] = [
     subtitle: 'When quantities multiply by a fixed factor — compounding changes everything',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'exponential-curve',
     canvasLabel: 'Exponential Curve',
     conceptTab: {
       summary: 'An exponential function grows (or shrinks) by a constant multiplicative factor. Compound interest, population growth, radioactive decay, and viral spread all follow exponential laws.',
@@ -304,7 +304,7 @@ export const TIER5_CONCEPTS: Concept[] = [
     subtitle: 'The inverse of the exponential — undoing repeated multiplication',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'log-mirror',
     canvasLabel: 'Logarithm Graph',
     conceptTab: {
       summary: 'A logarithm answers the question: what exponent gives this result? log_b(x) = y means b^y = x.',
@@ -399,7 +399,7 @@ export const TIER5_CONCEPTS: Concept[] = [
     subtitle: 'Higher-degree curves, end behavior, and the factor theorem',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'polynomial-roots',
     canvasLabel: 'Polynomial Curve',
     conceptTab: {
       summary: 'Polynomial functions are sums of power terms. Their degree determines end behavior, maximum number of roots, and how many turns the graph can make.',
@@ -504,7 +504,7 @@ export const TIER5_CONCEPTS: Concept[] = [
     subtitle: 'Extending the number line to a plane — where √(−1) lives',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'complex-plane',
     canvasLabel: 'Complex Plane',
     conceptTab: {
       summary: 'Complex numbers extend the real numbers by introducing i = √(−1), enabling every polynomial to have roots and unlocking deep connections between algebra, geometry, and analysis.',
@@ -599,7 +599,7 @@ export const TIER5_CONCEPTS: Concept[] = [
     subtitle: 'Rewriting any quadratic by building a perfect square — the engine behind the quadratic formula',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'parabola',
+    visualizationType: 'complete-square',
     canvasLabel: 'Vertex Form Parabola',
     conceptTab: {
       summary: 'Completing the square transforms ax² + bx + c into the vertex form a(x − h)² + k by adding and subtracting a carefully chosen constant. It is the algebraic technique that reveals the vertex, derives the quadratic formula, and defines circles and ellipses.',
@@ -694,7 +694,7 @@ export const TIER5_CONCEPTS: Concept[] = [
     subtitle: 'Dividing polynomials to find factors, remainders, and asymptotes',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'poly-division',
     canvasLabel: 'Polynomial Division',
     conceptTab: {
       summary: 'Polynomial long division extends the arithmetic long division algorithm to polynomials, producing a quotient and remainder. It is the tool for factoring polynomials, finding oblique asymptotes, and applying the Remainder Theorem.',
@@ -794,7 +794,7 @@ export const TIER5_CONCEPTS: Concept[] = [
     subtitle: 'Functions as fractions of polynomials — with holes, vertical walls, and distant guidelines',
     tags: ['algebra', 'precalc'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'rational-asymptotes',
     canvasLabel: 'Rational Function Graph',
     conceptTab: {
       summary: 'A rational function is a ratio of two polynomials. Its graph features vertical asymptotes where the denominator is zero, horizontal or oblique asymptotes describing end behavior, and sometimes removable holes where a factor cancels.',
@@ -894,7 +894,7 @@ export const TIER5_CONCEPTS: Concept[] = [
     subtitle: 'Summing sequences — from counting steps to infinite compounding',
     tags: ['algebra', 'precalc'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'series-sum',
     canvasLabel: 'Series Terms',
     conceptTab: {
       summary: 'An arithmetic sequence adds a fixed amount each step; a geometric sequence multiplies by a fixed ratio. Their sums (series) have elegant closed formulas derived from patterns, and geometric series can converge to a finite sum even with infinitely many terms.',
@@ -989,7 +989,7 @@ export const TIER5_CONCEPTS: Concept[] = [
     subtitle: 'Circles, ellipses, parabolas, and hyperbolas — all from slicing a cone',
     tags: ['algebra', 'geometry', 'precalc'],
     accessibilityLevel: 'high',
-    visualizationType: 'parabola',
+    visualizationType: 'conic-slicer',
     canvasLabel: 'Conic Sections',
     conceptTab: {
       summary: 'Conic sections are the curves obtained by intersecting a plane with a double cone. They include circles, ellipses, parabolas, and hyperbolas — each with a standard algebraic form and a reflective focal property that makes them indispensable in physics and engineering.',

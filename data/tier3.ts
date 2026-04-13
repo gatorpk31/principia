@@ -9,7 +9,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Steepness as a rate — the heartbeat of algebra',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'slope-rise-run',
     canvasLabel: 'Slope on Coordinate Plane',
     conceptTab: {
       summary: 'Slope measures how steeply a line rises or falls. It is the ratio of vertical change to horizontal change between any two points on a line.',
@@ -111,7 +111,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Starting value plus rate — the complete blueprint of a line',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'slope-intercept-line',
     canvasLabel: 'y = mx + b Graph',
     conceptTab: {
       summary: 'Every non-vertical line can be written as y = mx + b, where m is the slope (rate of change) and b is the y-intercept (starting value).',
@@ -208,7 +208,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Finding where two lines cross by swapping variables',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'system-intersection',
     canvasLabel: 'Intersection of Two Lines',
     conceptTab: {
       summary: 'A system of equations asks what values of x and y satisfy both equations simultaneously. Substitution solves this by expressing one variable in terms of the other and plugging it in.',
@@ -303,7 +303,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Cancel a variable by adding or subtracting equations',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'elimination-cancel',
     canvasLabel: 'Elimination — Two Lines',
     conceptTab: {
       summary: 'Elimination solves a system by strategically combining the two equations so one variable disappears, reducing the problem to a single-variable equation.',
@@ -403,7 +403,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Turning equations into pictures — the algebra-geometry bridge',
     tags: ['algebra', 'geometry'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'graph-line-draw',
     canvasLabel: 'Graphing Lines',
     conceptTab: {
       summary: 'Graphing a linear equation means plotting every point (x, y) that satisfies it. The complete set of solutions is always a straight line.',
@@ -505,7 +505,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Distance from zero — and the two-case split',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'number-line',
+    visualizationType: 'absolute-value-v',
     canvasLabel: 'Absolute Value on Number Line',
     conceptTab: {
       summary: 'Absolute value measures distance from zero on the number line, ignoring direction. Equations with absolute value almost always split into two separate cases.',
@@ -699,7 +699,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Undoing operations in reverse order to isolate the variable',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'balance-scale',
+    visualizationType: 'multi-step-balance',
     canvasLabel: 'Balancing Equations',
     conceptTab: {
       summary: 'Multi-step equations require two or more operations to isolate the variable. The strategy is to work backward through the order of operations, undoing each step until x stands alone.',
@@ -806,7 +806,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Shading a half-plane — the geometry of "greater than"',
     tags: ['algebra'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'inequality-shade',
     canvasLabel: 'Linear Inequality Half-Plane',
     conceptTab: {
       summary: 'A linear inequality in two variables has infinitely many solutions — an entire half of the coordinate plane. The boundary line divides the plane, and shading shows which side satisfies the inequality.',
@@ -906,7 +906,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Constant differences — the discrete version of a line',
     tags: ['algebra', 'precalc'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'sequence-dots',
     canvasLabel: 'Arithmetic Sequence on Coordinate Plane',
     conceptTab: {
       summary: 'An arithmetic sequence is a list of numbers where each term is obtained by adding a fixed value — the common difference d — to the previous term.',
@@ -1008,7 +1008,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Each input gets exactly one output — the rule that makes math precise',
     tags: ['algebra', 'precalc'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'function-machine',
     canvasLabel: 'Function Input-Output',
     conceptTab: {
       summary: 'A function is a rule that assigns each input exactly one output. This one-output rule is the defining constraint that gives functions their predictability and usefulness.',
@@ -1110,7 +1110,7 @@ export const TIER3_CONCEPTS: Concept[] = [
     subtitle: 'Valid inputs and possible outputs — the complete scope of a function',
     tags: ['algebra', 'precalc'],
     accessibilityLevel: 'high',
-    visualizationType: 'coordinate-plane',
+    visualizationType: 'domain-range-box',
     canvasLabel: 'Domain and Range',
     conceptTab: {
       summary: "The domain of a function is the complete set of valid inputs (x-values). The range is the complete set of possible outputs (y-values). Identifying both gives the full picture of a function's behavior.",

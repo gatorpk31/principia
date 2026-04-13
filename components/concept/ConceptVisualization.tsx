@@ -1,36 +1,284 @@
-import React, { useEffect, useRef } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import Svg, {
-  Circle,
-  Line,
-  Rect,
-  Text as SvgText,
-  Path,
-  G,
-  Defs,
-  LinearGradient,
-  Stop,
-} from 'react-native-svg';
+import React, { useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
+import Svg, { Circle, Text as SvgText } from 'react-native-svg';
 import Animated, {
   useSharedValue,
   useAnimatedProps,
   withRepeat,
   withTiming,
-  withSequence,
-  withDelay,
   Easing,
-  interpolate,
 } from 'react-native-reanimated';
 import { colors } from '../../constants/theme';
 import type { VisualizationType } from '../../types';
+import { H } from './visualizations/shared';
 
+// ── Tier imports ────────────────────────────────────────────────────────────
+import {
+  FractionBarViz,
+  FractionEquivalenceViz,
+  FractionArithmeticViz,
+  FractionMultiplyViz,
+  RatioTapeViz,
+  PercentFillViz,
+  NegativeNumberLineViz,
+  PemdasBuilderViz,
+  FractionOrderingViz,
+  MixedNumbersViz,
+  DecimalSliderViz,
+  FactorTreeViz,
+  VennGcfLcmViz,
+} from './visualizations/tier1';
+
+import {
+  ProportionalLineViz,
+  BalanceScaleViz,
+  TwoStepBalanceViz,
+  InequalityRayViz,
+  VariableBoxViz,
+  AreaRectangleViz,
+  CoordinatePlotViz,
+  BarChartViz,
+  UnitRateCompareViz,
+  ScaleDrawingViz,
+  InterestGrowthViz,
+  AbsoluteValueFoldViz,
+} from './visualizations/tier2';
+
+import {
+  SlopeRiseRunViz,
+  SlopeInterceptLineViz,
+  SystemIntersectionViz,
+  EliminationCancelViz,
+  GraphLineDrawViz,
+  InequalityShadeViz,
+  AbsoluteValueVViz,
+  ExponentTowerViz,
+  MultiStepBalanceViz,
+  SequenceDotsViz,
+  FunctionMachineViz,
+  DomainRangeBoxViz,
+} from './visualizations/tier3';
+
+import {
+  ParallelAnglesViz,
+  TriangleCongruenceViz,
+  PythagoreanSquaresViz,
+  CoordinateGeometryViz,
+  ProofChainViz,
+  CirclePartsViz,
+  Cube3dViz,
+  VolumeFillViz,
+  TriangleTransformViz,
+  TriangleInequalityViz,
+  MidsegmentDrawViz,
+} from './visualizations/tier4';
+
+import {
+  ParabolaViz,
+  QuadraticDiscriminantViz,
+  ExponentialCurveViz,
+  LogMirrorViz,
+  PolynomialRootsViz,
+  ComplexPlaneViz,
+  CompleteSquareViz,
+  PolyDivisionViz,
+  RationalAsymptotesViz,
+  SeriesSumViz,
+  ConicSlicerViz,
+} from './visualizations/tier5';
+
+import {
+  UnitCircleViz,
+  SineWaveViz,
+  TrigIdentityPuzzleViz,
+  InverseTrigArcViz,
+  FunctionTransformViz,
+  LimitApproachViz,
+  LawOfSinesTriViz,
+  LawOfCosinesTriViz,
+  PolarGraphViz,
+  VectorAdditionViz,
+  ParametricTraceViz,
+} from './visualizations/tier6';
+
+import {
+  LimitTableViz,
+  SecantTangentViz,
+  DerivativeSlopeViz,
+  OptimizationBoxViz,
+  RiemannSumViz,
+  FtcAreaViz,
+  USubChainViz,
+  ContinuityTestViz,
+  MvtSecantViz,
+  LhopitalZoomViz,
+  RelatedRatesConeViz,
+  ImplicitCurveViz,
+} from './visualizations/tier7';
+
+import {
+  IbpProductViz,
+  SequenceConvergeViz,
+  ConvergenceMeterViz,
+  TaylorApproxViz,
+  EpsilonDeltaBandViz,
+  InductionDominoesViz,
+  TrigSubTriangleViz,
+  ImproperIntegralViz,
+  ContradictionForkViz,
+  PartialFractionSplitViz,
+  PowerSeriesRadiusViz,
+} from './visualizations/tier8';
+
+// ── Lookup table ────────────────────────────────────────────────────────────
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-const AnimatedLine = Animated.createAnimatedComponent(Line);
-const AnimatedRect = Animated.createAnimatedComponent(Rect);
 
-const W = Dimensions.get('window').width - 40;
-const H = 220;
+type VizComponent = React.FC<{ accent: string }>;
 
+const VIZ_MAP: Record<string, VizComponent> = {
+  // Tier 1
+  'fraction-bar': FractionBarViz,
+  'fraction-equivalence': FractionEquivalenceViz,
+  'fraction-arithmetic': FractionArithmeticViz,
+  'fraction-multiply': FractionMultiplyViz,
+  'ratio-tape': RatioTapeViz,
+  'percent-fill': PercentFillViz,
+  'negative-number-line': NegativeNumberLineViz,
+  'pemdas-builder': PemdasBuilderViz,
+  'fraction-ordering': FractionOrderingViz,
+  'mixed-numbers': MixedNumbersViz,
+  'decimal-slider': DecimalSliderViz,
+  'factor-tree': FactorTreeViz,
+  'venn-gcf-lcm': VennGcfLcmViz,
+  // Tier 2
+  'proportional-line': ProportionalLineViz,
+  'balance-scale': BalanceScaleViz,
+  'two-step-balance': TwoStepBalanceViz,
+  'inequality-ray': InequalityRayViz,
+  'variable-box': VariableBoxViz,
+  'area-rectangle': AreaRectangleViz,
+  'coordinate-plot': CoordinatePlotViz,
+  'bar-chart': BarChartViz,
+  'unit-rate-compare': UnitRateCompareViz,
+  'scale-drawing': ScaleDrawingViz,
+  'interest-growth': InterestGrowthViz,
+  'absolute-value-fold': AbsoluteValueFoldViz,
+  // Tier 3
+  'slope-rise-run': SlopeRiseRunViz,
+  'slope-intercept-line': SlopeInterceptLineViz,
+  'system-intersection': SystemIntersectionViz,
+  'elimination-cancel': EliminationCancelViz,
+  'graph-line-draw': GraphLineDrawViz,
+  'inequality-shade': InequalityShadeViz,
+  'absolute-value-v': AbsoluteValueVViz,
+  'exponent-tower': ExponentTowerViz,
+  'multi-step-balance': MultiStepBalanceViz,
+  'sequence-dots': SequenceDotsViz,
+  'function-machine': FunctionMachineViz,
+  'domain-range-box': DomainRangeBoxViz,
+  // Tier 4
+  'parallel-angles': ParallelAnglesViz,
+  'triangle-congruence': TriangleCongruenceViz,
+  'pythagorean-squares': PythagoreanSquaresViz,
+  'coordinate-geometry': CoordinateGeometryViz,
+  'proof-chain': ProofChainViz,
+  'circle-parts': CirclePartsViz,
+  'cube-3d': Cube3dViz,
+  'volume-fill': VolumeFillViz,
+  'triangle-transform': TriangleTransformViz,
+  'triangle-inequality': TriangleInequalityViz,
+  'midsegment-draw': MidsegmentDrawViz,
+  // Tier 5
+  'parabola': ParabolaViz,
+  'quadratic-discriminant': QuadraticDiscriminantViz,
+  'exponential-curve': ExponentialCurveViz,
+  'log-mirror': LogMirrorViz,
+  'polynomial-roots': PolynomialRootsViz,
+  'complex-plane': ComplexPlaneViz,
+  'complete-square': CompleteSquareViz,
+  'poly-division': PolyDivisionViz,
+  'rational-asymptotes': RationalAsymptotesViz,
+  'series-sum': SeriesSumViz,
+  'conic-slicer': ConicSlicerViz,
+  // Tier 6
+  'unit-circle': UnitCircleViz,
+  'sine-wave': SineWaveViz,
+  'trig-identity-puzzle': TrigIdentityPuzzleViz,
+  'inverse-trig-arc': InverseTrigArcViz,
+  'function-transform': FunctionTransformViz,
+  'limit-approach': LimitApproachViz,
+  'law-of-sines-tri': LawOfSinesTriViz,
+  'law-of-cosines-tri': LawOfCosinesTriViz,
+  'polar-graph': PolarGraphViz,
+  'vector-addition': VectorAdditionViz,
+  'parametric-trace': ParametricTraceViz,
+  // Tier 7
+  'limit-table': LimitTableViz,
+  'secant-tangent': SecantTangentViz,
+  'derivative-slope': DerivativeSlopeViz,
+  'optimization-box': OptimizationBoxViz,
+  'riemann-sum': RiemannSumViz,
+  'ftc-area': FtcAreaViz,
+  'u-sub-chain': USubChainViz,
+  'continuity-test': ContinuityTestViz,
+  'mvt-secant': MvtSecantViz,
+  'lhopital-zoom': LhopitalZoomViz,
+  'related-rates-cone': RelatedRatesConeViz,
+  'implicit-curve': ImplicitCurveViz,
+  // Tier 8
+  'ibp-product': IbpProductViz,
+  'sequence-converge': SequenceConvergeViz,
+  'convergence-meter': ConvergenceMeterViz,
+  'taylor-approx': TaylorApproxViz,
+  'epsilon-delta-band': EpsilonDeltaBandViz,
+  'induction-dominoes': InductionDominoesViz,
+  'trig-sub-triangle': TrigSubTriangleViz,
+  'improper-integral': ImproperIntegralViz,
+  'contradiction-fork': ContradictionForkViz,
+  'partial-fraction-split': PartialFractionSplitViz,
+  'power-series-radius': PowerSeriesRadiusViz,
+};
+
+// ── Generic fallback (breathing circle) ─────────────────────────────────────
+function GenericViz({ accent, label }: { accent: string; label: string }) {
+  const r = useSharedValue(30);
+
+  useEffect(() => {
+    r.value = withRepeat(
+      withTiming(44, { duration: 2000, easing: Easing.inOut(Easing.sin) }),
+      -1,
+      true,
+    );
+  }, []);
+
+  const circleProps = useAnimatedProps(() => ({ r: r.value }));
+  const W2 = 200;
+
+  return (
+    <Svg width={W2} height={H}>
+      <AnimatedCircle
+        cx={W2 / 2}
+        cy={H / 2}
+        fill={accent + '15'}
+        stroke={accent}
+        strokeWidth={1.5}
+        strokeDasharray="6 4"
+        animatedProps={circleProps}
+      />
+      <SvgText
+        x={W2 / 2}
+        y={H / 2 + 5}
+        fill={accent}
+        fontSize={14}
+        textAnchor="middle"
+      >
+        {label}
+      </SvgText>
+    </Svg>
+  );
+}
+
+// ── Main component ──────────────────────────────────────────────────────────
 interface ConceptVisualizationProps {
   type: VisualizationType;
   accentColor: string;
@@ -38,770 +286,16 @@ interface ConceptVisualizationProps {
   tierId: number;
 }
 
-// ── Number Line ──────────────────────────────────────────────────────────────
-function NumberLineViz({ accent }: { accent: string }) {
-  const dotX = useSharedValue(W / 2);
-
-  useEffect(() => {
-    dotX.value = withRepeat(
-      withTiming(W * 0.75, { duration: 2000, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  const animProps = useAnimatedProps(() => ({ cx: dotX.value }));
-
-  return (
-    <Svg width={W} height={H}>
-      {/* Axis */}
-      <Line x1={20} y1={H / 2} x2={W - 20} y2={H / 2} stroke={colors.border2} strokeWidth={2} />
-      {/* Tick marks */}
-      {[-3, -2, -1, 0, 1, 2, 3].map((n) => {
-        const x = W / 2 + n * (W / 8);
-        return (
-          <G key={n}>
-            <Line x1={x} y1={H / 2 - 8} x2={x} y2={H / 2 + 8} stroke={colors.text3} strokeWidth={1.5} />
-            <SvgText x={x} y={H / 2 + 24} fill={colors.text2} fontSize={12} textAnchor="middle">{n}</SvgText>
-          </G>
-        );
-      })}
-      {/* Animated dot */}
-      <AnimatedCircle animatedProps={animProps} cy={H / 2} r={10} fill={accent} opacity={0.9} />
-    </Svg>
-  );
-}
-
-// ── Fraction Bar ─────────────────────────────────────────────────────────────
-function FractionBarViz({ accent }: { accent: string }) {
-  const fill = useSharedValue(0.5);
-
-  useEffect(() => {
-    fill.value = withRepeat(
-      withTiming(0.75, { duration: 1800, easing: Easing.inOut(Easing.quad) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  const barW = W - 60;
-  const barH = 48;
-  const barY = H / 2 - barH / 2;
-
-  return (
-    <Svg width={W} height={H}>
-      {/* Track */}
-      <Rect x={30} y={barY} width={barW} height={barH} rx={8} fill={colors.surface2} />
-      {/* Filled portion — static approximation for SVG */}
-      <Rect x={30} y={barY} width={barW * 0.75} height={barH} rx={8} fill={accent + 'cc'} />
-      {/* Dividers */}
-      {[1, 2, 3].map((i) => (
-        <Line key={i} x1={30 + barW * (i / 4)} y1={barY} x2={30 + barW * (i / 4)} y2={barY + barH} stroke={colors.bg} strokeWidth={2} />
-      ))}
-      <SvgText x={W / 2} y={barY - 12} fill={colors.text2} fontSize={12} textAnchor="middle">3 out of 4 — ¾</SvgText>
-      <SvgText x={30 + barW * 0.375} y={barY + barH / 2 + 5} fill={colors.bg} fontSize={14} fontWeight="bold" textAnchor="middle">¾ filled</SvgText>
-    </Svg>
-  );
-}
-
-// ── Coordinate Plane ─────────────────────────────────────────────────────────
-function CoordinatePlaneViz({ accent }: { accent: string }) {
-  const cx = W / 2;
-  const cy = H / 2;
-  const scale = 32;
-
-  // Animate a dot tracing along y = x
-  const progress = useSharedValue(-2);
-  useEffect(() => {
-    progress.value = withRepeat(
-      withTiming(2, { duration: 3000, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  const dotProps = useAnimatedProps(() => ({
-    cx: cx + progress.value * scale,
-    cy: cy - progress.value * scale,
-  }));
-
-  return (
-    <Svg width={W} height={H}>
-      {/* Grid */}
-      {[-3, -2, -1, 1, 2, 3].map((n) => (
-        <G key={n}>
-          <Line x1={cx + n * scale} y1={20} x2={cx + n * scale} y2={H - 20} stroke={colors.border} strokeWidth={0.8} />
-          <Line x1={20} y1={cy + n * scale} x2={W - 20} y2={cy + n * scale} stroke={colors.border} strokeWidth={0.8} />
-        </G>
-      ))}
-      {/* Axes */}
-      <Line x1={20} y1={cy} x2={W - 20} y2={cy} stroke={colors.text3} strokeWidth={1.5} />
-      <Line x1={cx} y1={20} x2={cx} y2={H - 20} stroke={colors.text3} strokeWidth={1.5} />
-      {/* Axis labels */}
-      <SvgText x={W - 15} y={cy + 5} fill={colors.text3} fontSize={12}>x</SvgText>
-      <SvgText x={cx + 5} y={25} fill={colors.text3} fontSize={12}>y</SvgText>
-      {/* Line y = x */}
-      <Line x1={20} y1={H - 20} x2={W - 20} y2={20} stroke={accent} strokeWidth={2} opacity={0.8} />
-      {/* Static points */}
-      {[[-2, -2], [0, 0], [2, 2]].map(([x, y]) => (
-        <Circle key={`${x}${y}`} cx={cx + x * scale} cy={cy - y * scale} r={5} fill={accent} />
-      ))}
-      {/* Animated tracer dot */}
-      <AnimatedCircle animatedProps={dotProps} r={8} fill={accent} opacity={0.7} />
-    </Svg>
-  );
-}
-
-// ── Triangle ─────────────────────────────────────────────────────────────────
-function TriangleViz({ accent }: { accent: string }) {
-  const ax = 60, ay = H - 40;
-  const bx = W - 60, by = H - 40;
-  const cx2 = W / 2, cy2 = 40;
-
-  // Animate hypotenuse stroke width pulsing
-  const pulse = useSharedValue(2.5);
-  useEffect(() => {
-    pulse.value = withRepeat(
-      withTiming(4.5, { duration: 1500, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  const hypProps = useAnimatedProps(() => ({
-    strokeWidth: pulse.value,
-    opacity: interpolate(pulse.value, [2.5, 4.5], [0.6, 1]),
-  }));
-
-  return (
-    <Svg width={W} height={H}>
-      {/* Triangle fill */}
-      <Path
-        d={`M${ax},${ay} L${bx},${by} L${cx2},${cy2} Z`}
-        fill={accent + '15'}
-        stroke={accent}
-        strokeWidth={2.5}
-      />
-      {/* Animated hypotenuse highlight */}
-      <AnimatedLine
-        x1={bx} y1={by} x2={cx2} y2={cy2}
-        stroke={accent}
-        animatedProps={hypProps}
-      />
-      {/* Right angle box */}
-      <Rect x={ax} y={ay - 16} width={16} height={16} fill="none" stroke={colors.text3} strokeWidth={1.5} />
-      {/* Labels */}
-      <SvgText x={(ax + bx) / 2} y={ay + 20} fill={colors.text2} fontSize={13} textAnchor="middle">a</SvgText>
-      <SvgText x={(ax + cx2) / 2 - 16} y={(ay + cy2) / 2} fill={colors.text2} fontSize={13} textAnchor="middle">b</SvgText>
-      <SvgText x={(bx + cx2) / 2 + 16} y={(by + cy2) / 2} fill={accent} fontSize={13} textAnchor="middle">c</SvgText>
-      <SvgText x={W / 2} y={H / 2 + 10} fill={accent} fontSize={15} textAnchor="middle" fontWeight="bold">a² + b² = c²</SvgText>
-    </Svg>
-  );
-}
-
-// ── Circle ───────────────────────────────────────────────────────────────────
-function CircleViz({ accent }: { accent: string }) {
-  const r = 70;
-  const cx = W / 2;
-  const cy = H / 2;
-
-  // Animate the radius rotating around the center
-  const angle = useSharedValue(0);
-  useEffect(() => {
-    angle.value = withRepeat(
-      withTiming(2 * Math.PI, { duration: 6000, easing: Easing.linear }),
-      -1,
-      false,
-    );
-  }, []);
-
-  const radiusEndProps = useAnimatedProps(() => ({
-    x2: cx + r * Math.cos(angle.value),
-    y2: cy - r * Math.sin(angle.value),
-  }));
-
-  const tipProps = useAnimatedProps(() => ({
-    cx: cx + r * Math.cos(angle.value),
-    cy: cy - r * Math.sin(angle.value),
-  }));
-
-  return (
-    <Svg width={W} height={H}>
-      <Circle cx={cx} cy={cy} r={r} fill={accent + '15'} stroke={accent} strokeWidth={2} />
-      {/* Animated radius */}
-      <AnimatedLine x1={cx} y1={cy} stroke={colors.blue} strokeWidth={2} strokeDasharray="4 3" animatedProps={radiusEndProps} />
-      {/* Animated tip dot */}
-      <AnimatedCircle r={5} fill={colors.blue} animatedProps={tipProps} />
-      {/* Center dot */}
-      <Circle cx={cx} cy={cy} r={4} fill={accent} />
-      {/* Labels */}
-      <SvgText x={cx} y={cy + r + 20} fill={colors.text2} fontSize={12} textAnchor="middle">
-        Area = πr²  |  C = 2πr
-      </SvgText>
-    </Svg>
-  );
-}
-
-// ── Parabola ─────────────────────────────────────────────────────────────────
-function ParabolaViz({ accent }: { accent: string }) {
-  const cx = W / 2;
-  const cy = H / 2 + 20;
-  const scale = 12;
-  const points: string[] = [];
-  for (let x = -5; x <= 5; x += 0.2) {
-    const px = cx + x * scale * 2;
-    const py = cy - x * x * scale * 0.5;
-    points.push(`${px},${py}`);
-  }
-  const d = 'M' + points.join(' L');
-
-  // Animate a dot tracing along the parabola
-  const xVal = useSharedValue(-3);
-  useEffect(() => {
-    xVal.value = withRepeat(
-      withTiming(3, { duration: 3500, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  const tracerProps = useAnimatedProps(() => ({
-    cx: cx + xVal.value * scale * 2,
-    cy: cy - xVal.value * xVal.value * scale * 0.5,
-  }));
-
-  return (
-    <Svg width={W} height={H}>
-      {/* Axes */}
-      <Line x1={20} y1={cy} x2={W - 20} y2={cy} stroke={colors.text3} strokeWidth={1} />
-      <Line x1={cx} y1={20} x2={cx} y2={H - 20} stroke={colors.text3} strokeWidth={1} />
-      {/* Parabola */}
-      <Path d={d} fill="none" stroke={accent} strokeWidth={2.5} />
-      {/* Vertex */}
-      <Circle cx={cx} cy={cy} r={5} fill={accent} />
-      <SvgText x={cx + 8} y={cy - 8} fill={accent} fontSize={12}>vertex</SvgText>
-      {/* Animated tracer */}
-      <AnimatedCircle animatedProps={tracerProps} r={7} fill={accent} opacity={0.8} />
-      <SvgText x={cx} y={H - 10} fill={colors.text2} fontSize={12} textAnchor="middle">y = x²</SvgText>
-    </Svg>
-  );
-}
-
-// ── Unit Circle ───────────────────────────────────────────────────────────────
-function UnitCircleViz({ accent }: { accent: string }) {
-  const cx = W / 2;
-  const cy = H / 2;
-  const r = 80;
-
-  // Animate angle sweeping from 0 to 90 degrees
-  const theta = useSharedValue(0.1);
-  useEffect(() => {
-    theta.value = withRepeat(
-      withTiming(Math.PI / 2, { duration: 4000, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  const radiusProps = useAnimatedProps(() => ({
-    x2: cx + r * Math.cos(theta.value),
-    y2: cy - r * Math.sin(theta.value),
-  }));
-
-  const pointProps = useAnimatedProps(() => ({
-    cx: cx + r * Math.cos(theta.value),
-    cy: cy - r * Math.sin(theta.value),
-  }));
-
-  // sin line (vertical): from point to x-axis
-  const sinLineProps = useAnimatedProps(() => ({
-    x1: cx + r * Math.cos(theta.value),
-    y1: cy - r * Math.sin(theta.value),
-    x2: cx + r * Math.cos(theta.value),
-    y2: cy,
-  }));
-
-  // cos line (horizontal): from center to point's x
-  const cosLineProps = useAnimatedProps(() => ({
-    x2: cx + r * Math.cos(theta.value),
-  }));
-
-  return (
-    <Svg width={W} height={H}>
-      {/* Axes */}
-      <Line x1={20} y1={cy} x2={W - 20} y2={cy} stroke={colors.text3} strokeWidth={1} />
-      <Line x1={cx} y1={20} x2={cx} y2={H - 20} stroke={colors.text3} strokeWidth={1} />
-      {/* Unit circle */}
-      <Circle cx={cx} cy={cy} r={r} fill="none" stroke={colors.border2} strokeWidth={1.5} />
-      {/* Animated radius to point */}
-      <AnimatedLine x1={cx} y1={cy} stroke={accent} strokeWidth={2} animatedProps={radiusProps} />
-      {/* Animated sin (vertical) */}
-      <AnimatedLine stroke={colors.blue} strokeWidth={1.5} strokeDasharray="4 3" animatedProps={sinLineProps} />
-      {/* Animated cos (horizontal) */}
-      <AnimatedLine x1={cx} y1={cy} y2={cy} stroke={colors.green} strokeWidth={1.5} strokeDasharray="4 3" animatedProps={cosLineProps} />
-      {/* Animated point */}
-      <AnimatedCircle r={5} fill={accent} animatedProps={pointProps} />
-      {/* Labels */}
-      <SvgText x={W - 40} y={cy - 50} fill={colors.blue} fontSize={11}>sin θ</SvgText>
-      <SvgText x={cx + 30} y={cy + 16} fill={colors.green} fontSize={11}>cos θ</SvgText>
-    </Svg>
-  );
-}
-
-// ── Secant/Tangent (Derivative) ───────────────────────────────────────────────
-function SecantTangentViz({ accent }: { accent: string }) {
-  const cx = W / 2;
-  const cy = H / 2 + 30;
-  const scale = 28;
-
-  // f(x) = x²/2
-  const fPoints: string[] = [];
-  for (let x = -3; x <= 3; x += 0.15) {
-    fPoints.push(`${cx + x * scale},${cy - (x * x * 0.5) * scale}`);
-  }
-  const curve = 'M' + fPoints.join(' L');
-
-  // Animate the tangent point sliding along the curve
-  const tX = useSharedValue(-1);
-  useEffect(() => {
-    tX.value = withRepeat(
-      withTiming(2, { duration: 4000, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  // Touch point on curve: f(x) = x²/2, f'(x) = x (slope)
-  const touchProps = useAnimatedProps(() => ({
-    cx: cx + tX.value * scale,
-    cy: cy - (tX.value * tX.value * 0.5) * scale,
-  }));
-
-  // Tangent line endpoints: y - f(a) = f'(a)(x - a)
-  const tangentProps = useAnimatedProps(() => {
-    const a = tX.value;
-    const fa = a * a * 0.5;
-    const slope = a; // f'(x) = x
-    // Two points on tangent: at x = a-1.5 and x = a+1.5
-    const x1 = a - 1.5;
-    const x2 = a + 1.5;
-    return {
-      x1: cx + x1 * scale,
-      y1: cy - (fa + slope * (x1 - a)) * scale,
-      x2: cx + x2 * scale,
-      y2: cy - (fa + slope * (x2 - a)) * scale,
-    };
-  });
-
-  return (
-    <Svg width={W} height={H}>
-      <Line x1={20} y1={cy} x2={W - 20} y2={cy} stroke={colors.text3} strokeWidth={1} />
-      <Line x1={cx} y1={20} x2={cx} y2={H - 20} stroke={colors.text3} strokeWidth={1} />
-      <Path d={curve} fill="none" stroke={accent} strokeWidth={2.5} />
-      {/* Animated tangent line */}
-      <AnimatedLine stroke={colors.rose} strokeWidth={2} strokeDasharray="5 3" animatedProps={tangentProps} />
-      {/* Animated touch point */}
-      <AnimatedCircle r={5} fill={accent} animatedProps={touchProps} />
-      <SvgText x={W - 30} y={30} fill={colors.rose} fontSize={11}>f'(x)</SvgText>
-      <SvgText x={cx} y={H - 10} fill={colors.text2} fontSize={11} textAnchor="middle">tangent = instantaneous rate of change</SvgText>
-    </Svg>
-  );
-}
-
-// ── Riemann Sum ───────────────────────────────────────────────────────────────
-function RiemannBar({ index, ox, oy, gw, gh, n, accent }: {
-  index: number; ox: number; oy: number; gw: number; gh: number; n: number; accent: string;
-}) {
-  const x = index / n;
-  const xMid = x + 0.5 / n;
-  const y = xMid * xMid; // f(x)=x²
-  const rectW = gw / n;
-  const fullH = y * gh;
-
-  // Staggered grow animation for each bar
-  const scale = useSharedValue(0);
-  useEffect(() => {
-    scale.value = withDelay(
-      index * 200,
-      withRepeat(
-        withSequence(
-          withTiming(1, { duration: 1200, easing: Easing.out(Easing.quad) }),
-          withTiming(1, { duration: 2000 }), // hold
-          withTiming(0, { duration: 800, easing: Easing.in(Easing.quad) }),
-          withTiming(0, { duration: 400 }), // pause before restart
-        ),
-        -1,
-        false,
-      ),
-    );
-  }, []);
-
-  const barProps = useAnimatedProps(() => {
-    const h = fullH * scale.value;
-    return {
-      y: oy - h,
-      height: Math.max(0, h),
-    };
-  });
-
-  return (
-    <AnimatedRect
-      x={ox + index * rectW + 1}
-      width={rectW - 2}
-      fill={accent + '55'}
-      stroke={accent}
-      strokeWidth={1}
-      animatedProps={barProps}
-    />
-  );
-}
-
-function RiemannSumViz({ accent }: { accent: string }) {
-  const ox = 30;
-  const oy = H - 30;
-  const gw = W - 60;
-  const gh = H - 60;
-  const n = 6;
-
-  // Curve
-  const points: string[] = [];
-  for (let x = 0; x <= 1; x += 0.02) {
-    points.push(`${ox + x * gw},${oy - x * x * gh}`);
-  }
-  const curve = 'M' + points.join(' L');
-
-  return (
-    <Svg width={W} height={H}>
-      <Line x1={ox} y1={20} x2={ox} y2={oy} stroke={colors.text3} strokeWidth={1.5} />
-      <Line x1={ox} y1={oy} x2={ox + gw} y2={oy} stroke={colors.text3} strokeWidth={1.5} />
-      {Array.from({ length: n }, (_, i) => (
-        <RiemannBar key={i} index={i} ox={ox} oy={oy} gw={gw} gh={gh} n={n} accent={accent} />
-      ))}
-      <Path d={curve} fill="none" stroke={accent} strokeWidth={2.5} />
-      <SvgText x={ox + gw / 2} y={H - 8} fill={colors.text2} fontSize={11} textAnchor="middle">
-        Area ≈ Σ f(xᵢ)·Δx
-      </SvgText>
-    </Svg>
-  );
-}
-
-// ── Balance Scale (equations) ────────────────────────────────────────────────
-function BalanceScaleViz({ accent }: { accent: string }) {
-  const tilt = useSharedValue(0);
-  useEffect(() => {
-    tilt.value = withRepeat(
-      withSequence(
-        withTiming(-8, { duration: 1500, easing: Easing.inOut(Easing.sin) }),
-        withTiming(0, { duration: 1500, easing: Easing.inOut(Easing.sin) }),
-        withTiming(8, { duration: 1500, easing: Easing.inOut(Easing.sin) }),
-        withTiming(0, { duration: 1500, easing: Easing.inOut(Easing.sin) }),
-      ),
-      -1,
-      false,
-    );
-  }, []);
-
-  const beamProps = useAnimatedProps(() => {
-    const rad = (tilt.value * Math.PI) / 180;
-    const halfW = 100;
-    return {
-      x1: W / 2 - halfW * Math.cos(rad),
-      y1: 90 - halfW * Math.sin(rad),
-      x2: W / 2 + halfW * Math.cos(rad),
-      y2: 90 + halfW * Math.sin(rad),
-    };
-  });
-
-  const leftPanProps = useAnimatedProps(() => {
-    const rad = (tilt.value * Math.PI) / 180;
-    return { cy: 90 - 100 * Math.sin(rad) + 30 };
-  });
-
-  const rightPanProps = useAnimatedProps(() => {
-    const rad = (tilt.value * Math.PI) / 180;
-    return { cy: 90 + 100 * Math.sin(rad) + 30 };
-  });
-
-  return (
-    <Svg width={W} height={H}>
-      {/* Fulcrum triangle */}
-      <Path d={`M${W / 2 - 15},${H - 30} L${W / 2 + 15},${H - 30} L${W / 2},85 Z`} fill={colors.surface2} stroke={colors.text3} strokeWidth={1.5} />
-      {/* Post */}
-      <Line x1={W / 2} y1={85} x2={W / 2} y2={90} stroke={colors.text3} strokeWidth={2} />
-      {/* Beam */}
-      <AnimatedLine stroke={accent} strokeWidth={3} animatedProps={beamProps} />
-      {/* Left pan */}
-      <AnimatedCircle cx={W / 2 - 100} r={22} fill={accent + '22'} stroke={accent} strokeWidth={1.5} animatedProps={leftPanProps} />
-      <SvgText x={W / 2 - 100} y={40} fill={accent} fontSize={16} fontWeight="bold" textAnchor="middle">x + 3</SvgText>
-      {/* Right pan */}
-      <AnimatedCircle cx={W / 2 + 100} r={22} fill={accent + '22'} stroke={accent} strokeWidth={1.5} animatedProps={rightPanProps} />
-      <SvgText x={W / 2 + 100} y={40} fill={accent} fontSize={16} fontWeight="bold" textAnchor="middle">7</SvgText>
-      <SvgText x={W / 2} y={H - 8} fill={colors.text2} fontSize={12} textAnchor="middle">both sides must balance</SvgText>
-    </Svg>
-  );
-}
-
-// ── Area Rectangle ──────────────────────────────────────────────────────────
-function AreaRectangleViz({ accent }: { accent: string }) {
-  const scale = useSharedValue(0.6);
-  useEffect(() => {
-    scale.value = withRepeat(
-      withTiming(1, { duration: 2500, easing: Easing.inOut(Easing.quad) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  const rW = 180;
-  const rH = 100;
-  const ox = (W - rW) / 2;
-  const oy = (H - rH) / 2 - 10;
-
-  const rectProps = useAnimatedProps(() => ({
-    width: rW * scale.value,
-    height: rH * scale.value,
-    x: ox + (rW * (1 - scale.value)) / 2,
-    y: oy + (rH * (1 - scale.value)) / 2,
-  }));
-
-  return (
-    <Svg width={W} height={H}>
-      {/* Grid dots */}
-      {Array.from({ length: 7 }, (_, i) => Array.from({ length: 5 }, (_, j) => (
-        <Circle key={`${i}-${j}`} cx={ox + i * 30} cy={oy + j * 25} r={1.5} fill={colors.border2} />
-      ))).flat()}
-      {/* Animated rectangle */}
-      <AnimatedRect fill={accent + '20'} stroke={accent} strokeWidth={2} rx={2} animatedProps={rectProps} />
-      {/* Dimension labels */}
-      <SvgText x={W / 2} y={oy - 8} fill={accent} fontSize={13} textAnchor="middle" fontWeight="bold">width</SvgText>
-      <SvgText x={ox - 12} y={oy + rH / 2 + 4} fill={accent} fontSize={13} textAnchor="middle" fontWeight="bold" rotation="-90" originX={ox - 12} originY={oy + rH / 2 + 4}>height</SvgText>
-      <SvgText x={W / 2} y={H - 10} fill={colors.text2} fontSize={12} textAnchor="middle">A = length × width  |  P = 2(l + w)</SvgText>
-    </Svg>
-  );
-}
-
-// ── Bar Chart (percents, rates) ─────────────────────────────────────────────
-function BarChartViz({ accent }: { accent: string }) {
-  const heights = [0.4, 0.7, 0.55, 0.85, 0.65];
-  const labels = ['20%', '35%', '28%', '43%', '33%'];
-  const barW = 30;
-  const gap = 16;
-  const totalW = heights.length * barW + (heights.length - 1) * gap;
-  const ox = (W - totalW) / 2;
-  const oy = H - 40;
-  const maxH = 130;
-
-  return (
-    <Svg width={W} height={H}>
-      {/* Baseline */}
-      <Line x1={ox - 10} y1={oy} x2={ox + totalW + 10} y2={oy} stroke={colors.text3} strokeWidth={1} />
-      {heights.map((h, i) => {
-        const x = ox + i * (barW + gap);
-        const barH = h * maxH;
-        return (
-          <G key={i}>
-            <Rect x={x} y={oy - barH} width={barW} height={barH} rx={4} fill={accent + (i === 3 ? 'cc' : '55')} stroke={accent} strokeWidth={i === 3 ? 2 : 1} />
-            <SvgText x={x + barW / 2} y={oy + 16} fill={colors.text2} fontSize={10} textAnchor="middle">{labels[i]}</SvgText>
-          </G>
-        );
-      })}
-      <SvgText x={W / 2} y={H - 8} fill={colors.text2} fontSize={12} textAnchor="middle">comparing quantities as percentages</SvgText>
-    </Svg>
-  );
-}
-
-// ── Factor Tree ─────────────────────────────────────────────────────────────
-function FactorTreeViz({ accent }: { accent: string }) {
-  const pulse = useSharedValue(0.7);
-  useEffect(() => {
-    pulse.value = withRepeat(
-      withTiming(1, { duration: 2000, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  const leafProps = useAnimatedProps(() => ({
-    opacity: pulse.value,
-  }));
-
-  const cx = W / 2;
-  return (
-    <Svg width={W} height={H}>
-      {/* Branches */}
-      <Line x1={cx} y1={40} x2={cx - 60} y2={90} stroke={colors.text3} strokeWidth={1.5} />
-      <Line x1={cx} y1={40} x2={cx + 60} y2={90} stroke={colors.text3} strokeWidth={1.5} />
-      <Line x1={cx - 60} y1={90} x2={cx - 90} y2={145} stroke={colors.text3} strokeWidth={1.5} />
-      <Line x1={cx - 60} y1={90} x2={cx - 30} y2={145} stroke={colors.text3} strokeWidth={1.5} />
-      <Line x1={cx + 60} y1={90} x2={cx + 30} y2={145} stroke={colors.text3} strokeWidth={1.5} />
-      <Line x1={cx + 60} y1={90} x2={cx + 90} y2={145} stroke={colors.text3} strokeWidth={1.5} />
-      {/* Root node: 36 */}
-      <Circle cx={cx} cy={35} r={20} fill={colors.surface2} stroke={accent} strokeWidth={2} />
-      <SvgText x={cx} y={40} fill={accent} fontSize={15} fontWeight="bold" textAnchor="middle">36</SvgText>
-      {/* Level 1: 6 × 6 */}
-      <Circle cx={cx - 60} cy={90} r={18} fill={colors.surface2} stroke={accent} strokeWidth={1.5} />
-      <SvgText x={cx - 60} y={95} fill={accent} fontSize={14} textAnchor="middle">6</SvgText>
-      <Circle cx={cx + 60} cy={90} r={18} fill={colors.surface2} stroke={accent} strokeWidth={1.5} />
-      <SvgText x={cx + 60} y={95} fill={accent} fontSize={14} textAnchor="middle">6</SvgText>
-      {/* Level 2: prime factors (animated) */}
-      <AnimatedCircle cx={cx - 90} cy={145} r={16} fill={accent + '33'} stroke={accent} strokeWidth={2} animatedProps={leafProps} />
-      <SvgText x={cx - 90} y={150} fill={accent} fontSize={13} fontWeight="bold" textAnchor="middle">2</SvgText>
-      <AnimatedCircle cx={cx - 30} cy={145} r={16} fill={accent + '33'} stroke={accent} strokeWidth={2} animatedProps={leafProps} />
-      <SvgText x={cx - 30} y={150} fill={accent} fontSize={13} fontWeight="bold" textAnchor="middle">3</SvgText>
-      <AnimatedCircle cx={cx + 30} cy={145} r={16} fill={accent + '33'} stroke={accent} strokeWidth={2} animatedProps={leafProps} />
-      <SvgText x={cx + 30} y={150} fill={accent} fontSize={13} fontWeight="bold" textAnchor="middle">2</SvgText>
-      <AnimatedCircle cx={cx + 90} cy={145} r={16} fill={accent + '33'} stroke={accent} strokeWidth={2} animatedProps={leafProps} />
-      <SvgText x={cx + 90} y={150} fill={accent} fontSize={13} fontWeight="bold" textAnchor="middle">3</SvgText>
-      <SvgText x={cx} y={H - 10} fill={colors.text2} fontSize={12} textAnchor="middle">36 = 2 × 3 × 2 × 3 = 2² × 3²</SvgText>
-    </Svg>
-  );
-}
-
-// ── Exponent Tower ──────────────────────────────────────────────────────────
-function ExponentTowerViz({ accent }: { accent: string }) {
-  const grow = useSharedValue(0);
-  useEffect(() => {
-    grow.value = withRepeat(
-      withTiming(1, { duration: 3000, easing: Easing.inOut(Easing.quad) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  const ox = 40;
-  const oy = H - 40;
-  const maxW = W - 80;
-  const bases = [1, 2, 4, 8, 16, 32];
-  const barH = 18;
-  const gap = 6;
-
-  return (
-    <Svg width={W} height={H}>
-      {bases.map((val, i) => {
-        const w = (val / 32) * maxW;
-        const y = oy - (i + 1) * (barH + gap);
-        return (
-          <G key={i}>
-            <Rect x={ox} y={y} width={w} height={barH} rx={4} fill={accent + (i < 3 ? '33' : '66')} stroke={accent} strokeWidth={1} />
-            <SvgText x={ox + w + 8} y={y + 13} fill={colors.text2} fontSize={11}>2{i > 0 ? `⁰¹²³⁴⁵`.charAt(i) : '⁰'} = {val}</SvgText>
-          </G>
-        );
-      })}
-      <SvgText x={W / 2} y={H - 10} fill={colors.text2} fontSize={12} textAnchor="middle">exponential growth: each step doubles</SvgText>
-    </Svg>
-  );
-}
-
-// ── Cube 3D (surface area, volume) ──────────────────────────────────────────
-function Cube3DViz({ accent }: { accent: string }) {
-  const pulse = useSharedValue(0.85);
-  useEffect(() => {
-    pulse.value = withRepeat(
-      withTiming(1.05, { duration: 2500, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  const cx = W / 2;
-  const cy = H / 2 - 5;
-  const s = 60; // half-side
-  // Isometric offsets
-  const dx = s * 0.7;
-  const dy = s * 0.4;
-
-  // Front face
-  const front = `M${cx - s},${cy} L${cx + s},${cy} L${cx + s},${cy + s} L${cx - s},${cy + s} Z`;
-  // Top face
-  const top = `M${cx - s},${cy} L${cx - s + dx},${cy - dy} L${cx + s + dx},${cy - dy} L${cx + s},${cy} Z`;
-  // Right face
-  const right = `M${cx + s},${cy} L${cx + s + dx},${cy - dy} L${cx + s + dx},${cy + s - dy} L${cx + s},${cy + s} Z`;
-
-  return (
-    <Svg width={W} height={H}>
-      <Path d={front} fill={accent + '20'} stroke={accent} strokeWidth={2} />
-      <Path d={top} fill={accent + '35'} stroke={accent} strokeWidth={2} />
-      <Path d={right} fill={accent + '10'} stroke={accent} strokeWidth={2} />
-      {/* Dimension labels */}
-      <SvgText x={cx} y={cy + s + 20} fill={colors.text2} fontSize={11} textAnchor="middle">l</SvgText>
-      <SvgText x={cx + s + 14} y={cy + s / 2} fill={colors.text2} fontSize={11} textAnchor="middle">h</SvgText>
-      <SvgText x={cx + s / 2 + dx / 2 + 10} y={cy - dy / 2 - 5} fill={colors.text2} fontSize={11} textAnchor="middle">w</SvgText>
-      <SvgText x={cx} y={H - 8} fill={colors.text2} fontSize={12} textAnchor="middle">V = l × w × h  |  SA = 2(lw + lh + wh)</SvgText>
-    </Svg>
-  );
-}
-
-// ── Generic ───────────────────────────────────────────────────────────────────
-function GenericViz({ accent, label }: { accent: string; label: string }) {
-  // Subtle breathing pulse on the circle
-  const radius = useSharedValue(55);
-  useEffect(() => {
-    radius.value = withRepeat(
-      withTiming(65, { duration: 2500, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true,
-    );
-  }, []);
-
-  const circleProps = useAnimatedProps(() => ({
-    r: radius.value,
-    opacity: interpolate(radius.value, [55, 65], [0.5, 0.9]),
-  }));
-
-  return (
-    <Svg width={W} height={H}>
-      <AnimatedCircle cx={W / 2} cy={H / 2} fill={accent + '15'} stroke={accent} strokeWidth={1.5} strokeDasharray="6 4" animatedProps={circleProps} />
-      <SvgText x={W / 2} y={H / 2 + 5} fill={accent} fontSize={14} textAnchor="middle">{label}</SvgText>
-    </Svg>
-  );
-}
-
-// ── Main component ────────────────────────────────────────────────────────────
 export function ConceptVisualization({
   type,
   accentColor,
   label,
 }: ConceptVisualizationProps) {
-  const renderViz = () => {
-    switch (type) {
-      case 'number-line':
-        return <NumberLineViz accent={accentColor} />;
-      case 'fraction-bar':
-        return <FractionBarViz accent={accentColor} />;
-      case 'coordinate-plane':
-        return <CoordinatePlaneViz accent={accentColor} />;
-      case 'triangle':
-        return <TriangleViz accent={accentColor} />;
-      case 'circle':
-        return <CircleViz accent={accentColor} />;
-      case 'parabola':
-        return <ParabolaViz accent={accentColor} />;
-      case 'unit-circle':
-        return <UnitCircleViz accent={accentColor} />;
-      case 'secant-tangent':
-        return <SecantTangentViz accent={accentColor} />;
-      case 'riemann-sum':
-        return <RiemannSumViz accent={accentColor} />;
-      case 'balance-scale':
-        return <BalanceScaleViz accent={accentColor} />;
-      case 'area-rectangle':
-        return <AreaRectangleViz accent={accentColor} />;
-      case 'bar-chart':
-        return <BarChartViz accent={accentColor} />;
-      case 'factor-tree':
-        return <FactorTreeViz accent={accentColor} />;
-      case 'exponent-tower':
-        return <ExponentTowerViz accent={accentColor} />;
-      case 'cube-3d':
-        return <Cube3DViz accent={accentColor} />;
-      default:
-        return <GenericViz accent={accentColor} label={label} />;
-    }
-  };
+  const Viz = VIZ_MAP[type];
 
   return (
     <View style={styles.container}>
-      {renderViz()}
+      {Viz ? <Viz accent={accentColor} /> : <GenericViz accent={accentColor} label={label} />}
     </View>
   );
 }
