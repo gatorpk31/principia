@@ -4,7 +4,7 @@
 module.exports = {
   name: "Principia",
   slug: "principia",
-  version: "1.0.1",
+  version: "1.0.2",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
   scheme: "principia",
@@ -17,7 +17,7 @@ module.exports = {
   newArchEnabled: true,
   ios: {
     bundleIdentifier: "com.axiom38.principia",
-    buildNumber: "2",
+    buildNumber: "3",
     supportsTablet: true,
     usesAppleSignIn: false,
     infoPlist: {
