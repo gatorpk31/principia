@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import * as SecureStore from 'expo-secure-store';
 import {
   loadProgress,
   saveProgress,
@@ -7,9 +6,6 @@ import {
   computeOverallPercent,
   computeTierPercent,
 } from '../services/progress';
-import { upsertProgress } from '../services/supabase';
-import { SECURE_STORE_KEYS } from '../constants/config';
-import { useToast } from '../components/ui/Toast';
 import type { ConceptProgress, ProgressMap } from '../types';
 import { ALL_CONCEPTS } from '../data';
 
@@ -32,7 +28,6 @@ const TOTAL_CONCEPTS = ALL_CONCEPTS.length;
 export function useProgress(): ProgressHook {
   const [progress, setProgress] = useState<ProgressMap>({});
   const [isLoading, setIsLoading] = useState(true);
-  const { showToast } = useToast();
 
   useEffect(() => {
     loadProgress().then((map) => {
@@ -72,19 +67,12 @@ export function useProgress(): ProgressHook {
         return next;
       });
 
-      // Cloud sync for paid users (non-under-13)
-      const under13 = await SecureStore.getItemAsync(SECURE_STORE_KEYS.isUnder13);
-      if (under13 !== 'true') {
-        // User ID from RevenueCat would go here — using device stub for now
-        try {
-          await upsertProgress('local_user', conceptId, tierId, field);
-        } catch {
-          // Non-fatal — local progress is always the source of truth
-          showToast('Progress saved locally — cloud sync will retry later');
-        }
-      }
+      // Cloud sync is intentionally disabled until per-user identity exists.
+      // The previous stub wrote every install's progress to one shared
+      // 'local_user' row — cross-device sync cannot work without a real user
+      // ID (RevenueCat appUserID) and row-level security on the table.
     },
-    [showToast],
+    [],
   );
 
   const getConceptProgress = useCallback(
