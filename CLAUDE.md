@@ -85,3 +85,6 @@ eas submit --platform ios --profile production --latest
 - The user (Peter) is not a coder — explain things in plain language
 - Always use `export PATH="/opt/homebrew/bin:$PATH"` before running node/npx/eas commands
 - The `__DEV__` flag in useSubscription.ts auto-unlocks premium in dev builds — this is intentional for testing, not a bug
+
+## Known Trade-offs
+- Visualizations were converted from gesture-driven to auto-cycling presets this release to eliminate a gesture-related crash surface, with an error boundary added around them for stability. Restoring interactivity is planned future work, to be re-introduced behind the error boundary once the underlying crash cause is fixed.
