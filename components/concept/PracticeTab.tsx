@@ -16,6 +16,8 @@ interface PracticeTabProps {
   accentColor: string;
   onComplete: (score: number) => void;
   onSeeConnections: () => void;
+  /** Fires per answered question so results feed the spaced-review queue. */
+  onAnswer?: (questionIndex: number, correct: boolean) => void;
 }
 
 type AnswerState = 'unanswered' | 'correct' | 'incorrect';
@@ -25,6 +27,7 @@ export function PracticeTab({
   accentColor,
   onComplete,
   onSeeConnections,
+  onAnswer,
 }: PracticeTabProps) {
   const { practice, accessibilityLevel } = concept;
   const isElementary = accessibilityLevel === 'elementary' || accessibilityLevel === 'middle';
@@ -44,6 +47,7 @@ export function PracticeTab({
     setSelectedIndex(choiceIndex);
     const isCorrect = choiceIndex === question.answerIndex;
     setAnswerState(isCorrect ? 'correct' : 'incorrect');
+    onAnswer?.(currentIndex, isCorrect);
     if (isCorrect) {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } else {

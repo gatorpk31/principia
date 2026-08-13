@@ -28,5 +28,5 @@ export const SECURE_STORE_KEYS = {
 export const ASYNC_STORAGE_KEYS = {
   progress: 'principia_progress',
   bookmarks: 'principia_bookmarks',
-  analyticsInstallId: 'principia_install_id',
+  reviewHistory: 'principia_review_history',
 } as const;

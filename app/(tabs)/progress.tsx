@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -7,16 +7,35 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
 import { colors, typography, fontSizes, spacing, radius, tierColor } from '../../constants/theme';
 import { TIERS } from '../../constants/tiers';
 import { ALL_CONCEPTS } from '../../data';
 import { useProgress } from '../../hooks/useProgress';
+import { useSubscription } from '../../hooks/useSubscription';
+import { loadReviewMap, countDue } from '../../services/review';
 import { STAGE_SYMBOLS } from '../../components/ui/ProgressDots';
 
 export default function Progress() {
   const router = useRouter();
   const { progress, overallPercent, tierPercent } = useProgress();
+  const { isPremium } = useSubscription();
+  const [dueCount, setDueCount] = useState(0);
+
+  // Refresh the due count whenever this tab regains focus (e.g. after a
+  // review session or concept practice).
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      (async () => {
+        const map = await loadReviewMap();
+        if (active) setDueCount(countDue(map, progress, isPremium));
+      })();
+      return () => {
+        active = false;
+      };
+    }, [progress, isPremium]),
+  );
 
   const exploredCount = Object.values(progress).filter((p) => p.concept).length;
   const fullyDoneCount = Object.values(progress).filter(
@@ -69,6 +88,27 @@ export default function Progress() {
             <Text style={styles.statLabel}>Mastered</Text>
           </View>
         </View>
+
+        {/* Mixed Review */}
+        <TouchableOpacity
+          style={styles.mixedReviewCard}
+          onPress={() => router.push('/review')}
+          activeOpacity={0.85}
+        >
+          <View style={{ flex: 1 }}>
+            <Text style={styles.mixedReviewTitle}>Mixed Review</Text>
+            <Text style={styles.mixedReviewSub}>
+              {dueCount > 0
+                ? `${dueCount} question${dueCount === 1 ? '' : 's'} due — mostly ones you missed`
+                : 'A shuffled set from concepts you have explored'}
+            </Text>
+          </View>
+          <View style={[styles.mixedReviewBadge, dueCount > 0 && { backgroundColor: colors.gold }]}>
+            <Text style={[styles.mixedReviewBadgeText, dueCount > 0 && { color: colors.bg }]}>
+              {dueCount > 0 ? String(dueCount) : '→'}
+            </Text>
+          </View>
+        </TouchableOpacity>
 
         {/* Per-tier breakdown */}
         <Text style={styles.sectionTitle}>By Tier</Text>
@@ -324,5 +364,41 @@ const styles = StyleSheet.create({
   },
   reviewArrow: {
     fontSize: fontSizes.md,
+  },
+  mixedReviewCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.gold + '44',
+    padding: spacing.base,
+    gap: spacing.sm,
+    marginTop: spacing.md,
+  },
+  mixedReviewTitle: {
+    fontFamily: typography.bodyMedium,
+    fontSize: fontSizes.md,
+    color: colors.text,
+  },
+  mixedReviewSub: {
+    fontFamily: typography.body,
+    fontSize: fontSizes.sm,
+    color: colors.text2,
+    marginTop: 2,
+  },
+  mixedReviewBadge: {
+    minWidth: 32,
+    height: 32,
+    borderRadius: radius.full,
+    backgroundColor: colors.goldDim,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 8,
+  },
+  mixedReviewBadgeText: {
+    fontFamily: typography.monoBold,
+    fontSize: fontSizes.sm,
+    color: colors.gold,
   },
 });

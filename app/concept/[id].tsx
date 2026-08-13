@@ -15,6 +15,7 @@ import { TIERS } from '../../constants/tiers';
 import { ConceptTab } from '../../components/concept/ConceptTab';
 import { GuidedTab } from '../../components/concept/GuidedTab';
 import { PracticeTab } from '../../components/concept/PracticeTab';
+import { recordAnswerStandalone } from '../../services/review';
 import { ConnectionsTab } from '../../components/concept/ConnectionsTab';
 import { ConceptVisualization } from '../../components/concept/ConceptVisualization';
 import { useProgress } from '../../hooks/useProgress';
@@ -228,6 +229,10 @@ export default function ConceptScreen() {
             accentColor={accent}
             onComplete={handlePracticeComplete}
             onSeeConnections={() => handleTabChange('connections')}
+            onAnswer={(qi, correct) => {
+              // Feed the spaced-review queue — fire and forget
+              void recordAnswerStandalone(concept.id, qi, correct);
+            }}
           />
         )}
         {activeTab === 'connections' && (
