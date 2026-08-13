@@ -31,8 +31,8 @@ export function ProportionalLineViz({ accent }: VizProps) {
   }));
 
   const lineToPointProps = useAnimatedProps(() => ({
-    x2: String(margin + dotPx.value),
-    y2: String(10 + graphH - (dotPx.value / graphW) * maxX * 2 * (graphH / maxY)),
+    x2: margin + dotPx.value,
+    y2: 10 + graphH - (dotPx.value / graphW) * maxX * 2 * (graphH / maxY),
   }));
 
   // Vertical dashed guide
@@ -94,8 +94,8 @@ export function ProportionalLineViz({ accent }: VizProps) {
 
           {/* Colored line from origin to point */}
           <AnimatedLine
-            x1={String(margin)}
-            y1={String(10 + graphH)}
+            x1={margin}
+            y1={10 + graphH}
             stroke={accent}
             strokeWidth={2.5}
             animatedProps={lineToPointProps}

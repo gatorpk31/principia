@@ -213,14 +213,20 @@ export function NegativeNumberLineViz({ accent }: VizProps) {
   const left = 30;
   const right = W - 30;
 
+  const [isNeg, setIsNeg] = useState(false);
+
+  const updateSign = (neg: boolean) => setIsNeg(neg);
+
   const pan = Gesture.Pan()
     .onBegin(() => { startX.value = dotX.value; })
-    .onUpdate(e => { dotX.value = clamp(startX.value + e.translationX, left, right); });
+    .onUpdate(e => {
+      const nx = clamp(startX.value + e.translationX, left, right);
+      dotX.value = nx;
+      const val = ((nx - left) / (right - left)) * 10 - 5;
+      runOnJS(updateSign)(val < 0);
+    });
 
-  const dotProps = useAnimatedProps(() => {
-    const val = ((dotX.value - left) / (right - left)) * 10 - 5;
-    return { cx: dotX.value, fill: val < 0 ? '#5ba8d4' : accent };
-  });
+  const dotProps = useAnimatedProps(() => ({ cx: dotX.value }));
 
   return (
     <GestureDetector gesture={pan}>
@@ -237,7 +243,7 @@ export function NegativeNumberLineViz({ accent }: VizProps) {
               </G>
             );
           })}
-          <AnimatedCircle cy={cy} r={12} animatedProps={dotProps} />
+          <AnimatedCircle cy={cy} r={12} fill={isNeg ? '#5ba8d4' : accent} animatedProps={dotProps} />
         </Svg>
       </View>
     </GestureDetector>

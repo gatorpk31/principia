@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { Component, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import Svg, { Circle, Text as SvgText } from 'react-native-svg';
 import Animated, {
   useSharedValue,
@@ -8,9 +8,35 @@ import Animated, {
   withTiming,
   Easing,
 } from 'react-native-reanimated';
-import { colors } from '../../constants/theme';
+import { colors, typography, fontSizes } from '../../constants/theme';
 import type { VisualizationType } from '../../types';
 import { H } from './visualizations/shared';
+
+// ── Error Boundary — catches native crashes in visualizations ──────────────
+interface VizErrorBoundaryState { hasError: boolean }
+class VizErrorBoundary extends Component<
+  { accent: string; children: React.ReactNode },
+  VizErrorBoundaryState
+> {
+  state: VizErrorBoundaryState = { hasError: false };
+  static getDerivedStateFromError() { return { hasError: true }; }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <View style={ebStyles.fallback}>
+          <Text style={[ebStyles.icon, { color: this.props.accent }]}>~</Text>
+          <Text style={ebStyles.msg}>Visualization unavailable</Text>
+        </View>
+      );
+    }
+    return this.props.children;
+  }
+}
+const ebStyles = StyleSheet.create({
+  fallback: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  icon: { fontSize: 28, marginBottom: 4 },
+  msg: { fontFamily: typography.body, fontSize: fontSizes.sm, color: colors.text3 },
+});
 
 // ── Tier imports ────────────────────────────────────────────────────────────
 import {
@@ -131,7 +157,7 @@ import {
 } from './visualizations/tier8';
 
 // ── Lookup table ────────────────────────────────────────────────────────────
-const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+const LocalAnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 type VizComponent = React.FC<{ accent: string }>;
 
@@ -256,7 +282,7 @@ function GenericViz({ accent, label }: { accent: string; label: string }) {
 
   return (
     <Svg width={W2} height={H}>
-      <AnimatedCircle
+      <LocalAnimatedCircle
         cx={W2 / 2}
         cy={H / 2}
         fill={accent + '15'}
@@ -295,7 +321,9 @@ export function ConceptVisualization({
 
   return (
     <View style={styles.container}>
-      {Viz ? <Viz accent={accentColor} /> : <GenericViz accent={accentColor} label={label} />}
+      <VizErrorBoundary accent={accentColor}>
+        {Viz ? <Viz accent={accentColor} /> : <GenericViz accent={accentColor} label={label} />}
+      </VizErrorBoundary>
     </View>
   );
 }
