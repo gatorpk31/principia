@@ -20,7 +20,6 @@ import { ConceptVisualization } from '../../components/concept/ConceptVisualizat
 import { useProgress } from '../../hooks/useProgress';
 import { useSubscription } from '../../hooks/useSubscription';
 import { useBookmarks } from '../../hooks/useBookmarks';
-import { logConceptVisit, logTabComplete } from '../../services/analytics';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -56,31 +55,26 @@ export default function ConceptScreen() {
     if (!concept) return;
     await Haptics.selectionAsync();
     setActiveTab(tab);
-    logConceptVisit(concept.id, concept.tierId);
   };
 
   const handleConceptViewed = useCallback(() => {
     if (!concept || progress.concept) return;
     markExplored(concept.id, concept.tierId, 'concept');
-    logTabComplete(concept.id, 'concept');
   }, [concept?.id, concept?.tierId, progress.concept]);
 
   const handleGuidedComplete = useCallback(() => {
     if (!concept || progress.guided) return;
     markExplored(concept.id, concept.tierId, 'guided');
-    logTabComplete(concept.id, 'guided');
   }, [concept?.id, concept?.tierId, progress.guided]);
 
   const handlePracticeComplete = useCallback((score: number) => {
     if (!concept || progress.practice) return;
     markExplored(concept.id, concept.tierId, 'practice', score);
-    logTabComplete(concept.id, 'practice');
   }, [concept?.id, concept?.tierId, progress.practice]);
 
   const handleConnectionsViewed = useCallback(() => {
     if (!concept || progress.connections) return;
     markExplored(concept.id, concept.tierId, 'connections');
-    logTabComplete(concept.id, 'connections');
   }, [concept?.id, concept?.tierId, progress.connections]);
 
   if (!concept) {

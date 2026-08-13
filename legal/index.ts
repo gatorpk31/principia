@@ -207,7 +207,7 @@ Key privacy commitments:
   - We do not sell your personal information to third parties, ever.
   - We do not serve advertising of any kind through the App.
   - We do not collect your name, precise location, contacts, or access your camera or microphone.
-  - Cloud sync is only enabled for paid subscribers and uses Supabase infrastructure with appropriate security measures.
+  - Your learning progress is stored only on your device. We operate no cloud database and your progress data is never transmitted to us or to any third party.
 
 ────────────────────────────────────────────────────────────────
 11. DISCLAIMERS — NO WARRANTY
@@ -461,11 +461,8 @@ We share limited data with trusted third-party service providers who assist us i
       Data Shared: Account identifiers and purchase records.
       Privacy Policy: revenuecat.com/privacy
 
-  (b) Supabase, Inc.
-      Purpose: Cloud database and synchronization services for paid subscribers only.
-      Data Shared: Learning progress data, account identifiers.
-      Privacy Policy: supabase.com/privacy
-      Note: Cloud sync is only activated for users with an active paid subscription. Free-tier users' data is stored locally on their device and is not transmitted to Supabase.
+  RevenueCat is the only third party that receives any data from the App.
+  Your learning progress never leaves your device.
 
 4.2 No Advertising Networks
 
@@ -560,7 +557,7 @@ We may retain anonymized, aggregated data (data that cannot reasonably be used t
 We take reasonable and appropriate technical and organizational measures to protect your personal information from unauthorized access, disclosure, alteration, and destruction. These measures include:
 
   - Encryption of data in transit using TLS/HTTPS protocols;
-  - Encryption of data at rest in our cloud infrastructure (Supabase);
+  - Storing your learning progress solely on your own device, so it is never transmitted to or held by us;
   - Access controls limiting employee and contractor access to personal data on a need-to-know basis;
   - Regular review of our security practices.
 
@@ -687,7 +684,7 @@ We will never sell your child's information to anyone. We do not share it with a
 The only outside companies that ever receive any data related to your child's account are:
 
   - RevenueCat (only if you purchase a subscription) — to confirm your subscription status. They do not receive your child's learning data.
-  - Supabase (only for paid subscribers) — to securely store and sync your child's progress data across your devices. Supabase is a secure cloud infrastructure provider, not a data broker or marketing company.
+  Your child's learning progress is stored only on your device. It is never uploaded to us or to any third party.
 
 ────────────────────────────────────────────────────────────────
 YOUR RIGHTS AS A PARENT OR GUARDIAN

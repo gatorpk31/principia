@@ -13,7 +13,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { colors, typography, fontSizes, spacing, radius } from '../../constants/theme';
 import { Button } from '../ui/Button';
 import { PRICING, REVENUECAT } from '../../constants/config';
-import { logPurchaseAttempt, logPurchaseSuccess } from '../../services/analytics';
 import { PurchaseResult } from '../../hooks/useSubscription';
 
 interface PaywallModalProps {
@@ -45,11 +44,9 @@ export function PaywallModal({
       selectedPlan === 'annual'
         ? REVENUECAT.annualProductId
         : REVENUECAT.monthlyProductId;
-    logPurchaseAttempt(productId);
     const result = await onPurchase(productId);
     setLoading(false);
     if (result.success) {
-      logPurchaseSuccess(productId);
       onClose();
     } else if (result.error) {
       Alert.alert('Unable to Purchase', result.error);

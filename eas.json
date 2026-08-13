@@ -23,8 +23,6 @@
         "image": "latest"
       },
       "env": {
-        "SUPABASE_URL": "https://irwcqvaafxlzvlbhtefc.supabase.co",
-        "SUPABASE_ANON_KEY": "sb_publishable_mE4s1cWya5lBmA7UlWHfww_R-y4Ix2G",
         "REVENUECAT_APPLE_KEY": "appl_kFEmXPxgcbKFEzYgOsPpHQqZXNN",
         "REVENUECAT_GOOGLE_KEY": "PLACEHOLDER"
       }

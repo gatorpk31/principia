@@ -33,8 +33,6 @@ module.exports = {
     },
   },
   extra: {
-    supabaseUrl: process.env.SUPABASE_URL || "",
-    supabaseAnonKey: process.env.SUPABASE_ANON_KEY || "",
     revenueCatAppleKey: process.env.REVENUECAT_APPLE_KEY || "",
     revenueCatGoogleKey: process.env.REVENUECAT_GOOGLE_KEY || "",
     eas: {
