@@ -14,7 +14,7 @@ module.exports = {
     resizeMode: "contain",
     backgroundColor: "#0e0d0c",
   },
-  newArchEnabled: true,
+  newArchEnabled: false,
   ios: {
     bundleIdentifier: "com.axiom38.principia",
     buildNumber: "3",
