@@ -124,5 +124,40 @@ not affect local Xcode CLI archives, which use app.config.js values.
 - Always use `export PATH="/opt/homebrew/bin:$PATH"` before running node/npx/eas commands
 - The `__DEV__` flag in useSubscription.ts auto-unlocks premium in dev builds — this is intentional for testing, not a bug
 
+## Content Cadence
+The subscription promises "All future content included," so content must ship on
+a visible rhythm or that claim stops being true. Practice questions are the
+renewable resource: concepts are learned once, but problems feed Mixed Review
+(`services/review.ts`) indefinitely, and every new question deepens the review
+pool automatically with no code change.
+
+Current state: **321 questions across 93 concepts** in 8 tiers.
+
+| Tier | Concepts | Questions |
+|------|----------|-----------|
+| 1 | 13 | 39 |
+| 2 | 12 | 36 |
+| 3 | 12 | **78** |
+| 4 | 11 | 33 |
+| 5 | 11 | 33 |
+| 6 | 11 | 33 |
+| 7 | 12 | 36 |
+| 8 | 11 | 33 |
+
+Shipped:
+- **Oct 2026 (v1.0.4)** — Tier 3 pack: +42 questions (36 to 78, now 6-7 per
+  concept). Also fixed an `answerIndex` skew that let students guess "B or C",
+  and rewrote four explanations that showed arithmetic without reasoning.
+
+Next up, in priority order: **Tier 4**, then Tier 1-2 (free tier, where new
+users form their first impression), then Tiers 5-8. Target 6-7 questions per
+concept throughout.
+
+When authoring a pack, verify before committing: evaluate the tier file as real
+objects (strip the TS header and `require` it) rather than pattern-matching the
+source, confirm every `answerIndex` points at its stated `answer`, re-derive
+numeric answers independently from the arithmetic, and spread `answerIndex`
+across all four positions. A wrong `answerIndex` actively teaches wrong math.
+
 ## Known Trade-offs
 - Visualizations were converted from gesture-driven to auto-cycling presets this release to eliminate a gesture-related crash surface, with an error boundary added around them for stability. Restoring interactivity is planned future work, to be re-introduced behind the error boundary once the underlying crash cause is fixed.
