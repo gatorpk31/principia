@@ -23,8 +23,7 @@
         "image": "latest"
       },
       "env": {
-        "REVENUECAT_APPLE_KEY": "appl_kFEmXPxgcbKFEzYgOsPpHQqZXNN",
-        "REVENUECAT_GOOGLE_KEY": "PLACEHOLDER"
+        "REVENUECAT_APPLE_KEY": "appl_kFEmXPxgcbKFEzYgOsPpHQqZXNN"
       }
     }
   },

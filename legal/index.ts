@@ -27,7 +27,7 @@ If you do not agree to these Terms, you must immediately cease all use of the Se
 2. DESCRIPTION OF SERVICE
 ────────────────────────────────────────────────────────────────
 
-Principia is a mathematics education application designed for iOS and Android devices. The App provides structured mathematics instruction, practice problems, progress tracking, and related educational content across a range of mathematical topics and skill levels.
+Principia is a mathematics education application designed for iOS devices. The App provides structured mathematics instruction, practice problems, progress tracking, and related educational content across a range of mathematical topics and skill levels.
 
 The Service is offered in two tiers:
 
@@ -104,7 +104,7 @@ A free tier is available to all users without payment. The free tier provides ac
 
 5.2 Premium Subscription Options
 
-Full access to the Service is available through the following paid options, all of which are processed through the applicable app store platform (Apple App Store or Google Play Store):
+Full access to the Service is available through the following paid options, all of which are processed through the Apple App Store:
 
   (a) Monthly Subscription: $6.99 per month
   (b) Annual Subscription: $49.99 per year
@@ -117,14 +117,13 @@ Monthly and annual subscriptions automatically renew at the end of each billing 
 
 5.4 Cancellation
 
-You may cancel your subscription at any time through your account settings on the Apple App Store or Google Play Store. Cancellation takes effect at the end of the current billing period. You will retain access to premium features through the end of the paid period. Cancellation does not entitle you to a prorated refund for the unused portion of a subscription period.
+You may cancel your subscription at any time through your Apple ID subscription settings (Settings > Apple ID > Subscriptions). Cancellation takes effect at the end of the current billing period. You will retain access to premium features through the end of the paid period. Cancellation does not entitle you to a prorated refund for the unused portion of a subscription period.
 
 5.5 Refund Policy
 
-All purchases are processed by Apple Inc. (App Store) or Google LLC (Google Play Store). Refund requests are governed by the refund policies of those respective platforms. Axiom 38 LLC does not directly process payments and does not independently issue refunds. To request a refund, you must contact the applicable platform:
+All purchases are processed by Apple Inc. (App Store). Refund requests are governed by Apple's refund policy. Axiom 38 LLC does not directly process payments and does not independently issue refunds. To request a refund, you must contact Apple:
 
   - Apple App Store: reportaproblem.apple.com
-  - Google Play Store: play.google.com/store/account
 
 5.6 Price Changes
 
@@ -374,7 +373,7 @@ Last Updated: March 1, 2026
 1. INTRODUCTION AND IDENTITY OF DATA CONTROLLER
 ────────────────────────────────────────────────────────────────
 
-Axiom 38 LLC ("we," "us," or "our") is a Michigan limited liability company and the developer and operator of Principia (bundle ID: com.axiom38.principia), a mathematics education application available for iOS and Android devices (the "App" or "Service").
+Axiom 38 LLC ("we," "us," or "our") is a Michigan limited liability company and the developer and operator of Principia (bundle ID: com.axiom38.principia), a mathematics education application available for iOS devices (the "App" or "Service").
 
 This Privacy Policy explains what information we collect from users of the App, how we use it, how we protect it, and what rights you have regarding your information.
 

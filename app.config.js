@@ -1,10 +1,14 @@
-// app.config.js takes precedence over app.json — app.json is kept only for
-// legacy tooling compatibility. All authoritative config lives here.
+// Single source of truth for app config (there is no app.json).
+// iOS-only product — no Android config by design (see CLAUDE.md).
+// version and ios.buildNumber propagate to Info.plist (via Expo) AND to the
+// Xcode build settings + signing attributes (via plugins/withXcodeProjectSync),
+// so the Xcode UI, the shipped binary, and signing always match this file.
 
 module.exports = {
   name: "Principia",
   slug: "principia",
   version: "1.0.3",
+  platforms: ["ios"],
   orientation: "portrait",
   icon: "./assets/images/icon.png",
   scheme: "principia",
@@ -24,17 +28,8 @@ module.exports = {
       ITSAppUsesNonExemptEncryption: false,
     },
   },
-  android: {
-    package: "com.axiom38.principia",
-    versionCode: 1,
-    adaptiveIcon: {
-      foregroundImage: "./assets/images/adaptive-icon.png",
-      backgroundColor: "#0e0d0c",
-    },
-  },
   extra: {
     revenueCatAppleKey: process.env.REVENUECAT_APPLE_KEY || "",
-    revenueCatGoogleKey: process.env.REVENUECAT_GOOGLE_KEY || "",
     eas: {
       projectId: "f832be61-552c-4fdd-ac8f-2cfde2e8b8f2",
     },
@@ -43,6 +38,7 @@ module.exports = {
     "expo-router",
     "expo-secure-store",
     "expo-splash-screen",
+    "./plugins/withXcodeProjectSync",
     [
       "expo-font",
       {

@@ -4,7 +4,6 @@ import Purchases, {
   CustomerInfo,
 } from 'react-native-purchases';
 import Constants from 'expo-constants';
-import { Platform } from 'react-native';
 import { REVENUECAT } from '../constants/config';
 
 let initialized = false;
@@ -13,12 +12,9 @@ let configured = false;
 export function initRevenueCat(): void {
   if (initialized) return;
 
-  const appleKey: string =
+  // iOS-only product — see CLAUDE.md. No Google Play key by design.
+  const apiKey: string =
     Constants.expoConfig?.extra?.revenueCatAppleKey ?? '';
-  const googleKey: string =
-    Constants.expoConfig?.extra?.revenueCatGoogleKey ?? '';
-
-  const apiKey = Platform.OS === 'ios' ? appleKey : googleKey;
   if (!apiKey) {
     console.warn('[RevenueCat] No API key configured — purchases will not work.');
     initialized = true;
