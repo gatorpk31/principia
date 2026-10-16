@@ -79,6 +79,24 @@ not affect local Xcode CLI archives, which use app.config.js values.
 - Build submitted to App Review on August 15, 2026
 - Previous rejection (Build #9, Guideline 2.1b) was resolved via dashboard-only fixes (RevenueCat API key, ASC product metadata)
 
+## Releasing (one command)
+```bash
+npm run release
+```
+`scripts/release.sh` does the whole release: checks `.env.local` has the
+RevenueCat key, generates `ios/`, runs pod install, confirms the version and
+signing settings actually landed in the Xcode project, builds the archive,
+verifies the built binary's own Info.plist reports the expected version, then
+exports and uploads to App Store Connect. It stops with a plain-language
+explanation at the first problem and keeps logs in `/tmp/principia-release-logs/`.
+
+To ship a new version: change `version` and `ios.buildNumber` in
+`app.config.js`, then run it. Peter is not a coder — prefer fixing or extending
+this script over handing him a sequence of manual commands.
+
+The manual steps below are what the script automates, kept for reference and
+for debugging when the script itself fails.
+
 ## Archive & Signing (local Xcode/CLI)
 - The `ios/` folder was generated via `npx expo prebuild` — do not regenerate without re-injecting the RevenueCat key from `.env.local`
 - Xcode automatic signing does not work for this team (no registered devices), so archives must be built from CLI using this two-step process:
