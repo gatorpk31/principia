@@ -14,6 +14,7 @@ import { ALL_CONCEPTS } from '../../data';
 import { useProgress } from '../../hooks/useProgress';
 import { useSubscription } from '../../hooks/useSubscription';
 import { loadReviewMap, countDue } from '../../services/review';
+import { getActivitySummary, type ActivitySummary } from '../../services/streak';
 import { STAGE_SYMBOLS } from '../../components/ui/ProgressDots';
 
 export default function Progress() {
@@ -21,6 +22,7 @@ export default function Progress() {
   const { progress, overallPercent, tierPercent } = useProgress();
   const { isPremium } = useSubscription();
   const [dueCount, setDueCount] = useState(0);
+  const [activity, setActivity] = useState<ActivitySummary | null>(null);
 
   // Refresh the due count whenever this tab regains focus (e.g. after a
   // review session or concept practice).
@@ -29,7 +31,11 @@ export default function Progress() {
       let active = true;
       (async () => {
         const map = await loadReviewMap();
-        if (active) setDueCount(countDue(map, progress, isPremium));
+        const summary = await getActivitySummary();
+        if (active) {
+          setDueCount(countDue(map, progress, isPremium));
+          setActivity(summary);
+        }
       })();
       return () => {
         active = false;
@@ -88,6 +94,46 @@ export default function Progress() {
             <Text style={styles.statLabel}>Mastered</Text>
           </View>
         </View>
+
+        {/* Today: streak + daily goal */}
+        {activity && (
+          <View style={styles.todayCard}>
+            <View style={styles.todayRow}>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.todayLabel}>TODAY</Text>
+                <Text style={styles.todayTitle}>
+                  {activity.goalMet
+                    ? 'Daily goal reached'
+                    : `${activity.todayCount} of ${activity.goal} questions`}
+                </Text>
+              </View>
+              <View style={styles.streakBox}>
+                <Text style={styles.streakNumber}>{activity.streak}</Text>
+                <Text style={styles.streakLabel}>day streak</Text>
+              </View>
+            </View>
+            <View style={styles.goalTrack}>
+              <View
+                style={[
+                  styles.goalFill,
+                  {
+                    width: `${Math.min(100, Math.round((activity.todayCount / activity.goal) * 100))}%`,
+                    backgroundColor: activity.goalMet ? colors.green : colors.gold,
+                  },
+                ]}
+              />
+            </View>
+            <Text style={styles.todaySub}>
+              {activity.goalMet
+                ? 'Nice work. Anything more today is a bonus.'
+                : activity.practicedToday
+                ? 'Keep going — Mixed Review is a quick way to finish.'
+                : activity.streak > 0
+                ? `Answer one question today to keep your ${activity.streak}-day streak.`
+                : 'Answer a question to start a streak.'}
+            </Text>
+          </View>
+        )}
 
         {/* Mixed Review */}
         <TouchableOpacity
@@ -401,4 +447,37 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.sm,
     color: colors.gold,
   },
+  todayCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.base,
+    gap: spacing.sm,
+    marginTop: spacing.md,
+  },
+  todayRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  todayLabel: {
+    fontFamily: typography.mono,
+    fontSize: fontSizes.xs,
+    color: colors.text3,
+    letterSpacing: 1,
+  },
+  todayTitle: {
+    fontFamily: typography.bodyMedium,
+    fontSize: fontSizes.md,
+    color: colors.text,
+    marginTop: 2,
+  },
+  streakBox: { alignItems: 'center', minWidth: 64 },
+  streakNumber: { fontFamily: typography.serif, fontSize: 28, color: colors.gold },
+  streakLabel: { fontFamily: typography.mono, fontSize: fontSizes.xs, color: colors.text3 },
+  goalTrack: {
+    height: 6,
+    borderRadius: radius.full,
+    backgroundColor: colors.border2,
+    overflow: 'hidden',
+  },
+  goalFill: { height: 6, borderRadius: radius.full },
+  todaySub: { fontFamily: typography.body, fontSize: fontSizes.sm, color: colors.text2 },
 });

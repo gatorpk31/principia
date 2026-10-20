@@ -29,4 +29,5 @@ export const ASYNC_STORAGE_KEYS = {
   progress: 'principia_progress',
   bookmarks: 'principia_bookmarks',
   reviewHistory: 'principia_review_history',
+  activityLog: 'principia_activity_log',
 } as const;

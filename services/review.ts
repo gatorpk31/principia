@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ASYNC_STORAGE_KEYS } from '../constants/config';
 import { ALL_CONCEPTS, isConceptLocked } from '../data';
 import type { Concept, PracticeQuestion, ProgressMap } from '../types';
+import { recordActivity } from './streak';
 
 export interface QuestionRecord {
   conceptId: string;
@@ -89,6 +90,9 @@ export async function recordAnswer(
     },
   };
   await saveReviewMap(next);
+  // Every answer, in a concept or in Mixed Review, counts toward today's
+  // streak and daily goal. Fire-and-forget; it never throws.
+  void recordActivity();
   return next;
 }
 
