@@ -1167,7 +1167,7 @@ export const TIER7_CONCEPTS: Concept[] = [
       {
         question: 'For sin(y) = x, find dy/dx.',
         mathNotation: 'sin(y) = x',
-        answer: 'dy/dx = 1/cos(y) = sec(y)',
+        answer: 'dy/dx = 1/cos(y)',
         choices: ['dy/dx = cos(y)', 'dy/dx = −cos(y)', 'dy/dx = 1/cos(y)', 'dy/dx = x/cos(y)'],
         answerIndex: 2,
         explanation: 'Differentiate: cos(y)(dy/dx) = 1. Solve: dy/dx = 1/cos(y) = sec(y). This derivation shows how the derivative of arcsin(x) = 1/√(1−x²) arises: y = arcsin(x) means sin(y)=x, and cos(y) = √(1−x²).',

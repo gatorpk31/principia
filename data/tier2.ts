@@ -768,7 +768,7 @@ export const TIER2_CONCEPTS: Concept[] = [
       {
         question: 'A car travels 325 miles on 13 gallons of gas. What is the unit rate (fuel economy)?',
         mathNotation: '325 miles ÷ 13 gallons = ?',
-        answer: '25 miles per gallon',
+        answer: '25 mpg',
         choices: ['20 mpg', '25 mpg', '30 mpg', '338 mpg'],
         answerIndex: 1,
         explanation: '325 ÷ 13 = 25 miles per gallon.',
@@ -784,7 +784,7 @@ export const TIER2_CONCEPTS: Concept[] = [
       {
         question: 'A typist types 840 words in 12 minutes. What is the unit rate in words per minute?',
         mathNotation: '840 ÷ 12 = ?',
-        answer: '70 words per minute',
+        answer: '70 wpm',
         choices: ['60 wpm', '70 wpm', '80 wpm', '852 wpm'],
         answerIndex: 1,
         explanation: '840 ÷ 12 = 70 words per minute.',
@@ -873,7 +873,7 @@ export const TIER2_CONCEPTS: Concept[] = [
       {
         question: 'A bridge is 360 m long. A model is built with a scale factor of 1:1200. How long is the model?',
         mathNotation: '360 m ÷ 1200 = ?',
-        answer: '0.3 m (30 cm)',
+        answer: '0.3 m',
         choices: ['3 m', '0.3 m', '30 m', '0.03 m'],
         answerIndex: 1,
         explanation: '360 ÷ 1200 = 0.3 m = 30 cm.',

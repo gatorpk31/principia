@@ -175,7 +175,7 @@ export const TIER1_CONCEPTS: Concept[] = [
       {
         question: 'Are 3/5 and 6/10 equivalent?',
         mathNotation: '3/5 vs 6/10',
-        answer: 'Yes',
+        answer: 'Yes, they are equal',
         choices: ['Yes, they are equal', 'No, 6/10 is bigger', 'No, 3/5 is bigger', 'Cannot tell'],
         answerIndex: 0,
         explanation: 'Multiply 3/5 by 2/2: (3×2)/(5×2) = 6/10. Yes, they are equivalent. Same amount, different names.',
@@ -439,7 +439,7 @@ export const TIER1_CONCEPTS: Concept[] = [
       {
         question: 'A car travels 240 miles in 4 hours. What is the unit rate (speed)?',
         mathNotation: '240 miles ÷ 4 hours = ?',
-        answer: '60 miles per hour',
+        answer: '60 mph',
         choices: ['60 mph', '244 mph', '40 mph', '236 mph'],
         answerIndex: 0,
         explanation: '240 ÷ 4 = 60 miles per hour. The unit rate is how far the car travels in exactly 1 hour.',
@@ -630,7 +630,7 @@ export const TIER1_CONCEPTS: Concept[] = [
       {
         question: 'Which has a greater absolute value: −9 or 7?',
         mathNotation: '|−9| vs |7|',
-        answer: '−9',
+        answer: '−9, because |−9| = 9 > 7',
         choices: ['7, because it is positive', '−9, because |−9| = 9 > 7', 'They are equal', 'Cannot compare'],
         answerIndex: 1,
         explanation: '|−9| = 9 and |7| = 7. Since 9 > 7, the number −9 has the greater absolute value.',
