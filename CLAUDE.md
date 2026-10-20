@@ -156,14 +156,14 @@ renewable resource: concepts are learned once, but problems feed Mixed Review
 (`services/review.ts`) indefinitely, and every new question deepens the review
 pool automatically with no code change.
 
-Current state: **321 questions across 93 concepts** in 8 tiers.
+Current state: **361 questions across 93 concepts** in 8 tiers.
 
 | Tier | Concepts | Questions |
 |------|----------|-----------|
 | 1 | 13 | 39 |
 | 2 | 12 | 36 |
-| 3 | 12 | **78** |
-| 4 | 11 | 33 |
+| 3 | 12 | 78 |
+| 4 | 11 | **73** |
 | 5 | 11 | 33 |
 | 6 | 11 | 33 |
 | 7 | 12 | 36 |
@@ -173,8 +173,13 @@ Shipped:
 - **Oct 2026 (v1.0.4)** — Tier 3 pack: +42 questions (36 to 78, now 6-7 per
   concept). Also fixed an `answerIndex` skew that let students guess "B or C",
   and rewrote four explanations that showed arithmetic without reasoning.
+- **Oct 2026 (v1.0.5)** — Tier 4 pack: +40 geometry questions (33 to 73). Also
+  rewrote four arithmetic-only explanations, and aligned the `answer` field with
+  the selected choice in 8 questions across Tiers 1, 2, 4, and 7. Grading uses
+  `answerIndex`, so no student was mis-scored; the `answer` field is not read by
+  the UI, but the data now satisfies `choices[answerIndex] === answer` everywhere.
 
-Next up, in priority order: **Tier 4**, then Tier 1-2 (free tier, where new
+Next up, in priority order: **Tier 1-2** (free tier, where new
 users form their first impression), then Tiers 5-8. Target 6-7 questions per
 concept throughout.
 
