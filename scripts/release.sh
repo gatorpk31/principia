@@ -140,6 +140,14 @@ fi
 
 printf '\n\033[32m================ DONE ================\033[0m\n'
 printf 'Uploaded Principia %s (build %s) to App Store Connect.\n\n' "$VERSION" "$BUILD"
+# Print this version's paste-ready notes, if they have been written.
+if [ -f RELEASE_NOTES.md ] && grep -q "^## $VERSION\$" RELEASE_NOTES.md; then
+  printf '\n----- Notes for %s (copy into App Store Connect) -----\n' "$VERSION"
+  awk -v v="## $VERSION" '$0==v{on=1;next} /^## /{on=0} on && $0!="---"' RELEASE_NOTES.md
+  printf -- '------------------------------------------------------\n\n'
+else
+  printf '\nNo notes for %s in RELEASE_NOTES.md yet. Ask Claude to write them.\n\n' "$VERSION"
+fi
 printf 'Next, in App Store Connect:\n'
 printf '  1. Wait ~10-15 minutes for the build to finish processing.\n'
 printf '  2. Open TestFlight and add your "What to Test" notes.\n'

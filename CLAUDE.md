@@ -98,7 +98,12 @@ exports and uploads to App Store Connect. It stops with a plain-language
 explanation at the first problem and keeps logs in `/tmp/principia-release-logs/`.
 
 To ship a new version: change `version` and `ios.buildNumber` in
-`app.config.js`, then run it. Peter is not a coder — prefer fixing or extending
+`app.config.js`, then run it.
+
+Release notes live in `RELEASE_NOTES.md`, one section per version (What's New,
+What to Test, Review notes). The script prints the section for the version it
+uploaded, so Peter can paste it into App Store Connect. **Write the section
+whenever you bump the version** — if it is missing, the script says so. Peter is not a coder — prefer fixing or extending
 this script over handing him a sequence of manual commands.
 
 The manual steps below are what the script automates, kept for reference and
