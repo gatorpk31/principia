@@ -73,7 +73,14 @@ Note: `eas.json` sets `cli.appVersionSource: "remote"`, so EAS builds ignore the
 `ios.buildNumber` in app.config.js and assign build numbers from EAS servers. This does
 not affect local Xcode CLI archives, which use app.config.js values.
 
-## Current Status (as of August 15, 2026)
+## Current Status (as of October 20, 2026)
+- **v1.0.4 (build 5) approved by App Review** and ready for release. Contains: Tier 3
+  problem pack (+42 questions), Mixed Review (spaced repetition), iOS-only cleanup of
+  the Terms and Privacy Policy, and the Xcode version/signing sync plugin.
+- Releases now run through `npm run release` (see "Releasing" below).
+- Next content drop: Tier 4 problem pack (see "Content Cadence").
+
+### Earlier (as of August 15, 2026)
 - Build 4 (v1.0.3) successfully archived from Xcode CLI and uploaded to App Store Connect / TestFlight
 - TestFlight testing completed successfully
 - Build submitted to App Review on August 15, 2026
